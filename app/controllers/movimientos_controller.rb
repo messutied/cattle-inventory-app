@@ -7,10 +7,6 @@ class MovimientosController < ApplicationController
 
   def new
     @movimiento = Movimiento.new
-    
-    @day    = Time.now.day
-    @month  = Time.now.month
-    @year   = Time.now.year
   end
 
   def create

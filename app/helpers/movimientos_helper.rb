@@ -1,4 +1,18 @@
 module MovimientosHelper
+
+  def day
+    Time.now.day
+  end
+
+  def month
+    Time.now.month
+  end
+
+  def year
+    Time.now.year
+  end
+
+
   def get_movimientos
     @movimientos = MovimientosTipo.movimientos.map { |t| [t.nombre, t.id] }
     @movimientos.unshift(["Seleccionar", ""])
