@@ -1,6 +1,6 @@
 module MovimientosHelper
   def get_movimientos
-    @movimientos = MovimientosTipo.where("tipo='i' or tipo='e'").map { |t| [t.nombre, t.id] }
+    @movimientos = MovimientosTipo.movimientos.map { |t| [t.nombre, t.id] }
     @movimientos.unshift(["Seleccionar", ""])
   end
 
@@ -10,7 +10,7 @@ module MovimientosHelper
   end
 
   def get_ganado_un_mes
-    @ganado_un_mes = Ganado.where("id=1 or id=2").map { |g| [g.ganado_grupo.nombre+" "+g.nombre, g.id] }
+    @ganado_un_mes = Ganado.un_mes.map { |g| [g.ganado_grupo.nombre+" "+g.nombre, g.id] }
     @ganado_un_mes.unshift(["Seleccionar", ""])
   end
 
