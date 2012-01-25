@@ -49,6 +49,10 @@
 
 
     <div id="movimientos">
+      <% m.fields_for :movimiento_ganados do |g| %>
+        <%= render "movimiento_ganado_fields", :f => g %>
+      <% end %>
+      <%= link_to_add_fields "Mas", m, :movimiento_ganados %>
       <%# <div class="movimiento">
       <select><option>Seleccionar</option></select>
 
