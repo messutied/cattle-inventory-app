@@ -1,0 +1,39 @@
+class MovimientosController < ApplicationController
+  def index
+  end
+
+  def show
+  end
+
+  def new
+    @movimiento = Movimiento.new
+
+    @predios = Predio.all.map {|predio| [predio.nombre, predio.id]} 
+    @predios.unshift(["---", ""]);
+    
+    @days = (1..days_in_month(Time.now.month)).to_a.map {|e| [e, e]}
+    
+    @day    = Time.now.day
+    @month  = Time.now.month
+    @year   = Time.now.year
+
+    @ganado = Ganado.all.map {|g| [g.ganado_grupo.nombre+" "+g.nombre, g.id]}
+    @ganado.unshift(["Seleccionar", ""]);
+
+    @tipos_movimiento = MovimientosTipo.where("tipo='i' or tipo='e'").map {|t| [t.nombre, t.id]}
+    @tipos_movimiento.unshift(["Seleccionar", ""])
+  end
+
+  def create
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+
+end

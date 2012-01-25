@@ -1,0 +1,2 @@
+class Predios < ActiveRecord::Base
+end

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anferth Ganader&iacute;a</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag "jquery-1.7.1.min.js" %>
+  <%= javascript_include_tag "movimientos.js" %>
+  <script type="text/javascript">var $j = jQuery;</script>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+  <div id="container">
+    <div id="header">
+      <div class="centered">
+        
+        <a class="title" href="http://<%= request.env['HTTP_HOST'] %>">
+          <img style="float: left; margin-top: 5px" src="/images/vaca.png" alt="" title="" />
+          <span style="float: left; margin-top: 25px; margin-left: 30px;">Anferth Ganader&iacute;a</span>
+        </a>
+      </div>
+    </div>
+
+    <div id='page' class='centered'>
+      <div class='top_space'></div>
+      <div id='left_menu'>
+        <span>Acciones</span>
+        <a href='/ingreso_egreso/new'>Ingresos/Egresos</a>
+        <a href='/movimiento/new'>Movimientos</a>
+        <a href='#'>Recuentos</a>
+      </div>
+      <div id='content'>
+        <%= yield %>
+      </div>
+      <div style='clear:both'></div>
+    </div>
+
+    <div id='footer'>
+      <div class='centered'>
+        <div class='right_menu'>
+          &COPY; 2011 Anferth Ganader&iacute;a
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
