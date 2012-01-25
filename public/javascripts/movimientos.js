@@ -15,6 +15,8 @@
             addGanadoCateg();
         });
 
+        
+
         addGanadoCateg();
 
         $("#movimiento_movimientos_tipo_id").change(function() {
