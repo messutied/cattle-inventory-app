@@ -1,0 +1,12 @@
+<div class="movimiento">
+  <%= f.select :ganado_id, get_all_ganado %>
+
+  <div style="float: right">
+    Despach: 
+    <!-- <input class="small" type="text" name="despach" /> -->
+    <%= f.text_field :cant, :class => :small %>
+    Rcp: 
+    <!-- <input class="small" type="text" name="rcp" /> -->
+    <%= f.text_field :cant_sec, :class => :small %>
+  </div>
+</div>
