@@ -6,7 +6,7 @@
     $(document).ready(function() {
         $("#movimiento_predio_id").change(function() {
             var selected = $(this).val() * 1;
-            var opts = getOptions(predios, [selected]);
+            var opts     = getOptions(predios, [selected]);
 
             $("#movimiento_predio_sec_id").html(opts);
         });
@@ -38,7 +38,7 @@
     }
 
     function getOptions(opts_arr, exclude, min) {
-        var opts = "";
+        var opts  = "";
         var count = 0;
 
         if (typeof(min) == "undefined") min = 0;
@@ -76,26 +76,26 @@
             return;
         }
         if (!NACIDOS)
-            var opts = getOptions(ganado, used, 1);
+        var opts = getOptions(ganado, used, 1);
         else
-            var opts = getOptions(ganado_unmes, used, 1);
+        var opts = getOptions(ganado_unmes, used, 1);
 
         if (opts === false) return;
 
         if (TIPO == "mov") {
             var input = 'Despach: <input class="small" type="text" name="despach[]" /> ' +
-                'Rcp: <input class="small" type="text" name="rcp[]" /> ';
+            'Rcp: <input class="small" type="text" name="rcp[]" /> ';
         }
         else {
             var input = 'Cant: <input class="small" type="text" name="cant[]" /> ';
         }
 
         var mov = '<div class="movimiento">' +
-            '<select name="ganado[]" style="width: 250px">' + opts + '</select>' +
-            '<div class="r_data" style="float: right">' +
-            input +
-            '<div style="clear:both"></div></div>' +
-            '<div style="clear:both"></div></div';
+        '<select name="ganado[]" style="width: 250px">' + opts + '</select>' +
+        '<div class="r_data" style="float: right">' +
+        input +
+        '<div style="clear:both"></div></div>' +
+        '<div style="clear:both"></div></div';
 
         cleanSelect($('.movimiento:last select'));
         $('#movimientos').append(mov);
@@ -104,10 +104,11 @@
         $(".movimiento:last div.r_data").append("<input style='float: right;' id='addMov' type='button' value='+' />");
     }
 
-})(jQuery);
+    })(jQuery);
 
-function add_fields(link, association, content) {
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g");
-    jQuery(link).before(content.replace(regexp, new_id));
-}
+    function add_fields(link, association, content) {
+        var new_id = new Date().getTime();
+        var regexp = new RegExp("new_" + association, "g");
+        jQuery(link).parent().before(content.replace(regexp, new_id));
+        // TODO: agregar las opciones del select
+    }

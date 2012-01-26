@@ -8,9 +8,7 @@ class MovimientosController < ApplicationController
   def new
     @movimiento = Movimiento.new
 
-    3.times do
-      @movimiento.movimiento_ganados.build
-    end
+    @movimiento.movimiento_ganados.build
   end
 
   def create

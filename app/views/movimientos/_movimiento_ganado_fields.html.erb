@@ -1,5 +1,9 @@
 <div class="movimiento">
-  <%= f.select :ganado_id, get_all_ganado %>
+  <% if no_select %>
+    <%= f.select :ganado_id, [] %>
+  <% else %>
+    <%= f.select :ganado_id, get_all_ganado %>
+  <% end %>
 
   <div style="float: right">
     Despach: 

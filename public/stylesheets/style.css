@@ -394,3 +394,7 @@ table tbody tr:hover td {
 .movimiento {
   margin-top: 10px;
 }
+#add_mov {
+    margin-top: 10px;
+    float: right;
+}

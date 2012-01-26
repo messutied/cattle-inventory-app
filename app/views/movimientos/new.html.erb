@@ -50,9 +50,9 @@
 
     <div id="movimientos">
       <% m.fields_for :movimiento_ganados do |g| %>
-        <%= render "movimiento_ganado_fields", :f => g %>
+        <%= render "movimiento_ganado_fields", :f => g, :no_select => false %>
       <% end %>
-      <%= link_to_add_fields "Mas", m, :movimiento_ganados %>
+      <div><%= link_to_add_fields("Mas", m, :movimiento_ganados) %><div style="clear: both"></div></div>
       <%# <div class="movimiento">
       <select><option>Seleccionar</option></select>
 
