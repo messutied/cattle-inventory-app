@@ -12,6 +12,13 @@ class MovimientosController < ApplicationController
   end
 
   def create
+    @movimiento = Movimiento.new(params[:movimiento])
+
+    if @movimiento.save()
+      redirect_to(@movimiento, :notice => 'Se creo el movimiento.')
+    else
+      render :action => "new"
+    end
   end
 
   def edit
