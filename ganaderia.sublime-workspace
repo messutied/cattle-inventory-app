@@ -1,0 +1,301 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"cl",
+				"class"
+			],
+			[
+				"a",
+				"a"
+			],
+			[
+				"hei",
+				"height"
+			],
+			[
+				"ri",
+				"right"
+			],
+			[
+				"border",
+				"border: border-bottom-color: color"
+			],
+			[
+				"line",
+				"linear"
+			],
+			[
+				"each",
+				"each"
+			],
+			[
+				"eac",
+				"eac-: each_cons(..) { |group| .. }"
+			],
+			[
+				"unre",
+				"unreads"
+			],
+			[
+				"Message",
+				"MessagesController"
+			],
+			[
+				"mssgs",
+				"mssgs"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/controllers/movimientos_controller.rb",
+			"settings":
+			{
+				"buffer_size": 460,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/rails server.sublime-build",
+	"command_palette":
+	{
+		"height": 127.0,
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: li",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: int",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 161.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Base File.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Global.sublime-settings",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/public/stylesheets/style.css",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/messages/show.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/messages/index.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/admin_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/messages_controller.rb",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Package Control.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/layouts/application.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/models/message.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/models/user.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/.gitignore",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/application_controller.rb",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/capitaliza.sublime-project",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/rails server.sublime-build",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Terminal/Default (Windows).sublime-keymap",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Alignment/Base File.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Alignment/Default (Windows).sublime-keymap",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/investor_profiles_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/users_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/users/show.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/emprendimientos_controller.rb",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Terminal/Terminal.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Terminal.sublime-settings",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/messages/destroy.html.erb",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Global.sublime-settings",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/country_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/city_controller.rb",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap"
+	],
+	"find":
+	{
+		"height": 32.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"git",
+			"id",
+			">",
+			":message_type_id => MssgTypes[:simple], \n				:user_from => current_user, \n				:user_to => @user_to )",
+			"<div"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/controllers/movimientos_controller.rb",
+					"settings":
+					{
+						"buffer_size": 460,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"movimi",
+				"app/controllers/movimientos_controller.rb"
+			],
+			[
+				"controll",
+				"app/controllers/messages_controller.rb"
+			],
+			[
+				"index",
+				"app/views/messages/index.html.erb"
+			],
+			[
+				"show",
+				"app/views/messages/show.html.erb"
+			],
+			[
+				"message",
+				"app/controllers/messages_controller.rb"
+			],
+			[
+				"user",
+				"app/controllers/users_controller.rb"
+			],
+			[
+				"dstroy",
+				"app/views/messages/destroy.html.erb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/C/Users/messuti.edd/Documents/ST2_Projects/capitaliza.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 263.0,
+	"status_bar_visible": true
+}

@@ -1,0 +1,12 @@
+<div class="movimiento">
+  <% if no_select %>
+    <%= f.select :ganado_id, [] %>
+  <% else %>
+    <%= f.select :ganado_id, get_all_ganado %>
+  <% end %>
+
+  <div style="float: right">
+    Cant:
+    <%= f.text_field :cant, :class => :small %>
+  </div>
+</div>

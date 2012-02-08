@@ -12,6 +12,14 @@ module MovimientosHelper
     Time.now.year
   end
 
+  def fields_form
+      if params[:type] == "mov"
+        return "movimiento_ganado_fields"
+      elsif params[:type] == "in_eg"
+        return "ingreso_egreso_ganado_fields"
+      end
+  end
+
 
   def get_movimientos
     @movimientos = MovimientosTipo.movimientos.map { |t| [t.nombre, t.id] }
