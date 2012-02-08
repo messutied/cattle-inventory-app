@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="35a9d0e0-ce6a-4c08-a863-0659962bac73" name="Default" comment="">
       <change type="DELETED" beforePath="C:\Users\messuti.edd\Documents\NetBeansProjects\Ganaderia\public\javascripts\movimientos.js.orig" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Ganaderia.iml" afterPath="$PROJECT_DIR$/.idea/Ganaderia.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" />
@@ -499,13 +500,13 @@
       <method />
     </configuration>
     <list size="7">
-      <item index="0" class="java.lang.String" itemvalue="Rake.db:create" />
-      <item index="1" class="java.lang.String" itemvalue="Rake.db:migrate" />
-      <item index="2" class="java.lang.String" itemvalue="Rake.db:seed" />
-      <item index="3" class="java.lang.String" itemvalue="Rails.Development: Ganaderia" />
-      <item index="4" class="java.lang.String" itemvalue="Rails.Production: Ganaderia" />
-      <item index="5" class="java.lang.String" itemvalue="Rake.spec" />
-      <item index="6" class="java.lang.String" itemvalue="Rake.test" />
+      <item index="0" class="java.lang.String" itemvalue="Rails.Development: Ganaderia" />
+      <item index="1" class="java.lang.String" itemvalue="Rails.Production: Ganaderia" />
+      <item index="2" class="java.lang.String" itemvalue="Rake.spec" />
+      <item index="3" class="java.lang.String" itemvalue="Rake.test" />
+      <item index="4" class="java.lang.String" itemvalue="Rake.db:create" />
+      <item index="5" class="java.lang.String" itemvalue="Rake.db:migrate" />
+      <item index="6" class="java.lang.String" itemvalue="Rake.db:seed" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
