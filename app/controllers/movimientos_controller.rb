@@ -17,7 +17,7 @@ class MovimientosController < ApplicationController
     if @movimiento.save()
       redirect_to(@movimiento, :notice => 'Se creo el movimiento.')
     else
-      render :action => "new", :type => params[:type]
+      render :action => "new"
     end
   end
 

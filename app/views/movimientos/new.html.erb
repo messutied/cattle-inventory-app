@@ -2,8 +2,8 @@
   <% if @movimiento.errors.any? %>
     <div id="error_explanation">
       <h2>
-        <%= pluralize(@movimiento.errors.count, "error") %> 
-        prohibited this movimiento from being saved:</h2>
+        Se encontró <%= pluralize(@movimiento.errors.count, "error") %> 
+         al tratar de guardar el movimiento:</h2>
 
       <ul>
         <% @movimiento.errors.full_messages.each do |msg| %>
@@ -12,6 +12,8 @@
       </ul>
     </div>
   <% end %>
+
+  <input type="hidden" name="type" value="<%= params[:type] %>" />
 
   <script type='text/javascript' charset="utf-8">
     var predios = <%= raw get_predios.to_json %>;
