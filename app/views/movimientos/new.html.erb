@@ -53,15 +53,8 @@
         <%= render fields_form, :f => g, :no_select => false %>
       <% end %>
       <div><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form ) %><div style="clear: both"></div></div>
-      <%# <div class="movimiento">
-      <select><option>Seleccionar</option></select>
-
-      <div style="float: right">
-      Despach: <input class="small" type="text" name="despach" />
-      Rcp: <input class="small" type="text" name="rcp" />
-      </div>
-      </div> #%>
     </div>
+    
     <div class="actions">
       <% if params[:type] == "mov" -%>
         <%= m.submit "Crear Movimiento" %>

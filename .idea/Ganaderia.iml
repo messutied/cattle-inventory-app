@@ -21,10 +21,10 @@
     <orderEntry type="library" scope="PROVIDED" name="activemodel (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activeresource (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.0.15, ruby-1.9.2-p136) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="railties (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mime-types (v1.17.2, ruby-1.9.2-p136) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="actionpack (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="railties (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-mount (v0.6.14, ruby-1.9.2-p136) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="actionpack (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activerecord (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actionmailer (v3.0.4, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.3, ruby-1.9.2-p136) [gem]" level="application" />
@@ -39,9 +39,9 @@
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.2.19, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.31, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="abstract (v1.0.0, ruby-1.9.2-p136) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pg (v0.11.0, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="arel (v2.0.10, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.6.0, ruby-1.9.2-p136) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v0.11.0, ruby-1.9.2-p136) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />

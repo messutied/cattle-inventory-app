@@ -18,6 +18,9 @@ module MovimientosHelper
       elsif params[:type] == "in_eg"
         return "ingreso_egreso_ganado_fields"
       end
+    
+    # TODO: send movimiento type to controller on create
+    return "ingreso_egreso_ganado_fields"
   end
 
 
