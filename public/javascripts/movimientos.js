@@ -9,6 +9,10 @@ var AGan = {};
     
 
     $(document).ready(function() {
+        $("#movimiento_submit").click(function() {
+            return validateSubmit();
+        });
+
         $("#movimiento_predio_id").change(function() {
             var selected = $(this).val() * 1;
             var opts     = getOptions(predios, [selected]);
@@ -106,6 +110,19 @@ var AGan = {};
         $fields.find("select").html(opts);
 
         // TODO: agregar las opciones del select
+    }
+
+    function validateSubmit() {
+        if ($('.movimiento select[value!=]').size() < 1) {
+            alert("Selecciona por lo menos una categoría de ganado");
+            return false;
+        }
+        if ($('.movimiento select[value!=]').parents(".movimiento").find(".cant1[value=]").size() > 0) {
+            alert("Has dejado un campo de Cantidad/Despachado sin llenar");
+            return false;
+        }
+
+        return true;
     }
 
     })(jQuery);

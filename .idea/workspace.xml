@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35a9d0e0-ce6a-4c08-a863-0659962bac73" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Ganaderia.iml" afterPath="$PROJECT_DIR$/.idea/Ganaderia.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/movimientos_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/movimientos_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/movimientos_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/movimientos_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/movimiento.rb" afterPath="$PROJECT_DIR$/app/models/movimiento.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/movimiento_ganado.rb" afterPath="$PROJECT_DIR$/app/models/movimiento_ganado.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/movimientos/new.html.erb" afterPath="$PROJECT_DIR$/app/views/movimientos/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ganaderia.sublime-workspace" afterPath="$PROJECT_DIR$/ganaderia.sublime-workspace" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Ganaderia.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,7 +69,7 @@
       <file leaf-file-name="movimientos_helper.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/helpers/movimientos_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="263" selection-end="263" vertical-scroll-proportion="0.4006024">
+            <state line="20" column="4" selection-start="323" selection-end="323" vertical-scroll-proportion="0.22852233">
               <folding />
             </state>
           </provider>
@@ -611,7 +607,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2630781" sideWeight="0.6012759" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39872408" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39872408" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -753,7 +749,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/helpers/movimientos_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="263" selection-end="263" vertical-scroll-proportion="0.4006024">
+        <state line="20" column="4" selection-start="323" selection-end="323" vertical-scroll-proportion="0.22852233">
           <folding />
         </state>
       </provider>
