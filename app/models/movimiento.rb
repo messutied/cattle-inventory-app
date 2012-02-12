@@ -9,6 +9,10 @@ class Movimiento < ActiveRecord::Base
 
 	validates  :detalle, :movimientos_tipo_id, :presence => true
 
+	def parse_fecha(anio, mes, dia)
+		self.fecha = anio+"-"+mes+"-"+dia
+	end
+
 	def type_str
 		if ["i", "e"].include? self.movimientos_tipo.tipo
       return "in_eg"

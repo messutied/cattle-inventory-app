@@ -1,6 +1,6 @@
 class MovimientosController < ApplicationController
   def index
-    @movs = Movimiento.all
+    @movs = Movimiento.order("fecha desc").all()
   end
 
   def show
@@ -15,6 +15,7 @@ class MovimientosController < ApplicationController
 
   def create
     @movimiento = Movimiento.new(params[:movimiento])
+    @movimiento.parse_fecha(params[:anio], params[:mes], params[:dia])
 
     if @movimiento.save()
       redirect_to(@movimiento, :notice => 'Se creo el movimiento.')
@@ -34,6 +35,10 @@ class MovimientosController < ApplicationController
   end
 
   def destroy
+    @mov = Movimiento.find(params[:id])
+    @mov.destroy
+
+    redirect_to movimientos_url
   end
 
 end

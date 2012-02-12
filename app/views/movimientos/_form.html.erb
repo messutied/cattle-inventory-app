@@ -14,6 +14,8 @@
   <% end %>
 
   <input type="hidden" name="type" value="<%= @type %>" />
+  <input type="hidden" name="anio" value="<%= year %>" />
+  <input type="hidden" name="mes" value="<%= month %>" />
 
   <script type='text/javascript' charset="utf-8">
     var predios = <%= raw get_predios.to_json %>;
@@ -23,8 +25,8 @@
     </script>
 
     <div class="field-inline">
-      <%= m.label :fecha %>:
-      <%= select_tag(:fecha, options_for_select(get_days, day), :style=>"width: 60px;") %><spam id="gestion">-<%= month %>-<%= year %></spam>
+      <%= m.label "Fecha" %>:
+      <%= select_tag(:dia, options_for_select(get_days, day), :style=>"width: 60px;") %><spam id="gestion">-<%= month %>-<%= year %></spam>
     </div>
     <div class="field-inline">
       <%= m.label :detalle %>:
@@ -63,6 +65,9 @@
       <% else -%>
         <%= m.submit "Crear Ingreso/Egreso" %>
       <% end -%>
+      <% if !@movimiento.new_record? %>
+        <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", :method => "delete" %>
+      <% end %>
     </div> 
 
   <% end %>
