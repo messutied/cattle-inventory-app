@@ -39,9 +39,9 @@
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.2.19, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.31, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="abstract (v1.0.0, ruby-1.9.2-p136) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v0.11.0, ruby-1.9.2-p136) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="arel (v2.0.10, ruby-1.9.2-p136) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.6.0, ruby-1.9.2-p136) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="arel (v2.0.10, ruby-1.9.2-p136) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pg (v0.11.0, ruby-1.9.2-p136) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />

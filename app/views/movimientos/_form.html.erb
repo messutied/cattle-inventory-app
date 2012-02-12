@@ -13,13 +13,13 @@
     </div>
   <% end %>
 
-  <input type="hidden" name="type" value="<%= params[:type] %>" />
+  <input type="hidden" name="type" value="<%= @type %>" />
 
   <script type='text/javascript' charset="utf-8">
     var predios = <%= raw get_predios.to_json %>;
     var ganado = <%= raw get_all_ganado.to_json %>;
     var ganado_unmes = <%= raw get_ganado_un_mes.to_json %>;
-    var TIPO = "<%= params[:type] %>";
+    var TIPO = "<%= @type %>";
     </script>
 
     <div class="field-inline">
@@ -32,7 +32,7 @@
     </div>
 
     <br /><br />
-    <% if params[:type] == "mov" %>
+    <% if @type == "mov" %>
       <div class="field-inline">
         <%= m.label "Desde:" %>
         <%= m.select :predio_id, @predios %>
@@ -52,17 +52,17 @@
 
     <div id="movimientos">
       <% m.fields_for :movimiento_ganados do |g| %>
-        <%= render fields_form, :f => g, :no_select => false %>
+        <%= render fields_form(@type), :f => g, :no_select => false %>
       <% end %>
-      <div><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form ) %><div style="clear: both"></div></div>
+      <div><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %><div style="clear: both"></div></div>
     </div>
     
     <div class="actions">
-      <% if params[:type] == "mov" -%>
+      <% if @type == "mov" %>
         <%= m.submit "Crear Movimiento" %>
       <% else -%>
         <%= m.submit "Crear Ingreso/Egreso" %>
       <% end -%>
     </div> 
 
-  <% end -%>
+  <% end %>

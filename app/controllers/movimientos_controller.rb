@@ -1,5 +1,6 @@
 class MovimientosController < ApplicationController
   def index
+    @movs = Movimiento.all
   end
 
   def show
@@ -7,8 +8,9 @@ class MovimientosController < ApplicationController
 
   def new
     @movimiento = Movimiento.new
-
     @movimiento.movimiento_ganados.build
+
+    @type = params[:type]
   end
 
   def create
@@ -22,6 +24,10 @@ class MovimientosController < ApplicationController
   end
 
   def edit
+    @movimiento = Movimiento.find(params[:id])
+    @type = @movimiento.type_str
+
+    print @movimiento.movimiento_ganados[0].to_json
   end
 
   def update
