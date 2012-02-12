@@ -32,6 +32,13 @@ class MovimientosController < ApplicationController
   end
 
   def update
+    @movimiento = Movimiento.find(params[:id])
+
+    if @movimiento.update_attributes(params[:movimiento])
+      redirect_to @movimiento, :notice => "Se guardó el movimiento"
+    else
+      render :action => "edit"
+    end
   end
 
   def destroy
