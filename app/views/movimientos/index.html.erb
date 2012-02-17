@@ -1,6 +1,12 @@
 <table>
 	<tr>
 		<th>Razón</th>
+		<% if @type == "mov" %>
+			<th>Desde</th>
+			<th>Hasta</th>
+		<% else%>
+			<th>Predio</th>
+		<% end%>
 		<th>Fecha</th>
 		<th>Detalle</th>
 		<th></th>
@@ -8,6 +14,10 @@
 	<% @movs.each do |mov| %>
 	<tr>
 		<td><%= mov.movimientos_tipo.nombre unless mov.movimientos_tipo.nil?%></td>
+		<td><%= mov.predio.nombre%></td>
+		<% if @type == "mov" %>
+			<td><%= mov.predio_sec.nombre%></td>
+		<% end%>
 		<td><%= mov.fecha%></td>
 		<td><%= mov.detalle%></td>
 		<td><%= link_to "Editar", edit_movimiento_path(mov)%></td>

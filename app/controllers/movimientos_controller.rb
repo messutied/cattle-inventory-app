@@ -1,6 +1,15 @@
 class MovimientosController < ApplicationController
   def index
-    @movs = Movimiento.order("fecha desc").all()
+    @type = params[:type]
+    if @type == "mov"
+      @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
+        :conditions => "movimientos_tipos.tipo = 'm'", 
+        :order => "fecha desc")
+    else
+      @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
+        :conditions => "movimientos_tipos.tipo = 'i' or movimientos_tipos.tipo = 'e'", 
+        :order => "fecha desc")
+    end
   end
 
   def show
@@ -16,6 +25,7 @@ class MovimientosController < ApplicationController
   def create
     @movimiento = Movimiento.new(params[:movimiento])
     @movimiento.parse_fecha(params[:anio], params[:mes], params[:dia])
+    @type = params[:type]
 
     if @movimiento.save()
       redirect_to(@movimiento, :notice => 'Se creo el movimiento.')

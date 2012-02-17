@@ -1,6 +1,8 @@
 class Movimiento < ActiveRecord::Base
 	has_many :movimiento_ganados, :dependent => :destroy
 	belongs_to :movimientos_tipo
+	belongs_to :predio
+	belongs_to :predio_sec, :class_name => "Predio", :foreign_key => "predio_sec_id"
 
 	accepts_nested_attributes_for :movimiento_ganados, 
 	:reject_if => lambda { |m| m[:ganado_id].blank? or m[:cant].blank? }, 

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"movimiento",
+				"movimiento_ganados"
+			],
+			[
 				"remo",
 				"removeMayoresDeMes"
 			],
@@ -56,50 +60,42 @@
 	"buffers":
 	[
 		{
-			"file": "app/views/movimientos/new.html.erb",
+			"file": "app/views/movimientos/_form.html.erb",
 			"settings":
 			{
-				"buffer_size": 20,
+				"buffer_size": 2481,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/views/movimientos/_form.html.erb",
+			"file": "app/views/movimientos/index.html.erb",
 			"settings":
 			{
-				"buffer_size": 2096,
-				"line_ending": "Windows"
+				"buffer_size": 557,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "app/controllers/movimientos_controller.rb",
 			"settings":
 			{
-				"buffer_size": 460,
+				"buffer_size": 1433,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/javascripts/movimientos.js",
+			"file": "app/models/movimiento.rb",
 			"settings":
 			{
-				"buffer_size": 3387,
+				"buffer_size": 715,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/models/movimiento_ganado.rb",
+			"file": "app/models/predio.rb",
 			"settings":
 			{
-				"buffer_size": 127,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/controllers/users_controller.rb",
-			"settings":
-			{
-				"buffer_size": 1996,
+				"buffer_size": 116,
 				"line_ending": "Unix"
 			}
 		}
@@ -148,24 +144,36 @@
 	},
 	"file_history":
 	[
-		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Global.sublime-settings",
-		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Base File.sublime-settings",
-		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Base File.sublime-settings",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimiento.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/new.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/edit.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/_form.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/_form.html.erb~",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimientos_tipo.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/helpers/application_helper.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/predio.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/users_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimiento.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/ganado.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/index.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/stylesheets/style.css",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/_form.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/helpers/movimientos_helper.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/index.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/edit.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/movimientos_controller.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_ingreso_egreso_ganado_fields.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_movimiento_ganado_fields.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimiento_ganado.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/application_controller.rb",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Global.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Global.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Base File.sublime-settings",
+		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Base File.sublime-settings",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/config/routes.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/movimientos_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/new.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/javascripts/movimientos.js",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_form.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_menu.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/new.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/edit.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/_form.html.erb~",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/helpers/application_helper.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/application_controller.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/public/stylesheets/style.css",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/messages/show.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/messages/index.html.erb",
@@ -191,7 +199,6 @@
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Terminal/Terminal.sublime-settings",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Terminal.sublime-settings",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/views/messages/destroy.html.erb",
-		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Global.sublime-settings",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/country_controller.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Capitaliza.me/app/controllers/city_controller.rb",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap"
@@ -213,6 +220,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			">",
+			" %>\" />",
+			"params[:type]",
+			"field-inline",
+			"inline",
+			"actions",
+			"detalle",
+			"Detalle",
+			"detalle",
 			"addGanadoCateg",
 			"git",
 			"id",
@@ -241,55 +257,52 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/movimientos/new.html.erb",
+					"file": "app/views/movimientos/_form.html.erb",
 					"settings":
 					{
-						"buffer_size": 20,
+						"buffer_size": 2481,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								17,
-								17
+								1888,
+								1888
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
 							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": false
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 637.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/movimientos/_form.html.erb",
+					"file": "app/views/movimientos/index.html.erb",
 					"settings":
 					{
-						"buffer_size": 2096,
+						"buffer_size": 557,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1592,
-								1592
+								321,
+								321
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": false
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -302,15 +315,15 @@
 					"file": "app/controllers/movimientos_controller.rb",
 					"settings":
 					{
-						"buffer_size": 460,
+						"buffer_size": 1433,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								247,
-								247
+								229,
+								229
 							]
 						],
 						"settings":
@@ -327,46 +340,18 @@
 				},
 				{
 					"buffer": 3,
-					"file": "public/javascripts/movimientos.js",
+					"file": "app/models/movimiento.rb",
 					"settings":
 					{
-						"buffer_size": 3387,
+						"buffer_size": 715,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3326,
-								3326
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/models/movimiento_ganado.rb",
-					"settings":
-					{
-						"buffer_size": 127,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
+								184,
+								184
 							]
 						],
 						"settings":
@@ -380,26 +365,24 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "app/controllers/users_controller.rb",
+					"buffer": 4,
+					"file": "app/models/predio.rb",
 					"settings":
 					{
-						"buffer_size": 1996,
+						"buffer_size": 116,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								347,
-								347
+								58,
+								58
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -452,20 +435,36 @@
 		"selected_items":
 		[
 			[
-				"movimi",
-				"app/models/movimiento_ganado.rb"
+				"user",
+				"app/controllers/users_controller.rb"
 			],
 			[
-				"routes",
-				"config/routes.rb"
+				"v/u/",
+				"app/views/users/index.html.erb"
+			],
+			[
+				"style",
+				"public/stylesheets/style.css"
 			],
 			[
 				"helper",
 				"app/helpers/movimientos_helper.rb"
 			],
 			[
+				"model/movi",
+				"app/models/movimiento.rb"
+			],
+			[
 				"controll",
-				"app/controllers/messages_controller.rb"
+				"app/controllers/users_controller.rb"
+			],
+			[
+				"movimi",
+				"app/models/movimiento_ganado.rb"
+			],
+			[
+				"routes",
+				"config/routes.rb"
 			],
 			[
 				"index",
@@ -478,10 +477,6 @@
 			[
 				"message",
 				"app/controllers/messages_controller.rb"
-			],
-			[
-				"user",
-				"app/controllers/users_controller.rb"
 			],
 			[
 				"dstroy",
@@ -506,6 +501,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 263.0,
+	"side_bar_width": 287.0,
 	"status_bar_visible": true
 }
