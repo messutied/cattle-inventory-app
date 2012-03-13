@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class MovimientosController < ApplicationController
   def index
     @type = params[:type]

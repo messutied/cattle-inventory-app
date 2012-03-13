@@ -87,7 +87,7 @@
 			"file": "app/models/movimiento.rb",
 			"settings":
 			{
-				"buffer_size": 715,
+				"buffer_size": 717,
 				"line_ending": "Windows"
 			}
 		},
@@ -252,7 +252,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -295,8 +295,8 @@
 						"selection":
 						[
 							[
-								321,
-								321
+								367,
+								367
 							]
 						],
 						"settings":
@@ -305,7 +305,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 48.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -343,15 +343,15 @@
 					"file": "app/models/movimiento.rb",
 					"settings":
 					{
-						"buffer_size": 715,
+						"buffer_size": 717,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								184,
-								184
+								223,
+								223
 							]
 						],
 						"settings":
