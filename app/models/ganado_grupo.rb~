@@ -1,3 +1,0 @@
-class GanadoGrupo < ActiveRecord::Base
-  
-end
