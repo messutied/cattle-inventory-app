@@ -5,10 +5,10 @@ Ganaderia::Application.routes.draw do
   resources :users
   resources :movimientos
 
-  get "ingreso_egreso/new" => "movimientos#new", :type => "in_eg"
+  get "ingreso-egreso/new" => "movimientos#new", :type => "in_eg"
   get "movimiento/new" => "movimientos#new", :type => "mov"
 
-  get "ingreso_egreso/list" => "movimientos#index", :type => "in_eg"
+  get "ingreso-egreso/list" => "movimientos#index", :type => "in_eg"
   get "movimiento/list" => "movimientos#index", :type => "mov"
 
   # The priority is based upon order of creation:
