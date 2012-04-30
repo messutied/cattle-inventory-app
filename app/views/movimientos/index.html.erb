@@ -1,4 +1,7 @@
-<table>
+<% content_for :title, "Listado de Movimientos" %>
+<% content_for :breadcrumb, raw("<li><a href='#'>Movimientos</a></li> <span class='divider'>/</span> <li><a href='#'>Listar</a></li>") %>
+
+<table class="table table-bordered table-striped">
 	<tr>
 		<th>Razón</th>
 		<% if @type == "mov" %>

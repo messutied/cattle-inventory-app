@@ -60,19 +60,11 @@
 	"buffers":
 	[
 		{
-			"file": "config/routes.rb",
+			"file": "db/schema.rb",
 			"settings":
 			{
-				"buffer_size": 2113,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/layouts/application.html.erb",
-			"settings":
-			{
-				"buffer_size": 1521,
-				"line_ending": "Unix"
+				"buffer_size": 2279,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -120,9 +112,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/config/routes.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/ganado.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/db/schema.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/user_type.rb~",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/db/migrate/20120428031900_rename_ganado_grupo_short_name.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb~",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/home/index.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_form.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/index.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/movimientos_controller.rb",
@@ -131,7 +128,6 @@
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/db/seeds.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimientos_tipo.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/users_controller.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/ganado.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/index.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/stylesheets/style.css",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/_form.html.erb",
@@ -144,7 +140,6 @@
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Global.sublime-settings",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Base File.sublime-settings",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Base File.sublime-settings",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/config/routes.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/new.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/javascripts/movimientos.js",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_menu.html.erb",
@@ -236,51 +231,23 @@
 			[
 				{
 					"buffer": 0,
-					"file": "config/routes.rb",
+					"file": "db/schema.rb",
 					"settings":
 					{
-						"buffer_size": 2113,
+						"buffer_size": 2279,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								230,
-								230
+								1594,
+								1594
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Ruby/Ruby.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/views/layouts/application.html.erb",
-					"settings":
-					{
-						"buffer_size": 1521,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								776,
-								776
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -401,6 +368,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 287.0,
+	"side_bar_width": 310.0,
 	"status_bar_visible": true
 }

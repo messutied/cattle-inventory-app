@@ -1,4 +1,4 @@
-<%= form_for(@movimiento) do |m| %>
+<%= form_for(@movimiento, :html => { :class => "form-inline"}) do |m| %>
   <% if @movimiento.errors.any? %>
     <div id="error_explanation">
     <h2>
@@ -65,12 +65,12 @@
     
     <div class="actions">
       <% if @type == "mov" %>
-        <%= m.submit "Crear Movimiento" %>
+        <%= m.submit @movimiento.new_record? ? "Crear Movimiento" : "Guardar", :class => "btn btn-primary" %>
       <% else -%>
-        <%= m.submit "Crear Ingreso/Egreso" %>
+        <%= m.submit @movimiento.new_record? ? "Crear Ingreso/Egreso" : "Guardar", :class => "btn btn-primary" %>
       <% end -%>
       <% if !@movimiento.new_record? %>
-        <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", :method => "delete" %>
+        <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", :method => "delete", :class => "btn" %>
       <% end %>
     </div> 
 
