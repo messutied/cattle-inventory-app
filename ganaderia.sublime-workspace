@@ -60,10 +60,58 @@
 	"buffers":
 	[
 		{
-			"file": "db/schema.rb",
+			"file": "app/views/layouts/application.html.erb",
 			"settings":
 			{
-				"buffer_size": 2279,
+				"buffer_size": 5899,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/movimientos/_form.html.erb",
+			"settings":
+			{
+				"buffer_size": 2669,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/helpers/application_helper.rb",
+			"settings":
+			{
+				"buffer_size": 1434,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/movimientos/index.html.erb",
+			"settings":
+			{
+				"buffer_size": 790,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/movimientos/_ingreso_egreso_ganado_fields.html.erb",
+			"settings":
+			{
+				"buffer_size": 266,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/movimientos/_movimiento_ganado_fields.html.erb",
+			"settings":
+			{
+				"buffer_size": 330,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/stylesheets/style.css",
+			"settings":
+			{
+				"buffer_size": 2014,
 				"line_ending": "Windows"
 			}
 		}
@@ -112,16 +160,25 @@
 	},
 	"file_history":
 	[
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/stylesheets/style.css",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/config/routes.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/ganado.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/stylesheets/style_.css",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_ingreso_egreso_ganado_fields.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/new.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/edit.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/create.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/.new.html.erb.swp",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/db/schema.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application_.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/index.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/home_controller.rb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/home/index.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_form.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb",
+		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/ganado.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/user_type.rb~",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/db/migrate/20120428031900_rename_ganado_grupo_short_name.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/layouts/application.html.erb~",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/home/index.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_form.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/index.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/movimientos_controller.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimiento.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/predio.rb",
@@ -129,18 +186,14 @@
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimientos_tipo.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/controllers/users_controller.rb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/index.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/stylesheets/style.css",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/_form.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/helpers/movimientos_helper.rb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/edit.html.erb",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_ingreso_egreso_ganado_fields.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_movimiento_ganado_fields.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/models/movimiento_ganado.rb",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Global.sublime-settings",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Global.sublime-settings",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/User/Base File.sublime-settings",
 		"/C/Users/messuti.edd/AppData/Roaming/Sublime Text 2/Packages/Default/Base File.sublime-settings",
-		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/new.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/public/javascripts/movimientos.js",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/movimientos/_menu.html.erb",
 		"/C/Users/messuti.edd/Documents/NetBeansProjects/Ganaderia/app/views/users/new.html.erb",
@@ -183,7 +236,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 			""
@@ -194,6 +247,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cant",
+			" %>",
 			">",
 			" %>\" />",
 			"params[:type]",
@@ -226,23 +281,79 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "db/schema.rb",
+					"file": "app/views/layouts/application.html.erb",
 					"settings":
 					{
-						"buffer_size": 2279,
+						"buffer_size": 5899,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1594,
-								1594
+								3692,
+								3692
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/movimientos/_form.html.erb",
+					"settings":
+					{
+						"buffer_size": 2669,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2410,
+								2410
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 642.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/helpers/application_helper.rb",
+					"settings":
+					{
+						"buffer_size": 1434,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1363,
+								1363
 							]
 						],
 						"settings":
@@ -252,7 +363,116 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 45.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/movimientos/index.html.erb",
+					"settings":
+					{
+						"buffer_size": 790,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								53,
+								53
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/movimientos/_ingreso_egreso_ganado_fields.html.erb",
+					"settings":
+					{
+						"buffer_size": 266,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/movimientos/_movimiento_ganado_fields.html.erb",
+					"settings":
+					{
+						"buffer_size": 330,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								330,
+								330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/stylesheets/style.css",
+					"settings":
+					{
+						"buffer_size": 2014,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1652,
+								1652
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1331.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -266,7 +486,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 31.0
 	},
 	"layout":
 	{
@@ -302,16 +522,16 @@
 		"selected_items":
 		[
 			[
+				"style",
+				"public/stylesheets/style.css"
+			],
+			[
 				"user",
 				"app/controllers/users_controller.rb"
 			],
 			[
 				"v/u/",
 				"app/views/users/index.html.erb"
-			],
-			[
-				"style",
-				"public/stylesheets/style.css"
 			],
 			[
 				"helper",

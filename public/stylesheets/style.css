@@ -107,7 +107,9 @@ a:hover {
   margin-right: 10px;
 }
 
-
+input.small {
+  width: 50px;
+}
 
 /************* MOVIMIENTOS **************/
 

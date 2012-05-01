@@ -26,7 +26,7 @@
 
     <div class="field-inline">
       <%= m.label "Fecha" %>:
-      <%= select_tag(:dia, options_for_select(get_days, day), :style=>"width: 60px;") %><spam id="gestion">-<%= month %>-<%= year %></spam>
+      <%= select_tag(:dia, options_for_select(get_days, @movimiento.new_record? ? day : @movimiento.day), :style=>"width: 60px;") %><spam id="gestion">-<%= month %>-<%= year %></spam>
     </div>
     <div class="field-inline">
       <%= m.label :detalle %>:

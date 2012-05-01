@@ -15,6 +15,10 @@ class Movimiento < ActiveRecord::Base
 		self.fecha = anio+"-"+mes+"-"+dia
 	end
 
+	def day
+		return fecha.day
+	end
+
 	def type_str
 		if ["i", "e"].include? self.movimientos_tipo.tipo
       return "in_eg"
