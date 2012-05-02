@@ -34,6 +34,7 @@ class MovimientosController < ApplicationController
     @movimiento = Movimiento.new(params[:movimiento])
     @movimiento.parse_fecha(params[:anio], params[:mes], params[:dia])
     @type = params[:type]
+    @br = [Movimiento.type_name(@type), "Nuevo"]
 
     if @movimiento.save()
       redirect_to(@movimiento, :notice => 'Se creo el movimiento.')

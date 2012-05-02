@@ -5,7 +5,7 @@ class Movimiento < ActiveRecord::Base
 	belongs_to :predio_sec, :class_name => "Predio", :foreign_key => "predio_sec_id"
 
 	accepts_nested_attributes_for :movimiento_ganados, 
-	:reject_if => lambda { |m| m[:ganado_id].blank? or m[:cant].blank? }, 
+	#:reject_if => lambda { |m| m[:ganado_id].blank? or m[:cant].blank? }, 
 	:allow_destroy => true
 
 
@@ -31,7 +31,7 @@ class Movimiento < ActiveRecord::Base
 
 	def self.type_name(type)
 	    if type == "mov"
-	      return "Movimiento"
+	      return "Movimientos"
 	    elsif type == "in_eg"
 	      return "Ingresos/Egresos"
 	    else
