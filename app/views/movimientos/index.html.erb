@@ -1,5 +1,11 @@
 <% content_for :title, "Listado de Movimientos" %>
-<% content_for :breadcrumb, raw("<li><a href='#'>Movimientos</a></li> <span class='divider'>/</span> <li><a href='#'>Listar</a></li>") %>
+
+<% content_for :breadcrumb do %>
+	<% @br.each_with_index do |b, i| %>
+		<li><a href='#'><%= b %></a></li> 
+		<% unless i+1 >= @br.size %><span class='divider'>/</span> <% end %>
+	<% end %>
+<% end %>
 
 <table class="table table-bordered table-striped">
 	<tr>

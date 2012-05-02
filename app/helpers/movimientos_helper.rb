@@ -17,9 +17,10 @@ module MovimientosHelper
         return "movimiento_ganado_fields"
       elsif type == "in_eg"
         return "ingreso_egreso_ganado_fields"
+      elsif type == "rec"
+        return "recuento_ganado_fields"
       end
   end
-
 
   def get_movimientos
     @movimientos = MovimientosTipo.movimientos.map { |t| [t.nombre, t.id] }

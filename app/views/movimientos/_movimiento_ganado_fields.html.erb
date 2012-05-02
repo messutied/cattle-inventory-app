@@ -1,14 +1,16 @@
-<div class="movimiento">
+<tr class="movimiento">
+  <td>
   <% if no_select %>
     <%= f.select :ganado_id, [] %>
   <% else %>
     <%= f.select :ganado_id, get_all_ganado %>
   <% end %>
+  </td>
 
-  <div style="float: right">
-    Despach:
+  <td style="text-align: center">
     <%= f.text_field :cant, :class => :small %>
-    Rcp:
+  </td>
+  <td style="text-align: center">
     <%= f.text_field :cant_sec, :class => [:small, :cant1] %>
-  </div>
-</div>
+  </td>
+</tr>

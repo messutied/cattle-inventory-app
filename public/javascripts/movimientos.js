@@ -6,9 +6,12 @@ var AGan = {};
     var deMeses = [1, 2];
     var NACIDOS = false;
     var LAST_SEL = null;
+    var TYPE = ""
     
 
     $(document).ready(function() {
+        TYPE = $("input[name=type]").val();
+
         $("#movimiento_submit").click(function() {
             return validateSubmit();
         });
@@ -21,6 +24,15 @@ var AGan = {};
         });
 
         // addGanadoCateg();
+
+        if (TYPE == "rec") {
+            var categs = $('.movimiento:last select option').size();
+
+            for (var i=0; i < categs; i++) {
+                $('.movimiento:last select option').eq(1).attr('selected', 'selected');
+                $("#add_mov").click();
+            }
+        }
 
         $("#movimiento_movimientos_tipo_id").change(function() {
             if ($(this).val() == 2) {
@@ -87,7 +99,7 @@ var AGan = {};
             if ($j(this).val() == "") unselected = true;
         });
 
-        if (unselected) {
+        if (unselected && TYPE != "rec") {
             alert("Porfavor selecciona el ganado");
             return;
         }
@@ -105,7 +117,7 @@ var AGan = {};
         var new_id = new Date().getTime();
         var regexp = new RegExp("new_" + association, "g");
         var $fields = $j(content.replace(regexp, new_id));
-        $fields.insertBefore($j(link).parent());
+        $fields.insertBefore($j(link).parent().parent());
 
         $fields.find("select").html(opts);
 

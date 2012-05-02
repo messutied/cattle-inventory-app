@@ -21,11 +21,21 @@ class Movimiento < ActiveRecord::Base
 
 	def type_str
 		if ["i", "e"].include? self.movimientos_tipo.tipo
-      return "in_eg"
-    elsif ["m"].include? self.movimientos_tipo.tipo
-      return "mov"
-    else
-      return "rec"
-    end
+      		return "in_eg"
+    	elsif ["m"].include? self.movimientos_tipo.tipo
+      		return "mov"
+		else
+      		return "rec"
+    	end
+	end
+
+	def self.type_name(type)
+	    if type == "mov"
+	      return "Movimiento"
+	    elsif type == "in_eg"
+	      return "Ingresos/Egresos"
+	    else
+	      return "Recuentos"
+	    end
 	end
 end

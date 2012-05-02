@@ -121,11 +121,11 @@ input.small {
 
 #movimientos {
   margin-top: 20px;
-  border-top: 2px solid #F2F2F2;
+  /*border-top: 2px solid #F2F2F2;*/
 
   padding-bottom: 20px;
   margin-bottom: 20px;
-  border-bottom: 2px solid #F2F2F2;
+  /*border-bottom: 2px solid #F2F2F2;*/
 }
 
 .movimiento {

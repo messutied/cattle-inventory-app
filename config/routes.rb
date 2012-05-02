@@ -7,6 +7,7 @@ Ganaderia::Application.routes.draw do
 
   get "ingreso-egreso/new" => "movimientos#new", :type => "in_eg"
   get "movimiento/new" => "movimientos#new", :type => "mov"
+  get "recuento/new" => "movimientos#new", :type => "rec"
 
   get "ingreso-egreso/list" => "movimientos#index", :type => "in_eg"
   get "movimiento/list" => "movimientos#index", :type => "mov"

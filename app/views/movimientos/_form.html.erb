@@ -44,7 +44,7 @@
         <%= m.select :predio_sec_id, @predios %>
         <%= m.hidden_field :movimientos_tipo_id, {:value=>"1"} %>
       </div>
-    <% else %>
+    <% elsif @type == "in_eg" %>
       <div class="field-inline">
         <%= m.label "Predio:" %>
         <%= m.select :predio_id, @predios %>
@@ -53,22 +53,39 @@
         <%= m.label "Razón:" %>
         <%= m.select :movimientos_tipo_id, get_movimientos %>
       </div>
+    <% elsif @type == "rec" %>
+      <div class="field-inline">
+        <%= m.label "Predio:" %>
+        <%= m.select :predio_id, @predios %>
+      </div>
     <% end %>
 
 
     <div id="movimientos">
-      <% m.fields_for :movimiento_ganados do |g| %>
-        <%= render fields_form(@type), :f => g, :no_select => false %>
-      <% end %>
-      <div><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %><div style="clear: both"></div></div>
+      <table class="table table-bordered">
+        <tr>
+          <th>Categ. de Ganado</th>
+          <% if @type == "mov" %>
+          <th>Despach.</th>
+          <th>Reciv.</th>
+          <% else %>
+          <th>Cant.</th>
+          <% end %>
+        </tr>
+
+        <% m.fields_for :movimiento_ganados do |g| %>
+          <%= render fields_form(@type), :f => g, :no_select => false %>
+        <% end %>
+        <tr>
+          <td colspan="<%= @type == "mov" ? "2" : "1" %>"></td>
+          <td><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %></td>
+        </tr>
+      </table>
     </div>
     
     <div class="actions">
-      <% if @type == "mov" %>
-        <%= m.submit @movimiento.new_record? ? "Crear Movimiento" : "Guardar", :class => "btn btn-primary" %>
-      <% else -%>
-        <%= m.submit @movimiento.new_record? ? "Crear Ingreso/Egreso" : "Guardar", :class => "btn btn-primary" %>
-      <% end -%>
+      <%= m.submit @movimiento.new_record? ? "Crear "+Movimiento.type_name(@type) : "Guardar", :class => "btn btn-primary" %>
+      
       <% if !@movimiento.new_record? %>
         <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", :method => "delete", :class => "btn" %>
       <% end %>

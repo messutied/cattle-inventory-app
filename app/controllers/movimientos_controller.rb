@@ -3,14 +3,18 @@
 class MovimientosController < ApplicationController
   def index
     @type = params[:type]
+
+    @br = [Movimiento.type_name(@type), "Listado"]
+
     if @type == "mov"
       @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
         :conditions => "movimientos_tipos.tipo = 'm'", 
         :order => "fecha desc")
-    else
+    elsif @type == "in_eg"
       @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
         :conditions => "movimientos_tipos.tipo = 'i' or movimientos_tipos.tipo = 'e'", 
         :order => "fecha desc")
+    else
     end
   end
 
@@ -22,6 +26,8 @@ class MovimientosController < ApplicationController
     @movimiento.movimiento_ganados.build
 
     @type = params[:type]
+
+    @br = [Movimiento.type_name(@type), "Nuevo"]
   end
 
   def create

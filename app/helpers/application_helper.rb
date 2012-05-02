@@ -25,6 +25,10 @@ module ApplicationHelper
       if params[:controller] == "movimientos" and params[:action] == "new" and params[:type] == "mov"
         return raw(" class=\"active\"")
       end
+    when "rec_new"
+      if params[:controller] == "movimientos" and params[:action] == "new" and params[:type] == "rec"
+        return raw(" class=\"active\"")
+      end
     when "in_eg_list"
       if params[:controller] == "movimientos" and params[:action] == "index" and params[:type] == "in_eg"
         return raw(" class=\"active\"")
