@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class MovimientoGanado < ActiveRecord::Base
     belongs_to :movimiento
 
