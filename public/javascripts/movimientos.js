@@ -26,12 +26,18 @@ var AGan = {};
         // addGanadoCateg();
 
         if (TYPE == "rec") {
-            var categs = $('.movimiento:last select option').size();
+            if (window.location.pathname.indexOf("/new") != -1) {
+                var categs = $('.movimiento:last select option').size();
 
-            for (var i=0; i < categs; i++) {
-                $('.movimiento:last select option').eq(1).attr('selected', 'selected');
-                $("#add_mov").click();
+                for (var i=0; i < categs; i++) {
+                    $('.movimiento:last select option').eq(1).attr('selected', 'selected');
+                    $("#add_mov").click();
+                }
             }
+            else {
+                
+            }
+            
         }
 
         $("#movimiento_movimientos_tipo_id").change(function() {

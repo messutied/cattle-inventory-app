@@ -11,6 +11,7 @@ Ganaderia::Application.routes.draw do
 
   get "ingreso-egreso/list" => "movimientos#index", :type => "in_eg"
   get "movimiento/list" => "movimientos#index", :type => "mov"
+  get "recuento/list" => "movimientos#index", :type => "rec"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

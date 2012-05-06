@@ -14,6 +14,10 @@ class MovimientosController < ApplicationController
       @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
         :conditions => "movimientos_tipos.tipo = 'i' or movimientos_tipos.tipo = 'e'", 
         :order => "fecha desc")
+    elsif @type == "rec"
+      @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
+        :conditions => "movimientos_tipos.tipo = 'r'", 
+        :order => "fecha desc")
     else
     end
   end

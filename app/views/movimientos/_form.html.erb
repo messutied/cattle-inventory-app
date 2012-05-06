@@ -57,6 +57,7 @@
       <div class="field-inline">
         <%= m.label "Predio:" %>
         <%= m.select :predio_id, @predios %>
+         <%= m.hidden_field :movimientos_tipo_id, {:value=>"9"} %>
       </div>
     <% end %>
 

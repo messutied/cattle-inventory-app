@@ -37,6 +37,10 @@ module ApplicationHelper
       if params[:controller] == "movimientos" and params[:action] == "index" and params[:type] == "mov"
         return raw(" class=\"active\"")
       end
+    when "rec_list"
+      if params[:controller] == "movimientos" and params[:action] == "index" and params[:type] == "rec"
+        return raw(" class=\"active\"")
+      end
     end
 
   end
