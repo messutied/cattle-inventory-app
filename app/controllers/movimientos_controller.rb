@@ -23,6 +23,8 @@ class MovimientosController < ApplicationController
   end
 
   def show
+    @movimiento = Movimiento.find(params[:id])
+    @type = @movimiento.type_str
   end
 
   def new

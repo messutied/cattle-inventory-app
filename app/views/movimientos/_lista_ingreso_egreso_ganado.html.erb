@@ -1,0 +1,18 @@
+<table class="table table-bordered">
+    <tr>
+      <th>Categ. de Ganado</th>
+      <th>Cant.</th>
+  </tr>
+  
+  <% ganados.each do |g| %>
+  <tr class="movimiento">
+    <td>
+    <%= g.ganado.nombre %>
+    </td>
+
+    <td style="text-align: center">
+      <%= g.cant %>
+    </td>
+  </tr>
+  <% end%>
+</table>

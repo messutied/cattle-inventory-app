@@ -1,19 +1,21 @@
-<div class="field-inline">
-  <%= m.label "Fecha" %>:
-  <%= select_tag(:dia, options_for_select(get_days, @movimiento.new_record? ? day : @movimiento.day), :style=>"width: 60px;") %><spam id="gestion">-<%= month %>-<%= year %></spam>
-</div>
-<div class="field-inline">
-  <%= m.label :detalle %>:
-  <%= m.text_field :detalle %>
-</div>
+<p>
+  <b>Fecha:</b>
+  <%= @movimiento.fecha %>
+</p>
 
-<br /><br />
+<p>
+  <b>Detalle:</b>
+  <%= @movimiento.detalle %>
+</p>
 
-<div class="field-inline">
-<%= m.label "Predio:" %>
-<%= m.select :predio_id, @predios %>
-</div>
-<div class="field-inline">
-<%= m.label "Razón:" %>
-<%= m.select :movimientos_tipo_id, get_movimientos %>
-</div>
+<p>
+  <b>Predio:</b>
+  <%= @movimiento.predio.nombre %>
+</p>
+
+<p>
+  <b>Razon:</b>
+  <%= @movimiento.movimientos_tipo.nombre %>
+</p>
+
+<%= render "lista_ingreso_egreso_ganado", :ganados => @movimiento.movimiento_ganados %>
