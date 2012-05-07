@@ -4,6 +4,7 @@ Ganaderia::Application.routes.draw do
 
   resources :users
   resources :movimientos
+  resources :movimientos_tipos
 
   get "ingreso-egreso/new" => "movimientos#new", :type => "in_eg"
   get "movimiento/new" => "movimientos#new", :type => "mov"
