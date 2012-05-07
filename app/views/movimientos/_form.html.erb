@@ -69,17 +69,22 @@
           <% if @type == "mov" %>
           <th>Despach.</th>
           <th>Reciv.</th>
-          <% else %>
+          <th></th>
+          <% elsif @type == "in_eg" %>
+          <th>Cant.</th>
+          <th></th>
+          <% elsif @type == "rec" %>
           <th>Cant.</th>
           <% end %>
+          
         </tr>
 
         <% m.fields_for :movimiento_ganados do |g| %>
           <%= render fields_form(@type), :f => g, :no_select => false %>
         <% end %>
         <tr>
-          <td colspan="<%= @type == "mov" ? "2" : "1" %>"></td>
-          <td><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %></td>
+          <td colspan="<%= @type == "mov" ? "3" : (@type == "in_eg" ? "2" : "1") %>"></td>
+          <td style="text-align: center"><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %></td>
         </tr>
       </table>
     </div>

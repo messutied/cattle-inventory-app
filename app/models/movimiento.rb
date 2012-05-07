@@ -19,6 +19,10 @@ class Movimiento < ActiveRecord::Base
 		return fecha.day
 	end
 
+	def mov_tipo
+		self.movimientos_tipo.tipo
+	end
+
 	def type_str
 		if ["i", "e"].include? self.movimientos_tipo.tipo
       		return "in_eg"

@@ -68,7 +68,14 @@ class MovimientosController < ApplicationController
     @mov = Movimiento.find(params[:id])
     @mov.destroy
 
-    redirect_to movimientos_url
+    case @mov.type_str
+      when "in_eg" 
+        redirect_to "/ingreso-egreso/list"
+      when "mov" 
+        redirect_to "/movimiento/list"
+      else 
+        redirect_to "/recuento/list"
+    end
   end
 
 end

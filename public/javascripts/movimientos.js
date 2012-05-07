@@ -16,6 +16,8 @@ var AGan = {};
             return validateSubmit();
         });
 
+        // Cargar el predio sec. al seleccionar el primario
+        // quitando el predio seleccionado en el primario
         $("#movimiento_predio_id").change(function() {
             var selected = $(this).val() * 1;
             var opts     = getOptions(predios, [selected]);
@@ -23,23 +25,30 @@ var AGan = {};
             $("#movimiento_predio_sec_id").html(opts);
         });
 
-        // addGanadoCateg();
-
+        // En un nuevo recuento, pre cargar todas las categorias de ganado
         if (TYPE == "rec") {
             if (window.location.pathname.indexOf("/new") != -1) {
                 var categs = $('.movimiento:last select option').size();
 
                 for (var i=0; i < categs; i++) {
                     $('.movimiento:last select option').eq(1).attr('selected', 'selected');
+                    cleanSelect( $('.movimiento:last select') );
                     $("#add_mov").click();
                 }
             }
             else {
-                
+
             }
-            
         }
 
+        // On Edit: Poner todos los selects menos el ultimo como "read only"
+        if (window.location.pathname.indexOf("/edit") != -1) {
+            $('.movimiento select').each(function() {
+                cleanSelect( $(this) );
+            });
+        }
+
+        // Tomar en cuenta la razon de NACIDOS, solo permitir selecc. Terneros de meses
         $("#movimiento_movimientos_tipo_id").change(function() {
             if ($(this).val() == 2) {
                 var hayMayoresDeMes = false;
@@ -58,7 +67,8 @@ var AGan = {};
             LAST_SEL = $(this).val();
         })
     });
-
+    
+    // Quita todas las categorias de mas de un mes, del movimiento
     function removeMayoresDeMes() {
         $(".movimiento").remove();
 
@@ -86,6 +96,7 @@ var AGan = {};
         return opts;
     }
 
+    // Quita todas las opciones de un select, menos la seleccionada (read only select)
     function cleanSelect($select) {
         var selected = $select.val();
         $select.find("option").each(function() {
@@ -97,10 +108,24 @@ var AGan = {};
         $("#add_mov").click();
     }
 
+    // Cuando se da click en borrar una categ. de ganado de un movimienro/ingreso/egreso/recuento
+    AGan.remove_fields = function(link) {
+        $(link).prev("input[type=hidden]").val("1");
+        var $row = $(link).parent().parent();
+
+        if ($row.find("select").val() == "") {
+            // Si no tiene nada seleccionado se elimina
+            $row.remove();
+        }
+        else {
+            $row.hide(); // Si no solo se esconde
+        }
+    }
+
     AGan.add_fields = function (link, association, content) {
         var used = [];
         var unselected = false;
-        $j('.movimiento select').each(function() {
+        $j('.movimiento select:visible').each(function() {
             used.push($j(this).val() * 1);
             if ($j(this).val() == "") unselected = true;
         });
