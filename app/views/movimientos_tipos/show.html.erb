@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @movimientos_tipo.nombre %>
+</p>
+
+<p>
+  <b>Tipo:</b>
+  <%= @movimientos_tipo.tipo %>
+</p>
+
+
+<%= link_to 'Edit', edit_movimientos_tipo_path(@movimientos_tipo) %> |
+<%= link_to 'Back', movimientos_tipos_path %>
