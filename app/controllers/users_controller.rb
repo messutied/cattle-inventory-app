@@ -83,4 +83,34 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def login
+    if params[:from] != nil
+      session[:return_to] = params[:from]
+    end
+  end
+
+  def do_login
+    mail = params[:mail]
+    pass = params[:pass]
+
+    user = User.find_all_by_mail_and_pass(mail, pass).first
+    if user == nil
+      redirect_to("/login", :notice => 'Error de login')
+    else
+      self.current_user = user
+      if session[:return_to] != nil
+        redirect_to(session[:return_to], :notice => 'Loged in')
+        session[:return_to] = nil
+      else
+        redirect_to("/", :notice => 'Loged in')
+      end
+    end
+
+  end
+
+  def logout
+    self.do_logout
+    redirect_to("/", :notice => 'Loged out')
+  end
 end
