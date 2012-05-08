@@ -20,6 +20,7 @@
 		<th>Detalle</th>
 		<th></th>
 	</tr>
+	
 	<% @movs.each do |mov| %>
 	<tr>
 		<td><%= mov.movimientos_tipo.nombre unless mov.movimientos_tipo.nil?%></td>
@@ -29,7 +30,7 @@
 		<% end%>
 		<td><%= mov.fecha%></td>
 		<td><%= mov.detalle%></td>
-		<td><%= link_to "Editar", edit_movimiento_path(mov)%></td>
+		<td><%= link_to "Ver", mov%> | <%= link_to "Editar", edit_movimiento_path(mov)%></td>
 	</tr>
 	<% end %>
 

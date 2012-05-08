@@ -1,7 +1,8 @@
 <table class="table table-bordered">
     <tr>
       <th>Categ. de Ganado</th>
-      <th>Cant.</th>
+      <th>Despach.</th>
+      <th>Reciv.</th>
   </tr>
   
   <% ganados.each do |g| %>
@@ -12,6 +13,10 @@
 
     <td style="text-align: center">
       <%= g.cant %>
+    </td>
+
+    <td style="text-align: center">
+      <%= g.cant_sec %>
     </td>
   </tr>
   <% end%>

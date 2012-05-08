@@ -1,21 +1,37 @@
 <p>
-  <b>Fecha:</b>
-  <%= @movimiento.fecha %>
+	<b>Fecha:</b>
+	<%= @movimiento.fecha %>
 </p>
 
 <p>
-  <b>Detalle:</b>
-  <%= @movimiento.detalle %>
+	<b>Detalle:</b>
+	<%= @movimiento.detalle %>
+</p>
+
+<% if @movimiento.type_str == "mov" %>
+<p>
+	<b>Desde:</b>
+	<%= @movimiento.predio.nombre %>
 </p>
 
 <p>
-  <b>Predio:</b>
-  <%= @movimiento.predio.nombre %>
+	<b>Hasta:</b>
+	<%= @movimiento.predio_sec.nombre %>
+</p>
+<% else %>
+<p>
+	<b>Predio:</b>
+	<%= @movimiento.predio.nombre %>
 </p>
 
 <p>
-  <b>Razon:</b>
-  <%= @movimiento.movimientos_tipo.nombre %>
+	<b>Razon:</b>
+	<%= @movimiento.movimientos_tipo.nombre %>
 </p>
+<% end %>
 
-<%= render "lista_ingreso_egreso_ganado", :ganados => @movimiento.movimiento_ganados %>
+
+
+<%= render @movimiento.type_str == "mov" ? "lista_movimiento_ganado" : "lista_ingreso_egreso_ganado", :ganados => @movimiento.movimiento_ganados %>
+
+<%= link_to "Editar", edit_movimiento_path(@movimiento) %> | <%= link_to "Volver", movimientos_mix_path(@movimiento) %>

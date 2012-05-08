@@ -1,5 +1,15 @@
 module MovimientosHelper
 
+  def movimientos_mix_path(mov)
+    if mov.type_str == "in_eg"
+      return "/ingreso-egreso/list"
+    elsif mov.type_str == "mov"
+      return "/movimiento/list"
+    else
+      return "/recuento/list"
+    end
+  end
+
   def day
     Time.now.day
   end
