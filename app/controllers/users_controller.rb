@@ -88,6 +88,8 @@ class UsersController < ApplicationController
     if params[:from] != nil
       session[:return_to] = params[:from]
     end
+
+    render :layout => 'login'
   end
 
   def do_login

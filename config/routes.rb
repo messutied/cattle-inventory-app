@@ -14,6 +14,9 @@ Ganaderia::Application.routes.draw do
   get "movimiento/list" => "movimientos#index", :type => "mov"
   get "recuento/list" => "movimientos#index", :type => "rec"
 
+  get "/login" => "users#login"
+  post "/login" => "users#do_login"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
