@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class MovimientosTiposController < ApplicationController
   # GET /movimientos_tipos
   # GET /movimientos_tipos.xml
