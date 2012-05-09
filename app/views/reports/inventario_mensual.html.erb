@@ -1,0 +1,41 @@
+<style>
+	.row-ggrupos td {
+		text-align: center;
+		font-weight: bold;
+	}
+
+	.row-ganado td {
+		text-align: center;
+	}
+
+	.row-saldo-ant td {
+		text-align: center;
+	}
+</style>
+
+<table class="table table-bordered">
+	<tr class="row-ggrupos">
+		<td colspan="2"></td>
+		<% @g_grupos.each do |gg| %>
+			<td colspan="<%= gg.ganados.length %>"><%= gg.nombre %></td>
+		<% end %>
+	</tr>
+
+	<tr class="row-ganado">
+		<td colspan="2"></td>
+		<% @g_grupos.each do |gg| %>
+			<% gg.ganados.each do |g| %>
+				<td><%= g.nombre %></td>
+			<% end %>
+		<% end %>
+	</tr>
+
+	<tr class="row-saldo-ant">
+		<td colspan="2">Saldo Inicial</td>
+		<% @g_grupos.each do |gg| %>
+			<% gg.ganados.each do |g| %>
+				<td><%= g.cant_inicial(@predio) %></td>
+			<% end %>
+		<% end %>
+	</tr>
+</table>

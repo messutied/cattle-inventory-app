@@ -1,5 +1,6 @@
 class Movimiento < ActiveRecord::Base
 	has_many :movimiento_ganados, :dependent => :destroy
+	has_many :ganados, :through => :movimiento_ganados
 	belongs_to :movimientos_tipo
 	belongs_to :predio
 	belongs_to :predio_sec, :class_name => "Predio", :foreign_key => "predio_sec_id"
