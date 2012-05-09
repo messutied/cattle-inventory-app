@@ -101,7 +101,11 @@ class UsersController < ApplicationController
 
     user = User.find_all_by_mail_and_pass(mail, pass).first
     if user == nil
-      redirect_to("/login", :notice => 'Error iniciando sesión')
+      if params[:from] != nil
+        redirect_to("/login?from="+params[:from], :notice => 'Error iniciando sesión')
+      else
+        redirect_to("/login", :notice => 'Error iniciando sesión')
+      end
     else
       self.current_user = user
       # if session["return_to"] != nil

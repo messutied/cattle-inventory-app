@@ -18,7 +18,8 @@ UserType.create([
 
 
 User.create([
-  {:nombre=>'Eduardo Messuti', :username=>'edd', :mail=>'messuti.edd@gmail.com', :user_type_id=>1, :pass=>'olesfeo'}
+  {:nombre=>'Eduardo Messuti', :username=>'edd', :mail=>'messuti.edd@gmail.com', :user_type_id=>1, :pass=>'126188'},
+  {:nombre=>'Sebastian Nogales', :username=>'seba', :mail=>'snogalesc@gmail.com', :user_type_id=>1, :pass=>'sebastian12345'}
 ])
 
 Predio.create([
@@ -63,7 +64,7 @@ Ganado.create([
   {:nombre=>'2A', :ganado_grupo_id=>6},
   {:nombre=>'3A', :ganado_grupo_id=>6},
   {:nombre=>'4 y MY', :ganado_grupo_id=>6},
-  {:nombre=>'Bueyes', :ganado_grupo_id=>7}
+  {:nombre=>' ', :ganado_grupo_id=>7}
 ])
 
 MovimientosTipo.create([
