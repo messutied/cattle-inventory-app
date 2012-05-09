@@ -10,12 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428031900) do
+ActiveRecord::Schema.define(:version => 20120509180621) do
 
   create_table "ganado_grupos", :force => true do |t|
     t.string   "nombre"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "orden"
+    t.string   "estado",     :limit => 1, :default => "A"
   end
 
   create_table "ganados", :force => true do |t|
@@ -24,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20120428031900) do
     t.datetime "updated_at"
     t.string   "nombre_corto"
     t.integer  "ganado_grupo_id"
+    t.integer  "orden"
+    t.string   "estado",          :limit => 1, :default => "A"
   end
 
   create_table "movimiento_ganados", :force => true do |t|
@@ -50,12 +54,14 @@ ActiveRecord::Schema.define(:version => 20120428031900) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tipo"
+    t.string   "estado",     :limit => 1, :default => "A"
   end
 
   create_table "predios", :force => true do |t|
     t.string   "nombre"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "estado",     :limit => 1, :default => "A"
   end
 
   create_table "user_types", :force => true do |t|
