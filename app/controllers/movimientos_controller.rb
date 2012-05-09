@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class MovimientosController < ApplicationController
+  before_filter :require_user
+  
   def index
     @type = params[:type]
 

@@ -16,6 +16,7 @@ Ganaderia::Application.routes.draw do
 
   get "/login" => "users#login"
   post "/login" => "users#do_login"
+  get "/logout" => "users#logout"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

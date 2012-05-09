@@ -1,15 +1,24 @@
 <div class="login-form">
     <h2>Entrar</h2>
     <br />
+    
     <form action="/login" method="POST">
         <fieldset>
             <div class="control-group">
                 <input name="mail" type="text" placeholder="E-mail">
+                <input name="from" type="hidden" value="<%= @from %>">
             </div>
             <div class="control-group">
                 <input name="pass" type="password" placeholder="Contraseña">
             </div>
+
             <button class="btn btn-primary" type="submit">Entrar</button>
         </fieldset>
     </form>
+
+    <% if notice %>
+        <div class="control-group">
+            <div class="alert alert-error"><%= notice %></div>
+        </div>
+    <% end %>
 </div>

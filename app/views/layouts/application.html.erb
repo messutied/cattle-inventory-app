@@ -56,13 +56,13 @@
           <a class="brand" href="#">Ganaderia HN</a>
           <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user"></i> Usuario
+              <i class="icon-user"></i> <%= current_user.nombre%>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Perfil</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Salir</a></li>
+              <!-- <li><a href="#">Perfil</a></li>
+              <li class="divider"></li> -->
+              <li><a href="/logout">Salir</a></li>
             </ul>
           </div>
           <div class="nav-collapse">

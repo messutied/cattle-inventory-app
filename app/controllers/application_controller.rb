@@ -29,9 +29,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
+
     if !signed_in?
-      store_location
-      redirect_to '/login', :notice => "Tenes que iniciar sesion primero!"
+      #store_location
+      redirect_to '/login?from='+request.fullpath, :notice => "Por favor inicia sesión antes de continuar."
     end
   end
 

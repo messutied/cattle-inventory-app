@@ -86,7 +86,8 @@ class UsersController < ApplicationController
 
   def login
     if params[:from] != nil
-      session[:return_to] = params[:from]
+      session["return_to"] = params[:from] # doesnt save session (?)
+      @from = params[:from]
     end
 
     render :layout => 'login'
@@ -98,12 +99,14 @@ class UsersController < ApplicationController
 
     user = User.find_all_by_mail_and_pass(mail, pass).first
     if user == nil
-      redirect_to("/login", :notice => 'Error de login')
+      redirect_to("/login", :notice => 'Error iniciando sesión')
     else
       self.current_user = user
-      if session[:return_to] != nil
-        redirect_to(session[:return_to], :notice => 'Loged in')
-        session[:return_to] = nil
+      # if session["return_to"] != nil
+      #   redirect_to(session["return_to"], :notice => 'Loged in')
+      #   session["return_to"] = nil
+      if params[:from] != nil
+        redirect_to(params[:from], :notice => 'Loged in')
       else
         redirect_to("/", :notice => 'Loged in')
       end
