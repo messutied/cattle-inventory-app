@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  anio: 1
+  mes: 1
+  estado: false
+
+two:
+  anio: 1
+  mes: 1
+  estado: false

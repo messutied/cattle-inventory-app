@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120509180621) do
+ActiveRecord::Schema.define(:version => 20120510033905) do
 
   create_table "ganado_grupos", :force => true do |t|
     t.string   "nombre"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20120509180621) do
     t.integer  "ganado_grupo_id"
     t.integer  "orden"
     t.string   "estado",          :limit => 1, :default => "A"
+  end
+
+  create_table "gestions", :force => true do |t|
+    t.integer  "anio"
+    t.integer  "mes"
+    t.boolean  "estado"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "movimiento_ganados", :force => true do |t|
