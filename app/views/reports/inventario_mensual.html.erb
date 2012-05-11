@@ -11,29 +11,87 @@
 	.row-saldo-ant td {
 		text-align: center;
 	}
+
+	.row-mov td {
+		text-align: center;
+	}
+
+	.table th {
+		background-color: white !important;
+		color: black !important;
+	}
 </style>
 
 <table class="table table-bordered">
 	<tr class="row-ggrupos">
-		<td colspan="2"></td>
+		<th colspan="2"></th>
 		<% @g_grupos.each do |gg| %>
 			<td colspan="<%= gg.ganados.length %>"><%= gg.nombre %></td>
 		<% end %>
 	</tr>
 
 	<tr class="row-ganado">
-		<td colspan="2"></td>
+		<th colspan="2"></th>
 		<% @ganados.each do |g| %>
 			<td><%= g.nombre %></td>
 		<% end %>
 	</tr>
 
 	<tr class="row-saldo-ant">
-		<td colspan="2">Saldo Inicial</td>
-		<% @g_grupos.each do |gg| %>
-			<% gg.ganados.each do |g| %>
-				<td><%= g.cant_inicial(@predio, @info_recuento) %></td>
-			<% end %>
+		<th colspan="2">Saldo Inicial</th>
+		<% @ganados.each do |g| %>
+			<td><%= g.cant_inicial(@predio, @info_recuento) %></td>
 		<% end %>
 	</tr>
+
+	<% @m_tipos_ing.each do |i| %>
+		<tr class="row-mov">
+			<th colspan="2"><%= i.nombre %></th>
+			<% @ganados.each do |g| %>
+				<td><%= g.cant_ing_egr(@predio, @info_recuento, i.id) %></td>
+			<% end %>
+		</tr>
+	<% end %>
+
+
+	<% @mov_ingresos.each do |m| %>
+		<tr class="row-mov">
+			<th colspan="2">De <%= m.predio.nombre %></th>
+			<% @ganados.each do |g| %>
+				<td><%= m.movimiento_ganados.where("ganado_id=?", g.id).any? ? 
+						m.movimiento_ganados.where("ganado_id=?", g.id).first.cant_sec : 0 
+					%>
+				</td>
+			<% end %>
+		</tr>
+	<% end %>
+
+	<tr class="row-ganado">
+		<th colspan="2">Saldo Parcial</th>
+		<% @ganados.each do |g| %>
+			<td><%= g.saldo_parcial_ingresos(@predio, @info_recuento) %></td>
+		<% end %>
+	</tr>
+
+	<% @m_tipos_egr.each do |e| %>
+		<tr class="row-mov">
+			<th colspan="2"><%= e.nombre %></th>
+			<% @ganados.each do |g| %>
+				<td><%= g.cant_ing_egr(@predio, @info_recuento, e.id) %></td>
+			<% end %>
+		</tr>
+	<% end %>
+
+	<% @mov_egresos.each do |m| %>
+		<tr class="row-mov">
+			<th colspan="2">A <%= m.predio_sec.nombre %></th>
+			<% @ganados.each do |g| %>
+				<td><%= m.movimiento_ganados.where("ganado_id=?", g.id).any? ? 
+						m.movimiento_ganados.where("ganado_id=?", g.id).first.cant : 0 
+					%>
+				</td>
+			<% end %>
+		</tr>
+	<% end %>
+	
 </table>

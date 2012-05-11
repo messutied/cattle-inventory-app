@@ -22,7 +22,7 @@ class Ganado < ActiveRecord::Base
       )
 
     if mov.any?
-      rec_mes_actual = mov.first.id
+      rec_mes_actual = mov.first
     end
 
     # obtener el ultimo recuento anterior a gestion
@@ -35,23 +35,105 @@ class Ganado < ActiveRecord::Base
       )
 
     if mov.any?
-      rec_mes_anterior = mov.first.id
+      rec_mes_anterior = mov.first
     end
 
     return {:mes_actual => rec_mes_actual, :mes_anterior => rec_mes_anterior}
   end
 
-  def cant_ing_egr(predio, tipo_ing_egr)
+  def cant_ing_egr(predio, rec_info, tipo_ing_egr, cant_sec=false)
     gestion = Gestion.get_gestion
+
+    fecha_desde = nil
+
+    if rec_info[:mes_actual] != nil
+      fecha_desde = rec_info[:mes_actual].fecha
+    else
+      fecha_desde = rec_info[:mes_anterior].fecha
+    end
 
     mov = Movimiento.find(
       :all, 
-      :select => 'SUM(movimiento_ganados.cant) as ing',
+      :select => 'SUM(movimiento_ganados.'+(cant_sec ? 'cant_sec' : 'cant')+') as ing',
       :joins => [:movimiento_ganados, :movimientos_tipo], 
       :group  => 'movimiento_ganados.ganado_id',
       :conditions => ["fecha > ? and movimientos_tipos.id = ? and movimientos.predio_id = ? "+
-        "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, tipo_ing_egr, self.id]
+        "and movimiento_ganados.ganado_id = ?", fecha_desde, tipo_ing_egr, predio, self.id]
       )
+
+    return mov.empty? ? 0 : mov.first.ing
+  end
+
+  def sumatoria_ingr_egr(tipo, predio, fecha_desde=nil, fecha_hasta=nil)
+    conditions_str = "movimientos_tipos.tipo='"+tipo+"' and movimientos.predio_id = "+predio.to_s+
+      " and movimiento_ganados.ganado_id = ?"
+
+    if fecha_desde != nil
+      conditions_str += " and fecha > ?"
+    end
+
+    if fecha_hasta != nil
+      conditions_str += " and fecha < ?"
+    end
+
+    conditions_arr = [conditions_str, self.id]
+
+    if fecha_desde != nil
+      conditions_arr.push(fecha_desde)
+    end
+
+    if fecha_hasta != nil
+      conditions_arr.push(fecha_hasta)
+    end
+
+    mov = Movimiento.find(
+      :all, 
+      :select => 'SUM(movimiento_ganados.cant) as sumatoria',
+      :joins => [:movimiento_ganados, :movimientos_tipo], 
+      :group  => 'movimiento_ganados.ganado_id',
+      :conditions => conditions_arr
+      )
+
+    if mov.any?
+      return mov.first.sumatoria
+    end
+    return 0
+  end
+
+  def sumatoria_mov(tipo, predio, fecha_desde=nil, fecha_hasta=nil)
+    conditions_str = "movimientos_tipos.tipo='m' and movimientos.predio"+(tipo == "i" ? '_sec' : '')+"_id = "+
+      predio.to_s+" and movimiento_ganados.ganado_id = ?"
+
+    if fecha_desde != nil
+      conditions_str += " and fecha > ?"
+    end
+
+    if fecha_hasta != nil
+      conditions_str += " and fecha < ?"
+    end
+
+    conditions_arr = [conditions_str, self.id]
+
+    if fecha_desde != nil
+      conditions_arr.push(fecha_desde)
+    end
+
+    if fecha_hasta != nil
+      conditions_arr.push(fecha_hasta)
+    end
+    
+    mov = Movimiento.find(
+      :all, 
+      :select => 'SUM(movimiento_ganados.cant'+(tipo == "i" ? '_sec' : '')+') as sumatoria',
+      :joins => [:movimiento_ganados, :movimientos_tipo], 
+      :group  => 'movimiento_ganados.ganado_id',
+      :conditions => conditions_arr
+      )
+
+    if mov.any?
+      return mov.first.sumatoria
+    end
+    return 0
   end
 
   def cant_inicial(predio, rec_info)
@@ -71,63 +153,38 @@ class Ganado < ActiveRecord::Base
     if rec_info[:mes_actual] == nil # si no hubo recuentos en el mes
 
       # obtener el ultimo recuento anterior a gestion
-      mov = Movimiento.find(
-        :all, 
-        :joins => :ganados, 
-        :conditions => ["fecha < ? and movimientos_tipo_id=9 and predio_id = ?", gesion_desde, predio],
-        :order => "fecha desc",
-        :limit => 1
-        )
 
-      if mov.any? # si hay recuentos
-        rec_mov = mov.first
-        rec_cant = rec_mov.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
-        ingresos = 0
-        egresos = 0
-        mov_salidas = 0
-        mov_entradas = 0
+      if rec_info[:mes_anterior] != nil # si hay recuentos
+        mov = rec_info[:mes_anterior]
+
+        rec_mov       = mov
+        rec_cant      = rec_mov.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
+        ingresos      = 0
+        egresos       = 0
+        mov_salidas   = 0
+        mov_entradas  = 0
 
         # sumatoria de los ingresos
-        mov = Movimiento.find(
-          :all, 
-          :select => 'SUM(movimiento_ganados.cant) as ing',
-          :joins => [:movimiento_ganados, :movimientos_tipo], 
-          :group  => 'movimiento_ganados.ganado_id',
-          :conditions => ["fecha > ? and movimientos_tipos.tipo='i' and movimientos.predio_id = ? "+
-            "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
-          )
-
-        if mov.any?
-          ingresos = mov.first.ing
-        end
+        ingresos = sumatoria_ingr_egr("i", predio, nil, rec_mov.fecha)
 
         # sumatoria de los egresos
-        mov = Movimiento.find(
-          :all, 
-          :select => 'SUM(movimiento_ganados.cant) as ing',
-          :joins => [:movimiento_ganados, :movimientos_tipo], 
-          :group  => 'movimiento_ganados.ganado_id',
-          :conditions => ["fecha > ? and movimientos_tipos.tipo='e' and movimientos.predio_id = ? "+
-            "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
-          )
-
-        if mov.any?
-          egresos = mov.first.ing
-        end
+        egresos = sumatoria_ingr_egr("e", predio, nil, rec_mov.fecha)
 
         # sumatoria de movimientos salidas
-        mov = Movimiento.find(
-          :all, 
-          :select => 'SUM(movimiento_ganados.cant) as ing',
-          :joins => [:movimiento_ganados, :movimientos_tipo], 
-          :group  => 'movimiento_ganados.ganado_id',
-          :conditions => ["fecha > ? and movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
-            "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
-          )
+        # mov = Movimiento.find(
+        #   :all, 
+        #   :select => 'SUM(movimiento_ganados.cant) as ing',
+        #   :joins => [:movimiento_ganados, :movimientos_tipo], 
+        #   :group  => 'movimiento_ganados.ganado_id',
+        #   :conditions => ["fecha < ? and movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
+        #     "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
+        #   )
 
-         if mov.any?
-          mov_salidas = mov.first.ing
-        end
+        #  if mov.any?
+        #   mov_salidas = mov.first.ing
+        # end
+
+        mov_salidas = sumatoria_mov('e', predio, nil, rec_mov.fecha)
 
         # sumatoria de movimientos entradas
         mov = Movimiento.find(
@@ -135,7 +192,7 @@ class Ganado < ActiveRecord::Base
           :select => 'SUM(movimiento_ganados.cant_sec) as ing',
           :joins => [:movimiento_ganados, :movimientos_tipo], 
           :group  => 'movimiento_ganados.ganado_id',
-          :conditions => ["fecha > ? and movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
+          :conditions => ["fecha < ? and movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
             "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
           )
 
@@ -150,12 +207,22 @@ class Ganado < ActiveRecord::Base
       end
     else
       # Hubo un recuento este mes, se devuelve su resultado
-      print("*** " + rec_info[:mes_actual].to_s)
-      mov = Movimiento.find(rec_info[:mes_actual], :joins => :ganados)
+      mov = rec_info[:mes_actual]
       return mov.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
     end
+  end
 
-  	
+  def saldo_parcial_ingresos(predio, rec_info)
+    rec = rec_info[:mes_anterior]
 
+    if rec_info[:mes_actual] != nil
+      rec = rec_info[:mes_actual]
+    end
+    # sumatoria de los ingresos
+    ingresos = sumatoria_ingr_egr("i", predio, rec.fecha, nil)
+
+    mov_ingresos = sumatoria_mov('i', predio, rec.fecha, nil)
+
+    return ingresos + mov_ingresos + rec.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
   end
 end
