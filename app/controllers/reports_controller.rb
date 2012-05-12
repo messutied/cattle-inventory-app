@@ -13,6 +13,8 @@ class ReportsController < ApplicationController
 
   	@mov_egresos = Movimiento.find(:all, :joins => [:movimientos_tipo, :predio_sec, :movimiento_ganados], 
   		:conditions => ["movimientos_tipos.tipo='m' and movimientos.predio_id = ?", @predio])
+
+    @menor_anio = 0
   end
 
 end

@@ -225,4 +225,23 @@ class Ganado < ActiveRecord::Base
 
     return ingresos + mov_ingresos + rec.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
   end
+
+  def saldo_mes(predio, rec_info)
+    rec = rec_info[:mes_anterior]
+
+    if rec_info[:mes_actual] != nil
+      rec = rec_info[:mes_actual]
+    end
+    # sumatoria de los ingresos
+    ingresos = sumatoria_ingr_egr("i", predio, rec.fecha, nil)
+
+    mov_ingresos = sumatoria_mov('i', predio, rec.fecha, nil)
+
+    # sumatoria de los egresos
+    egresos = sumatoria_ingr_egr("e", predio, rec.fecha, nil)
+
+    mov_egresos = sumatoria_mov('e', predio, rec.fecha, nil)
+
+    return ingresos + mov_ingresos + rec.movimiento_ganados.where("ganado_id = ?", self.id).first.cant + egresos + mov_egresos
+  end
 end

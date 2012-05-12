@@ -1,24 +1,37 @@
 <style>
-	.row-ggrupos td {
+	.row-ggrupos th {
 		text-align: center;
 		font-weight: bold;
 	}
 
-	.row-ganado td {
+	.row-ganado th {
 		text-align: center;
 	}
 
 	.row-saldo-ant td {
-		text-align: center;
+		text-align: right;
 	}
 
 	.row-mov td {
-		text-align: center;
+		text-align: right;
 	}
 
 	.table th {
-		background-color: white !important;
+		background-color: #F4F4F4 !important;
 		color: black !important;
+
+	}
+
+	.table {
+		font-size: 0.9em;
+	}
+
+	.row-saldo td {
+		background-color: #F4F4F4 !important;
+		color: black !important;
+		text-align: right;
+		font-weight: bold;
+
 	}
 </style>
 
@@ -26,21 +39,21 @@
 	<tr class="row-ggrupos">
 		<th colspan="2"></th>
 		<% @g_grupos.each do |gg| %>
-			<td colspan="<%= gg.ganados.length %>"><%= gg.nombre %></td>
+			<th colspan="<%= gg.ganados.length %>"><%= gg.nombre %></th>
 		<% end %>
 	</tr>
 
 	<tr class="row-ganado">
 		<th colspan="2"></th>
 		<% @ganados.each do |g| %>
-			<td><%= g.nombre %></td>
+			<th><%= g.nombre %></th>
 		<% end %>
 	</tr>
 
-	<tr class="row-saldo-ant">
+	<tr class="row-saldo">
 		<th colspan="2">Saldo Inicial</th>
 		<% @ganados.each do |g| %>
-			<td><%= g.cant_inicial(@predio, @info_recuento) %></td>
+			<td><%= @menor_anio += g.cant_inicial(@predio, @info_recuento) %></td>
 		<% end %>
 	</tr>
 
@@ -66,7 +79,7 @@
 		</tr>
 	<% end %>
 
-	<tr class="row-ganado">
+	<tr class="row-saldo">
 		<th colspan="2">Saldo Parcial</th>
 		<% @ganados.each do |g| %>
 			<td><%= g.saldo_parcial_ingresos(@predio, @info_recuento) %></td>
@@ -94,4 +107,10 @@
 		</tr>
 	<% end %>
 	
+	<tr class="row-saldo">
+		<th colspan="2">Saldo del Mes</th>
+		<% @ganados.each do |g| %>
+			<td><%= g.saldo_mes(@predio, @info_recuento) %></td>
+		<% end %>
+	</tr>
 </table>
