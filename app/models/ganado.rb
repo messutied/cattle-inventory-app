@@ -171,34 +171,10 @@ class Ganado < ActiveRecord::Base
         egresos = sumatoria_ingr_egr("e", predio, nil, rec_mov.fecha)
 
         # sumatoria de movimientos salidas
-        # mov = Movimiento.find(
-        #   :all, 
-        #   :select => 'SUM(movimiento_ganados.cant) as ing',
-        #   :joins => [:movimiento_ganados, :movimientos_tipo], 
-        #   :group  => 'movimiento_ganados.ganado_id',
-        #   :conditions => ["fecha < ? and movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
-        #     "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
-        #   )
-
-        #  if mov.any?
-        #   mov_salidas = mov.first.ing
-        # end
-
         mov_salidas = sumatoria_mov('e', predio, nil, rec_mov.fecha)
 
         # sumatoria de movimientos entradas
-        mov = Movimiento.find(
-          :all, 
-          :select => 'SUM(movimiento_ganados.cant_sec) as ing',
-          :joins => [:movimiento_ganados, :movimientos_tipo], 
-          :group  => 'movimiento_ganados.ganado_id',
-          :conditions => ["fecha < ? and movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
-            "and movimiento_ganados.ganado_id = ?", rec_mov.fecha, predio, self.id]
-          )
-
-         if mov.any?
-          mov_entradas = mov.first.ing
-        end
+        mov_salidas = sumatoria_mov('i', predio, nil, rec_mov.fecha)
 
         return rec_cant + ingresos + mov_entradas - egresos - mov_salidas
 
