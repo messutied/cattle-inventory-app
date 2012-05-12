@@ -25,8 +25,6 @@ class Movimiento < ActiveRecord::Base
 		end
 
 		conditions_str = "fecha > ? and movimientos_tipos.id = ? and movimientos.predio_id = ? "
-
-
 		
 
 		if ganados == -1

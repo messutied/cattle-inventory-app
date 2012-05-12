@@ -64,9 +64,24 @@ class Ganado < ActiveRecord::Base
     return mov.empty? ? 0 : mov.first.ing
   end
 
-  def sumatoria_ingr_egr(tipo, predio, fecha_desde=nil, fecha_hasta=nil)
-    conditions_str = "movimientos_tipos.tipo='"+tipo+"' and movimientos.predio_id = "+predio.to_s+
-      " and movimiento_ganados.ganado_id = ?"
+  def sumatoria_ingr_egr(tipo, predio, fecha_desde=nil, fecha_hasta=nil, ganados=nil)
+    conditions_str = "movimientos_tipos.tipo='"+tipo+"' and movimientos.predio_id = "+predio.to_s
+
+    if ganados == nil
+      conditions_str += " and movimiento_ganados.ganado_id = "+self.id.to_s
+    else
+      ganados_str = ""
+
+      ganados.each do |g|
+        ganados_str += "OR movimiento_ganados.ganado_id = "+g.to_s+" "
+      end
+
+      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
+
+      if ganados_str != ""
+        conditions_str += " and ("+ganados_str+") "
+      end
+    end
 
     if fecha_desde != nil
       conditions_str += " and fecha > ?"
@@ -76,7 +91,7 @@ class Ganado < ActiveRecord::Base
       conditions_str += " and fecha < ?"
     end
 
-    conditions_arr = [conditions_str, self.id]
+    conditions_arr = [conditions_str]
 
     if fecha_desde != nil
       conditions_arr.push(fecha_desde)
@@ -90,7 +105,7 @@ class Ganado < ActiveRecord::Base
       :all, 
       :select => 'SUM(movimiento_ganados.cant) as sumatoria',
       :joins => [:movimiento_ganados, :movimientos_tipo], 
-      :group  => 'movimiento_ganados.ganado_id',
+      :group  => ganados == nil ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
       :conditions => conditions_arr
       )
 
