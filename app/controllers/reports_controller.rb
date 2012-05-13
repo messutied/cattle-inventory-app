@@ -15,9 +15,9 @@ class ReportsController < ApplicationController
   		:conditions => ["movimientos_tipos.tipo='m' and movimientos.predio_id = ?", @predio])
 
 
-    @menor_anio = [1, 2]
-    @mayor_anio = -1
-    @todos = -2
+    @ganado_menor_anio = [1, 2]
+    @ganado_mayor_anio = -1
+    @ganado_todos = -2
   end
 
 end

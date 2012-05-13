@@ -29,9 +29,7 @@ class Movimiento < ActiveRecord::Base
 
 		if ganados == -1
 			conditions_str += " and movimiento_ganados.ganado_id > 2 "
-		elsif ganados == -2
-
-		else
+		elsif ganados != - 2
 			ganados_str = ""
 
 			ganados.each do |g|
@@ -56,6 +54,45 @@ class Movimiento < ActiveRecord::Base
 			)
 
 		return mov.empty? ? 0 : mov.first.ing
+	end
+
+	def total_por_ganado(ganado, cant_sec=false)
+		if ganado.class == String or ganado.class == Fixnum
+			if self.movimiento_ganados.where("ganado_id=?", ganado).any?
+				if cant_sec
+					return self.movimiento_ganados.where("ganado_id=?", ganado).first.cant_sec
+				else
+					return self.movimiento_ganados.where("ganado_id=?", ganado).first.cant
+				end
+			end
+
+			return 0
+		else
+			conditions_str = ""
+			ganado_str = ""
+
+			if ganado == -1
+				conditions_str += "ganado_id > 2 "
+			elsif ganado != - 2
+				ganado.each do |g|
+					ganado_str += ","+g.to_s
+				end
+
+				ganado_str = ganado_str[1..-1] # strip first comma
+				conditions_str = "ganado_id in ("+ganado_str+")"
+			end
+
+			
+
+			total = self.movimiento_ganados.find(
+				:all, 
+				:select => "sum(cant"+(cant_sec ? "_sec" : "")+") as total", 
+				:group => "movimiento_ganados.id",
+				:conditions => conditions_str
+			)
+
+			return total.any? ? total.first.total : 0
+		end
 	end
 
 

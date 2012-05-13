@@ -69,9 +69,9 @@
 			<% @ganados.each do |g| %>
 				<td><%= t = g.cant_ing_egr(@predio, @info_recuento, i.id) %></td>
 			<% end %>
-		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @menor_anio)%></td>
-		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @mayor_anio)%></td>
-		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @todos)%></td>
+		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @ganado_menor_anio)%></td>
+		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @ganado_mayor_anio)%></td>
+		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @ganado_todos)%></td>
 		</tr>
 	<% end %>
 
@@ -80,14 +80,12 @@
 		<tr class="row-mov">
 			<th colspan="2">De <%= m.predio.nombre %></th>
 			<% @ganados.each do |g| %>
-				<td><%= m.movimiento_ganados.where("ganado_id=?", g.id).any? ? 
-						m.movimiento_ganados.where("ganado_id=?", g.id).first.cant_sec : 0 
-					%>
+				<td><%= m.total_por_ganado(g.id, true) %>
 				</td>
 			<% end %>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= m.total_por_ganado(@ganado_menor_anio, true) %></td>
+		<td><%= m.total_por_ganado(@ganado_mayor_anio, true) %></td>
+		<td><%= m.total_por_ganado(@ganado_todos, true) %></td>
 		</tr>
 	<% end %>
 
@@ -107,9 +105,9 @@
 			<% @ganados.each do |g| %>
 				<td><%= g.cant_ing_egr(@predio, @info_recuento, e.id) %></td>
 			<% end %>
-		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @menor_anio)%></td>
-		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @mayor_anio)%></td>
-		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @todos)%></td>
+		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @ganado_menor_anio)%></td>
+		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @ganado_mayor_anio)%></td>
+		<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @ganado_todos)%></td>
 		</tr>
 	<% end %>
 
@@ -122,9 +120,9 @@
 					%>
 				</td>
 			<% end %>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= m.total_por_ganado(@ganado_menor_anio, false) %></td>
+		<td><%= m.total_por_ganado(@ganado_mayor_anio, false) %></td>
+		<td><%= m.total_por_ganado(@ganado_todos, false) %></td>
 		</tr>
 	<% end %>
 	
