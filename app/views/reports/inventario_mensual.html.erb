@@ -56,11 +56,12 @@
 	<tr class="row-saldo">
 		<th colspan="2">Saldo Inicial</th>
 		<% @ganados.each do |g| %>
-			<td><%= g.cant_inicial(@predio, @info_recuento) %></td>
+			<!-- <td><%= g.cant_inicial(@predio, @info_recuento) %></td> -->
+			<td><%= Movimiento.cant_inicial(@predio, @info_recuento, g.id) %></td>
 		<% end %>
-		<th></th>
-		<th></th>
-		<th></th>
+		<td><%= Movimiento.cant_inicial(@predio, @info_recuento, @ganado_menor_anio) %></td>
+		<td><%= Movimiento.cant_inicial(@predio, @info_recuento, @ganado_mayor_anio) %></td>
+		<td><%= Movimiento.cant_inicial(@predio, @info_recuento, @ganado_todos) %></td>
 	</tr>
 
 	<% @m_tipos_ing.each do |i| %>
@@ -131,8 +132,8 @@
 		<% @ganados.each do |g| %>
 			<td><%= g.saldo_mes(@predio, @info_recuento) %></td>
 		<% end %>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @ganado_menor_anio) %></td>
+		<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @ganado_mayor_anio) %></td>
+		<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @ganado_todos) %></td>
 	</tr>
 </table>
