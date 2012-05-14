@@ -95,9 +95,9 @@
 		<% @ganados.each do |g| %>
 			<td><%= g.saldo_parcial_ingresos(@predio, @info_recuento) %></td>
 		<% end %>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @ganado_menor_anio) %></td>
+		<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @ganado_mayor_anio) %></td>
+		<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @ganado_todos) %></td>
 	</tr>
 
 	<% @m_tipos_egr.each do |e| %>

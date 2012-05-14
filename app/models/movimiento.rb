@@ -18,8 +18,10 @@ class Movimiento < ActiveRecord::Base
     if ganados.class == Fixnum
     	if ganados == -1
 				conditions_str += " and movimiento_ganados.ganado_id > 2 "
-			elsif ganados != - 2
+			elsif ganados != -2
       	conditions_str += " and movimiento_ganados.ganado_id = "+ganados.to_s
+      else
+				# debugger
       end
     else
       ganados_str = ""
@@ -57,12 +59,12 @@ class Movimiento < ActiveRecord::Base
       :all, 
       :select => 'SUM(movimiento_ganados.cant) as sumatoria',
       :joins => [:movimiento_ganados, :movimientos_tipo], 
-      :group  => (ganados.class == Fixnum and ganados > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+      # :group  => (ganados.class == Fixnum and ganados > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
       :conditions => conditions_arr
       )
 
     if mov.any?
-      return mov.first.sumatoria
+      return mov.first.sumatoria == nil ? 0 : mov.first.sumatoria
     end
     return 0
   end
@@ -73,7 +75,7 @@ class Movimiento < ActiveRecord::Base
     if ganados.class == Fixnum
     	if ganados == -1
 				conditions_str += " and movimiento_ganados.ganado_id > 2 "
-			elsif ganados != - 2
+			elsif ganados != -2
       	conditions_str += " and movimiento_ganados.ganado_id = "+ganados.to_s
       end
     else
@@ -208,10 +210,8 @@ class Movimiento < ActiveRecord::Base
     if ganado.class == Fixnum
     	if ganado == -1
 				conditions_str += "ganado_id > 2 "
-			elsif ganado != - 2
+			elsif ganado != -2
       	conditions_str += " ganado_id = "+ganado.to_s
-      else
-      	conditions_str += "1=1"
       end
     else
       ganados_str = ""
@@ -228,6 +228,7 @@ class Movimiento < ActiveRecord::Base
     end
 
     # sumatoria de los ingresos
+    # debugger
     ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, rec.fecha, nil)
 
     mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, rec.fecha, nil)
@@ -248,7 +249,56 @@ class Movimiento < ActiveRecord::Base
     rec_cant = rec_cant.any? ? rec_cant.first.total : 0
     # rec_cant = rec.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
 
+    # return " " + ingresos.to_s + ", " + mov_ingresos.to_s + ", " + rec_cant.to_s + ", " + egresos.to_s + ", " + mov_egresos.to_s
     return ingresos + mov_ingresos + rec_cant - egresos - mov_egresos
+  end
+
+  def self.saldo_parcial_ingresos(predio, rec_info, ganado)
+
+  	conditions_str = ""
+
+    if ganado.class == Fixnum
+    	if ganado == -1
+				conditions_str += "ganado_id > 2 "
+			elsif ganado != -2
+      	conditions_str += " ganado_id = "+ganado.to_s
+      end
+    else
+      ganados_str = ""
+
+      ganado.each do |g|
+        ganados_str += "OR ganado_id = "+g.to_s+" "
+      end
+
+      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
+
+      if ganados_str != ""
+        conditions_str += "("+ganados_str+") "
+      end
+    end
+
+
+    rec = rec_info[:mes_anterior]
+
+    if rec_info[:mes_actual] != nil
+      rec = rec_info[:mes_actual]
+    end
+    # sumatoria de los ingresos
+    ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, rec.fecha, nil)
+
+    mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, rec.fecha, nil)
+
+    rec_cant = rec.movimiento_ganados.find(
+    	:all, 
+      :select => 'SUM(movimiento_ganados.cant) as total',
+      :joins => [:movimiento], 
+      :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+      :conditions => [conditions_str]
+    )
+
+    rec_cant = rec_cant.any? ? rec_cant.first.total : 0
+
+    return ingresos + mov_ingresos + rec_cant
   end
 
 	def self.cant_ing_egr(predio, rec_info, tipo_ing_egr, ganados, cant_sec=false)

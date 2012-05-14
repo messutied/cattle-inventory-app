@@ -18,6 +18,8 @@ class ReportsController < ApplicationController
     @ganado_menor_anio = [1, 2]
     @ganado_mayor_anio = -1
     @ganado_todos = -2
+
+    @br = ["Reportes", "Inventario Mensual"]
   end
 
 end
