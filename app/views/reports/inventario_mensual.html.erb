@@ -88,10 +88,10 @@
 			<th colspan="2">De <%= m.predio.nombre %></th>
 			<% @ganados.each do |g| %>
 				<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-				<!-- <td class="<%= (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) ? "perdida" : "" %>">
+				<td class="<%= (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) ? "perdida" : "" %>">
 					<%= mov_gan.any? ? mov_gan.first.cant : 0 %>
-				</td> -->
-				<td><%= m.total_por_ganado(g.id, true) %>
+				</td>
+				<!-- <td><%= m.total_por_ganado(g.id, true) %> -->
 				</td>
 			<% end %>
 		<td><%= m.total_por_ganado(@ganado_menor_anio, true) %></td>
