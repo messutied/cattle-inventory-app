@@ -125,6 +125,29 @@ class Movimiento < ActiveRecord::Base
   end
 
   def self.cant_inicial(predio, rec_info, ganado)
+
+    conditions_str = ""
+
+    if ganado.class == Fixnum
+      if ganado == -1
+        conditions_str += "ganado_id > 2 "
+      elsif ganado != - 2
+        conditions_str += " ganado_id = "+ganado.to_s
+      end
+    else
+      ganados_str = ""
+
+      ganado.each do |g|
+        ganados_str += "OR ganado_id = "+g.to_s+" "
+      end
+
+      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
+
+      if ganados_str != ""
+        conditions_str += "("+ganados_str+") "
+      end
+    end
+    
   	# Revisar recuentos en el mes
     if rec_info[:mes_actual] == nil # si no hubo recuentos en el mes
 
@@ -133,29 +156,7 @@ class Movimiento < ActiveRecord::Base
       if rec_info[:mes_anterior] != nil # si hay recuentos
         mov = rec_info[:mes_anterior]
 
-        conditions_str = ""
-
-        if ganado.class == Fixnum
-		    	if ganado == -1
-						conditions_str += "ganado_id > 2 "
-					elsif ganado != - 2
-		      	conditions_str += " ganado_id = "+ganado.to_s
-		      end
-		    else
-		      ganados_str = ""
-
-		      ganado.each do |g|
-		        ganados_str += "OR ganado_id = "+g.to_s+" "
-		      end
-
-		      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
-
-		      if ganados_str != ""
-		        conditions_str += "("+ganados_str+") "
-		      end
-		    end
-
-		    print("*********** "+conditions_str)
+		    # print("*********** "+conditions_str)
 
         rec_mov       = mov
         # rec_cant      = rec_mov.movimiento_ganados.where(conditions_str).first.cant
@@ -193,8 +194,18 @@ class Movimiento < ActiveRecord::Base
       end
     else
       # Hubo un recuento este mes, se devuelve su resultado
-      mov = rec_info[:mes_actual]
-      return mov.movimiento_ganados.where(conditions_str).first.cant
+      rec_mov = rec_info[:mes_actual]
+
+       rec_cant = rec_mov.movimiento_ganados.find(
+          :all, 
+          :select => 'SUM(movimiento_ganados.cant) as total',
+          :joins => [:movimiento], 
+          :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+          :conditions => [conditions_str]
+        )
+
+        rec_cant = rec_cant.any? ? rec_cant.first.total : 0
+        return rec_cant
     end
   end
 
