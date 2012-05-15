@@ -33,6 +33,12 @@
 		font-weight: bold;
 
 	}
+
+	td.perdida {
+		color: red;
+		background-color: #FFF3F1;
+		font-weight: bold;
+	}
 </style>
 
 <table class="table table-bordered" id="tabla-inv-mensual">
@@ -81,6 +87,10 @@
 		<tr class="row-mov">
 			<th colspan="2">De <%= m.predio.nombre %></th>
 			<% @ganados.each do |g| %>
+				<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
+				<!-- <td class="<%= (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) ? "perdida" : "" %>">
+					<%= mov_gan.any? ? mov_gan.first.cant : 0 %>
+				</td> -->
 				<td><%= m.total_por_ganado(g.id, true) %>
 				</td>
 			<% end %>
@@ -116,9 +126,9 @@
 		<tr class="row-mov">
 			<th colspan="2">A <%= m.predio_sec.nombre %></th>
 			<% @ganados.each do |g| %>
-				<td><%= m.movimiento_ganados.where("ganado_id=?", g.id).any? ? 
-						m.movimiento_ganados.where("ganado_id=?", g.id).first.cant : 0 
-					%>
+				<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
+				<td class="<%= (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) ? "perdida" : "" %>">
+					<%= mov_gan.any? ? mov_gan.first.cant : 0 %>
 				</td>
 			<% end %>
 		<td><%= m.total_por_ganado(@ganado_menor_anio, false) %></td>
