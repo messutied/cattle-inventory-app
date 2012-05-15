@@ -298,7 +298,7 @@ class Movimiento < ActiveRecord::Base
 
     rec_cant = rec_cant.any? ? rec_cant.first.total : 0
 
-    return ingresos + mov_ingresos + rec_cant
+    return ingresos.to_i + mov_ingresos.to_i + rec_cant.to_i
   end
 
 	def self.cant_ing_egr(predio, rec_info, tipo_ing_egr, ganados, cant_sec=false)
