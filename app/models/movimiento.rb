@@ -250,7 +250,7 @@ class Movimiento < ActiveRecord::Base
     # rec_cant = rec.movimiento_ganados.where("ganado_id = ?", self.id).first.cant
 
     # return " " + ingresos.to_s + ", " + mov_ingresos.to_s + ", " + rec_cant.to_s + ", " + egresos.to_s + ", " + mov_egresos.to_s
-    return ingresos + mov_ingresos + rec_cant - egresos - mov_egresos
+    return ingresos.to_i + mov_ingresos.to_i + rec_cant.to_i - egresos.to_i - mov_egresos.to_i
   end
 
   def self.saldo_parcial_ingresos(predio, rec_info, ganado)
