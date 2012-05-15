@@ -6,6 +6,8 @@ class MovimientosTiposController < ApplicationController
   def index
     @movimientos_tipos = MovimientosTipo.all
 
+    @br = ["Tipos de Movimiento", "Listado"]
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @movimientos_tipos }

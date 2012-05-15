@@ -1,21 +1,19 @@
-<h1>Listing movimientos_tipos</h1>
-
 <table class="table table-bordered table-striped">
   <tr>
     <th>Nombre</th>
     <th>Tipo</th>
     <th></th>
     <th></th>
-    <th></th>
+    <!-- <th></th> -->
   </tr>
 
 <% @movimientos_tipos.each do |movimientos_tipo| %>
   <tr>
     <td width="50%"><%= movimientos_tipo.nombre %></td>
     <td width="30%"><%= movimientos_tipo.tipo %></td>
-    <td><%= link_to 'Show', movimientos_tipo %></td>
-    <td><%= link_to 'Edit', edit_movimientos_tipo_path(movimientos_tipo) %></td>
-    <td><%= link_to 'Destroy', movimientos_tipo, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Ver', movimientos_tipo %></td>
+    <td><%= link_to 'Editar', edit_movimientos_tipo_path(movimientos_tipo) %></td>
+    <!-- <td><%= link_to 'Destroy', movimientos_tipo, :confirm => 'Are you sure?', :method => :delete %></td> -->
   </tr>
 <% end %>
 </table>

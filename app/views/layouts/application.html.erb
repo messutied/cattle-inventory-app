@@ -53,7 +53,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Ganaderia HN</a>
+          <a class="brand" href="/">Ganaderia HN</a>
           <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-user"></i> <%= current_user.nombre%>
@@ -67,11 +67,14 @@
           </div>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Inventario</a></li>
-              <li><a href="#about">Proveedores</a></li>
-              <li><a href="#contact">Ayuda</a></li>
+              <li class="active"><a href="/">Inventario</a></li>
+              <li><a href="#">Proveedores</a></li>
+              <!-- <li><a href="#contact">Ayuda</a></li> -->
             </ul>
           </div><!--/.nav-collapse -->
+          <ul class="nav">
+            <li><a href="#" id="hide-menu"><i class="icon-minus-sign icon-white"></i> <span>Esconder Menú</span></a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -81,7 +84,7 @@
         <div class="span2">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li <%= nav_sel("home") %>><a href="/">Inicio</a></li>
+              <li <%= nav_sel("home") %>><a href="/"><i style="margin-top: 3px;" class="icon-home"></i> Inicio</a></li>
               <li class="nav-header">Acciones</li>
               <li <%= nav_sel("in_eg_new") %>><a href="/ingreso-egreso/new">Ingresos/Egresos</a></li>
               <li <%= nav_sel("mov_new") %>><a href="/movimiento/new">Movimientos</a></li>
@@ -93,7 +96,7 @@
               <li <%= nav_sel("mov_tipos_list") %>><a href="/movimientos_tipos">Tipos de Movimientos</a></li>
               <li class="nav-header">Reportes</li>
               <li><a href="#">General</a></li>
-              <li><a href="#">Inventario</a></li>
+              <li <%= nav_sel("rep_inv_mensual") %>><a href="/reports/inventario_mensual">Inventario</a></li>
               <li class="nav-header">Configuración</li>
               <li><a href="#">General</a></li>
               <li><a href="#">Gestión</a></li>
@@ -102,12 +105,15 @@
         </div><!--/span-->
         <div class="span10">
           <ul class="breadcrumb">
-            <% if yield(:breadcrumb).length < 1 %>
+            <% if @br == nil %>
               <li>
                 <a href="#">Inicio</a>
               </li>
             <% else %>
-              <%=h yield(:breadcrumb) %>
+              <% @br.each_with_index do |b, i| %>
+                <li><a href='#'><%= b %></a></li> 
+                <% unless i+1 >= @br.size %><span class='divider'>/</span> <% end %>
+              <% end %>
             <% end %>
             
           </ul>
