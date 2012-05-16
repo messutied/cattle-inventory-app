@@ -39,6 +39,14 @@
 		background-color: #FFF3F1;
 		font-weight: bold;
 	}
+	.table tbody tr:hover td.perdida {
+		color: red;
+		background-color: #FFF3F1;
+	}
+
+	.table tbody td:hover.perdida {
+		cursor: pointer;
+	}
 </style>
 
 <table class="table table-bordered" id="tabla-inv-mensual">
@@ -88,8 +96,9 @@
 			<th colspan="2">De <%= m.predio.nombre %></th>
 			<% @ganados.each do |g| %>
 				<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-				<td class="<%= (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) ? "perdida" : "" %>">
-					<%= mov_gan.any? ? mov_gan.first.cant : 0 %>
+				<% perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) %>
+				<td class="<%= perdida ? "perdida" : "" %>">
+					<%= mov_gan.any? ? mov_gan.first.cant_sec : 0 %>
 				</td>
 				<!-- <td><%= m.total_por_ganado(g.id, true) %> -->
 				</td>
@@ -127,8 +136,9 @@
 			<th colspan="2">A <%= m.predio_sec.nombre %></th>
 			<% @ganados.each do |g| %>
 				<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-				<td class="<%= (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) ? "perdida" : "" %>">
-					<%= mov_gan.any? ? mov_gan.first.cant : 0 %>
+				<% perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) %>
+				<td class="<%= perdida ? "perdida" : "" %>" data-content="<%= perdida ? "Enviados: <b>"+mov_gan.first.cant.to_s+"</b> - Recividos: <b>"+mov_gan.first.cant_sec.to_s+"</b>" : "" %>">
+					<span><%= mov_gan.any? ? mov_gan.first.cant : 0 %></span>
 				</td>
 			<% end %>
 		<td><%= m.total_por_ganado(@ganado_menor_anio, false) %></td>

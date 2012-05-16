@@ -12,6 +12,8 @@ var AGan = {};
     $(document).ready(function() {
         TYPE = $("input[name=type]").val();
 
+        $("td.perdida").popover({title: "Info. Pérdida de Ganado", delay: { show: 500, hide: 0 }});
+
         // Hide/Show Menu
         $("#hide-menu").click(function() {
             if ($(".span2").is(":visible")) {
