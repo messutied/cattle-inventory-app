@@ -12,6 +12,8 @@ class Movimiento < ActiveRecord::Base
 
 	validates  :detalle, :movimientos_tipo_id, :presence => true
 
+  # Obtiene la sumatoria de ingresos o egresos por ganado y/o fecha 
+  # en un predio en el mes gestion
 	def self.sumatoria_ingr_egr(tipo, predio, ganados, fecha_desde=nil, fecha_hasta=nil)
     conditions_str = "movimientos_tipos.tipo='"+tipo+"' and movimientos.predio_id = "+predio.to_s
 
@@ -69,6 +71,8 @@ class Movimiento < ActiveRecord::Base
     return 0
   end
 
+  # Obtiene la sumatoria de movimientos (ingresos o egresos) por ganado 
+  # y/o fecha en un predio en el mes gestion
 	def self.sumatoria_mov(tipo, predio, ganados, fecha_desde=nil, fecha_hasta=nil)
     conditions_str = "movimientos_tipos.tipo='m' and movimientos.predio"+(tipo == "i" ? '_sec' : '')+"_id = "+predio.to_s
 
@@ -124,6 +128,7 @@ class Movimiento < ActiveRecord::Base
     return 0
   end
 
+  # Obtiene la cantidad inicial en un predio, por ganado en el mes gestion
   def self.cant_inicial(predio, rec_info, ganado)
 
     conditions_str = ""
@@ -209,6 +214,57 @@ class Movimiento < ActiveRecord::Base
     end
   end
 
+  # Obtiene el saldo parcial, que es el saldo inicial + los ingresos de ganado
+  # en un predio, por ganado, en el mes gestion
+  def self.saldo_parcial_ingresos(predio, rec_info, ganado)
+
+    conditions_str = ""
+
+    if ganado.class == Fixnum
+      if ganado == -1
+        conditions_str += "ganado_id > 2 "
+      elsif ganado != -2
+        conditions_str += " ganado_id = "+ganado.to_s
+      end
+    else
+      ganados_str = ""
+
+      ganado.each do |g|
+        ganados_str += "OR ganado_id = "+g.to_s+" "
+      end
+
+      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
+
+      if ganados_str != ""
+        conditions_str += "("+ganados_str+") "
+      end
+    end
+
+
+    rec = rec_info[:mes_anterior]
+
+    if rec_info[:mes_actual] != nil
+      rec = rec_info[:mes_actual]
+    end
+    # sumatoria de los ingresos
+    ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, rec.fecha, nil)
+
+    mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, rec.fecha, nil)
+
+    rec_cant = rec.movimiento_ganados.find(
+      :all, 
+      :select => 'SUM(movimiento_ganados.cant) as total',
+      :joins => [:movimiento], 
+      :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+      :conditions => [conditions_str]
+    )
+
+    rec_cant = rec_cant.any? ? rec_cant.first.total : 0
+
+    return ingresos.to_i + mov_ingresos.to_i + rec_cant.to_i
+  end
+
+  # Saldo total en un predio, por ganado en el mes gestion
   def self.saldo_mes(predio, rec_info, ganado)
     rec = rec_info[:mes_anterior]
 
@@ -264,54 +320,8 @@ class Movimiento < ActiveRecord::Base
     return ingresos.to_i + mov_ingresos.to_i + rec_cant.to_i - egresos.to_i - mov_egresos.to_i
   end
 
-  def self.saldo_parcial_ingresos(predio, rec_info, ganado)
-
-  	conditions_str = ""
-
-    if ganado.class == Fixnum
-    	if ganado == -1
-				conditions_str += "ganado_id > 2 "
-			elsif ganado != -2
-      	conditions_str += " ganado_id = "+ganado.to_s
-      end
-    else
-      ganados_str = ""
-
-      ganado.each do |g|
-        ganados_str += "OR ganado_id = "+g.to_s+" "
-      end
-
-      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
-
-      if ganados_str != ""
-        conditions_str += "("+ganados_str+") "
-      end
-    end
-
-
-    rec = rec_info[:mes_anterior]
-
-    if rec_info[:mes_actual] != nil
-      rec = rec_info[:mes_actual]
-    end
-    # sumatoria de los ingresos
-    ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, rec.fecha, nil)
-
-    mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, rec.fecha, nil)
-
-    rec_cant = rec.movimiento_ganados.find(
-    	:all, 
-      :select => 'SUM(movimiento_ganados.cant) as total',
-      :joins => [:movimiento], 
-      :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
-      :conditions => [conditions_str]
-    )
-
-    rec_cant = rec_cant.any? ? rec_cant.first.total : 0
-
-    return ingresos.to_i + mov_ingresos.to_i + rec_cant.to_i
-  end
-
+  # Cantidad de ingresos o egreses en un predio por ganado 
+  # (Usado para calcular los totales de ganado menor/mayor de anio y total animal)
 	def self.cant_ing_egr(predio, rec_info, tipo_ing_egr, ganados, cant_sec=false)
 		fecha_desde = nil
 
@@ -353,6 +363,8 @@ class Movimiento < ActiveRecord::Base
 		return mov.empty? ? 0 : mov.first.ing
 	end
 
+  # Sumatoria total de ingresos/egresos y movimientos en un predio por ganado
+  # Usado para mostrar el TOTAL de ganado en un predio
 	def total_por_ganado(ganado, cant_sec=false)
 		if ganado.class == String or ganado.class == Fixnum
 			if self.movimiento_ganados.where("ganado_id=?", ganado).any?
