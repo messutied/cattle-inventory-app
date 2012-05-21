@@ -15,11 +15,15 @@ module MovimientosHelper
   end
 
   def month
-    Time.now.month
+    g = Gestion.gestion_abierta
+
+    g.mes
   end
 
   def year
-    Time.now.year
+    g = Gestion.gestion_abierta
+
+    g.anio
   end
 
   def fields_form(type)

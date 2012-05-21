@@ -15,6 +15,11 @@ class Gestion < ActiveRecord::Base
 		return {:desde => gesion_desde, :hasta => gesion_hasta}
 	end
 
+	def self.gestion_abierta
+		@gestion = Gestion.find_by_estado("A")
+		return @gestion
+	end
+
 	def self.gestion_actual
 		@gestion = Gestion.find_by_anio_and_mes(Time.now.year, Time.now.month)
 		return @gestion

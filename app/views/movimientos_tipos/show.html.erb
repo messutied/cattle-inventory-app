@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
 
 <p>
   <b>Nombre:</b>
@@ -11,5 +13,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_movimientos_tipo_path(@movimientos_tipo) %> |
-<%= link_to 'Back', movimientos_tipos_path %>
+<%= link_to 'Editar', edit_movimientos_tipo_path(@movimientos_tipo), :class => "btn btn-primary" %>
+<%= link_to 'Volver', movimientos_tipos_path, :class => "btn" %>
