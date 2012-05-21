@@ -1,0 +1,44 @@
+<table class="table table-bordered table-striped" style="width: 400px">
+  <tr>
+    <th>Gestiones</th>
+    <th>Estado</th>
+    <th></th>
+    <% if is_admin? %>
+      <th></th>
+    <% end %>
+  </tr>
+
+<% @gestions.each do |gestion| %>
+  <tr>
+    <td><%= "#{gestion.mes}/#{gestion.anio}" %></td>
+    <td><%= estado( gestion.estado ) %></td>
+    <td style="text-align: center">
+      <% if gestion.estado == "C" %>
+        <%= link_to 'Abrir', abrir_gestion_path(gestion) %>
+      <% else %>
+        <% if gestion.anio == Time.now.year and gestion.mes == Time.now.month %>
+          <% if Time.now.day == days_in_month(Time.now.month) %>
+            <%# link_to 'Cerrar', cerrar_gestion_path(gestion) %>
+          <% end %>
+        <% else %>
+          <%= link_to 'Cerrar', cerrar_gestion_path(gestion) %>
+        <% end %>
+      <% end %>
+    </td>
+    <% if is_admin? %>
+      <td style="text-align: center">
+        <%= link_to 'Eliminar', gestion, :confirm => '¿Eliminar la gestión?', :method => :delete %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= form_tag("/gestions/crear_anterior", :method => "post", :class => "form-inline") do %>
+  <select name="gestion"><%= options_for_select(@gestiones_anteriores, -1) %></select>
+  <input type="submit" value="Crear Gestión Anterior" class="btn btn-warning">
+<% end %>
+
+<%# link_to 'New Gestion', new_gestion_path %>

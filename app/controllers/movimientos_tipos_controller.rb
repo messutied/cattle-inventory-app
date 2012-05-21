@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class MovimientosTiposController < ApplicationController
+  before_filter :require_user
+  
   # GET /movimientos_tipos
   # GET /movimientos_tipos.xml
   def index

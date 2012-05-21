@@ -14,4 +14,21 @@ class Gestion < ActiveRecord::Base
 
 		return {:desde => gesion_desde, :hasta => gesion_hasta}
 	end
+
+	def self.gestion_actual
+		@gestion = Gestion.find_by_anio_and_mes(Time.now.year, Time.now.month)
+		return @gestion
+	end
+
+	def self.gestion_ultima
+    @gestions = Gestion.all(:order => "anio desc, mes desc", :limit => 1)
+
+    return @gestions.first
+	end
+
+	def self.gestion_mas_antigua
+		@gestions = Gestion.all(:order => "anio asc, mes asc", :limit => 1)
+
+    return @gestions.first
+	end
 end

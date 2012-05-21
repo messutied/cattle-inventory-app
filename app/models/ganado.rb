@@ -52,9 +52,9 @@ class Ganado < ActiveRecord::Base
 
     mov = Movimiento.find(
       :all, 
-      :select => 'SUM(movimiento_ganados.'+(cant_sec ? 'cant_sec' : 'cant')+') as ing',
-      :joins => [:movimiento_ganados, :movimientos_tipo], 
-      :group  => 'movimiento_ganados.ganado_id',
+      :select     => 'SUM(movimiento_ganados.'+(cant_sec ? 'cant_sec' : 'cant')+') as ing',
+      :joins      => [:movimiento_ganados, :movimientos_tipo], 
+      :group      => 'movimiento_ganados.ganado_id',
       :conditions => ["fecha > ? and movimientos_tipos.id = ? and movimientos.predio_id = ? "+
         "and movimiento_ganados.ganado_id = ?", fecha_desde, tipo_ing_egr, predio, self.id]
       )
@@ -101,9 +101,9 @@ class Ganado < ActiveRecord::Base
 
     mov = Movimiento.find(
       :all, 
-      :select => 'SUM(movimiento_ganados.cant) as sumatoria',
-      :joins => [:movimiento_ganados, :movimientos_tipo], 
-      :group  => ganados == nil ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+      :select     => 'SUM(movimiento_ganados.cant) as sumatoria',
+      :joins      => [:movimiento_ganados, :movimientos_tipo], 
+      :group      => ganados == nil ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
       :conditions => conditions_arr
       )
 

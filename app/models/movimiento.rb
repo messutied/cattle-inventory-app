@@ -116,9 +116,10 @@ class Movimiento < ActiveRecord::Base
     
     mov = Movimiento.find(
       :all, 
-      :select => 'SUM(movimiento_ganados.cant'+(tipo == "i" ? '_sec' : '')+') as sumatoria',
-      :joins => [:movimiento_ganados, :movimientos_tipo], 
-      :group  => (ganados.class == Fixnum and ganados > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+      :select     => 'SUM(movimiento_ganados.cant'+(tipo == "i" ? '_sec' : '')+') as sumatoria',
+      :joins      => [:movimiento_ganados, :movimientos_tipo], 
+      :group      => (ganados.class == Fixnum and ganados > 0) ? 
+                     'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
       :conditions => conditions_arr
       )
 
@@ -167,9 +168,9 @@ class Movimiento < ActiveRecord::Base
         # rec_cant      = rec_mov.movimiento_ganados.where(conditions_str).first.cant
         rec_cant = rec_mov.movimiento_ganados.find(
         	:all, 
-		      :select => 'SUM(movimiento_ganados.cant) as total',
-		      :joins => [:movimiento], 
-		      :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+		      :select     => 'SUM(movimiento_ganados.cant) as total',
+		      :joins      => [:movimiento], 
+		      :group      => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
 		      :conditions => [conditions_str]
 	      )
 
@@ -181,10 +182,10 @@ class Movimiento < ActiveRecord::Base
         mov_entradas  = 0
 
         # sumatoria de los ingresos
-        ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, nil, rec_mov.fecha)
+        ingresos    = Movimiento.sumatoria_ingr_egr("i", predio, ganado, nil, rec_mov.fecha)
 
         # sumatoria de los egresos
-        egresos = Movimiento.sumatoria_ingr_egr("e", predio, ganado, nil, rec_mov.fecha)
+        egresos     = Movimiento.sumatoria_ingr_egr("e", predio, ganado, nil, rec_mov.fecha)
 
         # sumatoria de movimientos salidas
         mov_salidas = Movimiento.sumatoria_mov('e', predio, ganado, nil, rec_mov.fecha)
@@ -203,9 +204,10 @@ class Movimiento < ActiveRecord::Base
 
        rec_cant = rec_mov.movimiento_ganados.find(
           :all, 
-          :select => 'SUM(movimiento_ganados.cant) as total',
-          :joins => [:movimiento], 
-          :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+          :select     => 'SUM(movimiento_ganados.cant) as total',
+          :joins      => [:movimiento], 
+          :group      => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 
+                         'movimientos.movimientos_tipo_id',
           :conditions => [conditions_str]
         )
 
@@ -253,9 +255,10 @@ class Movimiento < ActiveRecord::Base
 
     rec_cant = rec.movimiento_ganados.find(
       :all, 
-      :select => 'SUM(movimiento_ganados.cant) as total',
-      :joins => [:movimiento], 
-      :group  => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 'movimientos.movimientos_tipo_id',
+      :select     => 'SUM(movimiento_ganados.cant) as total',
+      :joins      => [:movimiento], 
+      :group      => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 
+                     'movimientos.movimientos_tipo_id',
       :conditions => [conditions_str]
     )
 

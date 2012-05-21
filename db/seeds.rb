@@ -9,6 +9,11 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 #
 
+Gestion.create([
+  {:anio => Time.now.year, :mes => Time.now.month, :estado => "A"},
+  {:anio => Time.now.year, :mes => Time.now.month-1, :estado => "C"}
+])
+
 UserType.create([
   {:nombre => 'ADM'},
   {:nombre => 'Owner'},
@@ -19,7 +24,7 @@ UserType.create([
 
 User.create([
   {:nombre=>'Eduardo Messuti', :username=>'edd', :mail=>'messuti.edd@gmail.com', :user_type_id=>1, :pass=>'126188'},
-  {:nombre=>'Sebastian Nogales', :username=>'seba', :mail=>'snogalesc@gmail.com', :user_type_id=>1, :pass=>'sebastian12345'}
+  {:nombre=>'Sebastian Nogales', :username=>'seba', :mail=>'snogalesc@gmail.com', :user_type_id=>2, :pass=>'sebastian12345'}
 ])
 
 Predio.create([

@@ -4,8 +4,13 @@ Ganaderia::Application.routes.draw do
 
   get "home/index"
 
+  get "gestions/abrir/:id" => "gestions#abrir"
+  get "gestions/cerrar/:id" => "gestions#cerrar"
+  post "gestions/crear_anterior" => "gestions#crear_anterior"
+
   resources :users
   resources :movimientos
+  resources :gestions
   resources :movimientos_tipos
 
   get "ingreso-egreso/new" => "movimientos#new", :type => "in_eg"

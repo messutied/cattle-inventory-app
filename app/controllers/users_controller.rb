@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class UsersController < ApplicationController
+  before_filter :require_user, :except => ["login", "do_login", "logout"]
+
   # GET /users
   # GET /users.xml
   def index

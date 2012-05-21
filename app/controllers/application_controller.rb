@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  # def is_admin?
-  #   current_user.user_tipo_id == 2
-  # end
+  def is_admin?
+    current_user.user_type_id == 1
+  end
 
   def store_location
     session[:return_to] = request.fullpath

@@ -49,6 +49,11 @@ module ApplicationHelper
       if params[:controller] == "reports" and params[:action] == "inventario_mensual"
         return raw(" class=\"active\"")
       end
+    when "config_gestion"
+      if params[:controller] == "gestions" and params[:action] == "index"
+        return raw(" class=\"active\"")
+      end
+    
     end
 
   end

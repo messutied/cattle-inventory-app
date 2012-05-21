@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120510033905) do
+ActiveRecord::Schema.define(:version => 20120520204714) do
 
   create_table "ganado_grupos", :force => true do |t|
     t.string   "nombre"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20120510033905) do
   create_table "gestions", :force => true do |t|
     t.integer  "anio"
     t.integer  "mes"
-    t.boolean  "estado"
+    t.string   "estado",     :limit => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

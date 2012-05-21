@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Anio:</b>
+  <%= @gestion.anio %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%= @gestion.estado %>
+</p>
+
+
+<%= link_to 'Edit', edit_gestion_path(@gestion) %> |
+<%= link_to 'Back', gestions_path %>
