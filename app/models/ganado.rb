@@ -38,7 +38,9 @@ class Ganado < ActiveRecord::Base
       rec_mes_anterior = mov.first
     end
 
-    return {:mes_actual => rec_mes_actual, :mes_anterior => rec_mes_anterior}
+    return { :mes_actual => rec_mes_actual, 
+             :mes_anterior => rec_mes_anterior, 
+             :last => rec_mes_actual != nil ? rec_mes_actual : rec_mes_anterior }
   end
 
   def cant_ing_egr(predio, rec_info, tipo_ing_egr, cant_sec=false)

@@ -1,5 +1,19 @@
 class Gestion < ActiveRecord::Base
 
+	def desde
+		return "#{self.anio}-#{self.mes}-01"
+	end
+
+	def hasta
+		gestion_mes = self.mes
+
+		if gestion_mes <= 11
+			return self.anio.to_s+"-"+("%02d" % (self.mes+1)).to_s+"-01"
+		else
+			return (gestion_anio+1).to_s+"-01-01" # si es diciembre, pasar a enero
+		end
+	end
+
 	def self.get_gestion
 		gestion_anio = Time.now.year
 		gestion_mes = Time.now.month
@@ -18,6 +32,12 @@ class Gestion < ActiveRecord::Base
 	def self.gestion_abierta
 		@gestion = Gestion.find_by_estado("A")
 		return @gestion
+	end
+
+	def self.gestion_abierta_str
+		@gestion = Gestion.gestion_abierta()
+
+		return @gestion.anio.to_s + "-" + @gestion.mes.to_s
 	end
 
 	def self.gestion_actual

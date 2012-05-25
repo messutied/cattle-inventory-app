@@ -10,7 +10,7 @@
 
 <% @gestions.each do |gestion| %>
   <tr>
-    <td><%= "#{gestion.mes}/#{gestion.anio}" %></td>
+    <td><%= "#{gestion.anio}-#{gestion.mes}" %></td>
     <td><%= estado( gestion.estado ) %></td>
     <td style="text-align: center">
       <% if gestion.estado == "C" %>

@@ -17,7 +17,7 @@ class GestionsController < ApplicationController
       12.downto(1) do |mes|
         @g = Gestion.find_by_anio_and_mes(anio, mes)
         if @g == nil and (anio != Time.now.year or mes < Time.now.month)
-          @gestiones_anteriores.push([mes.to_s+"/"+anio.to_s])
+          @gestiones_anteriores.push([anio.to_s+"-"+mes.to_s])
         end
       end
     end
