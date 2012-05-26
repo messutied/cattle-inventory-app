@@ -13,24 +13,7 @@ var AGan = {};
         TYPE = $("input[name=type]").val();
 
         $("td.perdida").popover({title: "Info. Pérdida de Ganado", delay: { show: 500, hide: 0 }});
-
-        // Hide/Show Menu
-        $("#hide-menu").click(function() {
-            if ($(".span2").is(":visible")) {
-                $(".span2").hide();
-                $("#hide-menu i").removeClass("icon-minus-sign").addClass("icon-plus-sign");
-                $("#hide-menu span").html("Mostrar Menú");
-                $(".span10").css("margin-left", "0");
-                $(".span10").removeClass("span10").addClass("span12");
-            }
-            else {
-                $(".span2").show();
-                $("#hide-menu i").removeClass("icon-plus-sign").addClass("icon-minus-sign");
-                $("#hide-menu span").html("Esconder Menú");
-                $(".span12").removeClass("span12").addClass("span10");
-                $(".span10").css("margin-left", "30px");
-            }
-        });
+        
 
         $("#movimiento_submit").click(function() {
             return validateSubmit();
