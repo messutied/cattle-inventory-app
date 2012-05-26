@@ -5,8 +5,8 @@ class Ganado < ActiveRecord::Base
 
   scope :un_mes, lambda {where("id=1 or id=2")}
 
-  def self.recuento_info(predio)
-    gestion = Gestion.get_gestion
+  def self.recuento_info(predio, gestion)
+    #gestion = Gestion.get_gestion
 
     rec_mes_actual = nil
     rec_mes_anterior = nil
@@ -16,7 +16,7 @@ class Ganado < ActiveRecord::Base
       :all, 
       :joins => :ganados, 
       :conditions => ["fecha >= ? and fecha < ? and movimientos_tipo_id=9 and predio_id = ?", 
-      gestion[:desde], gestion[:hasta], predio],
+      gestion.desde, gestion.hasta, predio],
       :order => "fecha desc",
       :limit => 1
       )
@@ -29,7 +29,7 @@ class Ganado < ActiveRecord::Base
     mov = Movimiento.find(
       :all, 
       :joins => :ganados, 
-      :conditions => ["fecha < ? and movimientos_tipo_id=9 and predio_id = ?", gestion[:desde], predio],
+      :conditions => ["fecha < ? and movimientos_tipo_id=9 and predio_id = ?", gestion.desde, predio],
       :order => "fecha desc",
       :limit => 1
       )

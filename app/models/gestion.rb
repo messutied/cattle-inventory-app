@@ -1,7 +1,8 @@
 class Gestion < ActiveRecord::Base
 
 	def desde
-		return "#{self.anio}-#{self.mes}-01"
+		#return "#{self.anio}-#{self.mes}-01"
+		return self.anio.to_s+"-"+("%02d" % self.mes).to_s+"-01"
 	end
 
 	def hasta
@@ -11,6 +12,14 @@ class Gestion < ActiveRecord::Base
 			return self.anio.to_s+"-"+("%02d" % (self.mes+1)).to_s+"-01"
 		else
 			return (gestion_anio+1).to_s+"-01-01" # si es diciembre, pasar a enero
+		end
+	end
+
+	def anterior
+		if self.mes > 1
+			return Gestion.find_by_anio_and_mes(self.anio, self.mes-1)
+		else
+			return Gestion.find_by_anio_and_mes(self.anio-1, 1)
 		end
 	end
 

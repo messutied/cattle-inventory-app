@@ -2,7 +2,7 @@
 
 <%= form_tag("inventario_mensual", :method => "GET", :class => "form-inline") do %>
 	<label for="gestion">Gestión:</label>
-	<%= select_tag(:filtro_gestion, options_for_gestiones(@gestion)) %>
+	<%= select_tag(:filtro_gestion, options_for_gestiones(@gestion_id)) %>
 	&nbsp;
 	&nbsp;
 
@@ -36,23 +36,22 @@
 		<tr class="row-saldo">
 			<th colspan="2">Saldo Inicial</th>
 			<% @ganados.each do |g| %>
-				<!-- <td><%= g.cant_inicial(@predio, @info_recuento) %></td> -->
-				<td><%= Movimiento.cant_inicial(@predio, @info_recuento, g.id) %></td>
+				<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, g.id) %></td>
 			<% end %>
-			<td><%= Movimiento.cant_inicial(@predio, @info_recuento, @ganado_menor_anio) %></td>
-			<td><%= Movimiento.cant_inicial(@predio, @info_recuento, @ganado_mayor_anio) %></td>
-			<td><%= Movimiento.cant_inicial(@predio, @info_recuento, @ganado_todos) %></td>
+			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, @ganado_menor_anio) %></td>
+			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, @ganado_mayor_anio) %></td>
+			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, @ganado_todos) %></td>
 		</tr>
 
 		<% @m_tipos_ing.each do |i| %>
 			<tr class="row-mov">
 				<th colspan="2"><%= i.nombre %></th>
 				<% @ganados.each do |g| %>
-					<td><%= t = g.cant_ing_egr(@predio, @info_recuento, i.id) %></td>
+					<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, g.id) %></td>
 				<% end %>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @ganado_menor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @ganado_mayor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, i.id, @ganado_todos)%></td>
+			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, @ganado_menor_anio)%></td>
+			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, @ganado_mayor_anio)%></td>
+			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, @ganado_todos)%></td>
 			</tr>
 		<% end %>
 
@@ -78,22 +77,22 @@
 		<tr class="row-saldo">
 			<th colspan="2">Saldo Parcial</th>
 			<% @ganados.each do |g| %>
-				<td><%= g.saldo_parcial_ingresos(@predio, @info_recuento) %></td>
+				<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, g.id) %></td>
 			<% end %>
-			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @ganado_menor_anio) %></td>
-			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @ganado_mayor_anio) %></td>
-			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @ganado_todos) %></td>
+			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, @ganado_menor_anio) %></td>
+			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, @ganado_mayor_anio) %></td>
+			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, @ganado_todos) %></td>
 		</tr>
 
 		<% @m_tipos_egr.each do |e| %>
 			<tr class="row-mov">
 				<th colspan="2"><%= e.nombre %></th>
 				<% @ganados.each do |g| %>
-					<td><%= g.cant_ing_egr(@predio, @info_recuento, e.id) %></td>
+					<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, g.id) %></td>
 				<% end %>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @ganado_menor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @ganado_mayor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, e.id, @ganado_todos)%></td>
+			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, @ganado_menor_anio)%></td>
+			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, @ganado_mayor_anio)%></td>
+			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, @ganado_todos)%></td>
 			</tr>
 		<% end %>
 
@@ -116,11 +115,11 @@
 		<tr class="row-saldo">
 			<th colspan="2">Saldo del Mes</th>
 			<% @ganados.each do |g| %>
-				<td><%= g.saldo_mes(@predio, @info_recuento) %></td>
+				<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, g.id) %></td>
 			<% end %>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @ganado_menor_anio) %></td>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @ganado_mayor_anio) %></td>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @ganado_todos) %></td>
+			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, @ganado_menor_anio) %></td>
+			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, @ganado_mayor_anio) %></td>
+			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, @ganado_todos) %></td>
 		</tr>
 	</table>
 
