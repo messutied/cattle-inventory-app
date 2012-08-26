@@ -23,8 +23,7 @@ UserType.create([
 
 
 User.create([
-  {:nombre=>'Eduardo Messuti', :username=>'edd', :mail=>'messuti.edd@gmail.com', :user_type_id=>1, :pass=>'126188'},
-  {:nombre=>'Sebastian Nogales', :username=>'seba', :mail=>'snogalesc@gmail.com', :user_type_id=>2, :pass=>'sebastian12345'}
+  {:nombre=>'Eduardo Messuti', :username=>'edd', :mail=>'messuti.edd@gmail.com', :user_type_id=>1, :pass=>'126188'}
 ])
 
 Predio.create([
