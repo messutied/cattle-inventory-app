@@ -4,3 +4,4 @@ log/*.log
 tmp/
 /*.sublime-*
 /vendor/cache
+.sass-cache/
