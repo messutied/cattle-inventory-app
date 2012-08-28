@@ -128,9 +128,9 @@ var AGan = {};
     AGan.add_fields = function (link, association, content) {
         var used = [];
         var unselected = false;
-        $j('.movimiento select:visible').each(function() {
-            used.push($j(this).val() * 1);
-            if ($j(this).val() == "") unselected = true;
+        $('.movimiento select:visible').each(function() {
+            used.push($(this).val() * 1);
+            if ($(this).val() == "") unselected = true;
         });
 
         if (unselected && TYPE != "rec") {
@@ -150,8 +150,8 @@ var AGan = {};
 
         var new_id = new Date().getTime();
         var regexp = new RegExp("new_" + association, "g");
-        var $fields = $j(content.replace(regexp, new_id));
-        $fields.insertBefore($j(link).parent().parent());
+        var $fields = $(content.replace(regexp, new_id));
+        $fields.insertBefore($(link).parent().parent());
 
         $fields.find("select").html(opts);
 
