@@ -3,6 +3,12 @@ require 'test_helper'
 class GestionsControllerTest < ActionController::TestCase
   setup do
     @gestion = gestions(:one)
+    @admin = users(:admin)
+    session[:user_id] = @admin.id
+  end
+  
+  def teardown
+    session[:user_id] = nil
   end
 
   test "should get index" do

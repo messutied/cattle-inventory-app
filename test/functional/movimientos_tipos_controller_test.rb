@@ -3,6 +3,12 @@ require 'test_helper'
 class MovimientosTiposControllerTest < ActionController::TestCase
   setup do
     @movimientos_tipo = movimientos_tipos(:one)
+    @admin = users(:admin)
+    session[:user_id] = @admin.id
+  end
+  
+  def teardown
+    session[:user_id] = nil
   end
 
   test "should get index" do

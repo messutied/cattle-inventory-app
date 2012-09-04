@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -14,16 +15,16 @@ ActiveRecord::Schema.define(:version => 20120520204714) do
 
   create_table "ganado_grupos", :force => true do |t|
     t.string   "nombre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "orden"
     t.string   "estado",     :limit => 1, :default => "A"
   end
 
   create_table "ganados", :force => true do |t|
     t.string   "nombre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "nombre_corto"
     t.integer  "ganado_grupo_id"
     t.integer  "orden"
@@ -34,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20120520204714) do
     t.integer  "anio"
     t.integer  "mes"
     t.string   "estado",     :limit => 1
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "movimiento_ganados", :force => true do |t|
@@ -43,39 +44,39 @@ ActiveRecord::Schema.define(:version => 20120520204714) do
     t.integer  "ganado_id"
     t.integer  "cant"
     t.integer  "cant_sec"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "movimientos", :force => true do |t|
     t.integer  "predio_id"
     t.integer  "predio_sec_id"
     t.integer  "movimientos_tipo_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.date     "fecha"
     t.string   "detalle"
   end
 
   create_table "movimientos_tipos", :force => true do |t|
     t.string   "nombre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "tipo"
     t.string   "estado",     :limit => 1, :default => "A"
   end
 
   create_table "predios", :force => true do |t|
     t.string   "nombre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "estado",     :limit => 1, :default => "A"
   end
 
   create_table "user_types", :force => true do |t|
     t.string   "nombre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -84,8 +85,8 @@ ActiveRecord::Schema.define(:version => 20120520204714) do
     t.string   "mail"
     t.string   "nombre"
     t.string   "pass"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end
