@@ -79,21 +79,25 @@
           
         </tr>
 
-        <% m.fields_for :movimiento_ganados do |g| %>
+        <%= m.fields_for :movimiento_ganados do |g| %>
           <%= render fields_form(@type), :f => g, :no_select => false %>
         <% end %>
         <tr>
           <td colspan="<%= @type == "mov" ? "3" : (@type == "in_eg" ? "2" : "1") %>"></td>
-          <td style="text-align: center"><%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %></td>
+          <td style="text-align: center">
+            <%= link_to_add_fields("Mas", m, :movimiento_ganados, fields_form(@type) ) %>
+          </td>
         </tr>
       </table>
     </div>
     
     <div class="actions">
-      <%= m.submit @movimiento.new_record? ? "Crear "+Movimiento.type_name(@type) : "Guardar", :class => "btn btn-primary" %>
+      <%= m.submit @movimiento.new_record? ? "Crear "+Movimiento.type_name(@type) : 
+        "Guardar", :class => "btn btn-primary" %>
       
       <% if !@movimiento.new_record? %>
-        <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", :method => "delete", :class => "btn" %>
+        <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", 
+          :method => "delete", :class => "btn" %>
       <% end %>
     </div> 
 
