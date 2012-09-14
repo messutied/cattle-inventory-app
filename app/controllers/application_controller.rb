@@ -34,7 +34,11 @@ class ApplicationController < ActionController::Base
 
     if !signed_in?
       #store_location
-      redirect_to '/login?from='+request.fullpath, :notice => "Por favor inicia sesión antes de continuar."
+      if request.fullpath == '/'
+        redirect_to '/login'
+      else
+        redirect_to '/login?from='+request.fullpath, :notice => "Por favor inicia sesión antes de continuar."
+      end
     end
   end
 
