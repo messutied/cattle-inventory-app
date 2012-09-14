@@ -2,7 +2,7 @@ module GestionsHelper
   def estado(estado)
     case estado
       when "A"
-        return raw "<b>Abierta</b>"
+        return raw "<span class='label label-important'>Abierta</span>"
 
       when "C"
         return "Cerrada"

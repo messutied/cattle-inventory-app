@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 class GestionsController < ApplicationController
-  before_filter :require_user
+  #before_filter :require_user
 
   # GET /gestions
   # GET /gestions.xml
   def index
     @gestions = Gestion.all(:order => "anio desc, mes desc")
+    @gestion = Gestion.new
 
     @br = ["Configuración", "Gestión"]
 
@@ -101,15 +102,21 @@ class GestionsController < ApplicationController
   def crear_anterior
     gestion = params[:gestion]
 
-    if gestion.include? "/"
-      g_mes = gestion.split("/")[0]
-      g_anio = gestion.split("/")[1]
+    respond_to do |format|
+      if gestion.include? "-"
+        g_anio = gestion.split("-")[0]
+        g_mes = gestion.split("-")[1]
 
-      @nueva_gestion = Gestion.new({:anio => g_anio, :mes => g_mes, :estado => "C"})
-      @nueva_gestion.save
+        @nueva_gestion = Gestion.new({:anio => g_anio, :mes => g_mes, :estado => "C"})
+        if @nueva_gestion.save
+          format.html { redirect_to "/gestions" }
+        end
+      end
+
+      flash[:error] = "No se pudo crear la gestión"
+      format.html { redirect_to "/gestions" }
     end
-
-    redirect_to "/gestions"
+    
   end
 
   # POST /gestions
