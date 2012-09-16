@@ -8,18 +8,41 @@ class MovimientosController < ApplicationController
 
     @br = [Movimiento.type_name(@type), "Listado"]
 
+    @gestion = params["filtro_gestion"] ? 
+      Gestion.find(params["filtro_gestion"]) : 
+      Gestion.gestion_abierta
+
+    @movs = Movimiento.joins(:movimientos_tipo, :predio, :movimiento_ganados)
+      .joins("LEFT JOIN predios predio_sec on predio_sec.id=movimientos.predio_sec_id")
+      .order("fecha desc")
+      .where("fecha>=? and fecha<?", @gestion.desde, @gestion.hasta)
+      .select("movimientos_tipos.nombre as razon, movimientos.id, movimientos.fecha, movimientos.detalle, "+
+        "predios.nombre as predio_nombre, predio_sec.nombre as predio_sec_nombre")
+      .group("movimientos_tipos.nombre, movimientos.id, movimientos.fecha, movimientos.detalle, "+
+        "predios.nombre, predio_sec.nombre")
+
+
+    @filtro_predio = params["filtro_predio"] || "*"
+    @filtro_extra = params["filtro_extra"] || "*"
+
+    if @filtro_predio != "*"
+      @movs = @movs.where("predio_id=? or predio_sec_id=?", @filtro_predio, @filtro_predio)
+    end
+
+    if @filtro_extra == 'P'
+      @movs = @movs.where("movimiento_ganados.cant > movimiento_ganados.cant_sec")
+    end
+
+    if @filtro_extra == 'I'
+      @movs = @movs.where("movimiento_ganados.cant_sec IS NULL")
+    end
+
     if @type == "mov"
-      @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
-        :conditions => "movimientos_tipos.tipo = 'm'", 
-        :order => "fecha desc")
+      @movs = @movs.where("movimientos_tipos.tipo = 'm'")
     elsif @type == "in_eg"
-      @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
-        :conditions => "movimientos_tipos.tipo = 'i' or movimientos_tipos.tipo = 'e'", 
-        :order => "fecha desc")
+      @movs = @movs.where("movimientos_tipos.tipo = 'i' or movimientos_tipos.tipo = 'e'")
     elsif @type == "rec"
-      @movs = Movimiento.find(:all, :joins => :movimientos_tipo, 
-        :conditions => "movimientos_tipos.tipo = 'r'", 
-        :order => "fecha desc")
+      @movs = @movs.where("movimientos_tipos.tipo = 'r'")
     else
     end
   end
@@ -40,7 +63,7 @@ class MovimientosController < ApplicationController
 
   def create
     @movimiento = Movimiento.new(params[:movimiento])
-    @movimiento.parse_fecha(params[:anio], params[:mes], params[:dia])
+    @movimiento.parse_fecha!(params[:anio], params[:mes], params[:dia])
     @type = params[:type]
     @br = [Movimiento.type_name(@type), "Nuevo"]
 

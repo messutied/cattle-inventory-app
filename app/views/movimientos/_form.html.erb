@@ -14,8 +14,8 @@
   <% end %>
 
   <input type="hidden" name="type" value="<%= @type %>" />
-  <input type="hidden" name="anio" value="<%= year %>" />
-  <input type="hidden" name="mes" value="<%= month %>" />
+  <input type="hidden" name="anio" value="<%= year(@movimiento) %>" />
+  <input type="hidden" name="mes" value="<%= month(@movimiento) %>" />
 
   <script type='text/javascript' charset="utf-8">
     var predios = <%= raw get_predios.to_json %>;
@@ -26,7 +26,7 @@
 
     <div class="field-inline">
       <%= m.label "Fecha" %>:
-      <%= select_tag(:dia, options_for_select(get_days, @movimiento.new_record? ? day : @movimiento.day), :style=>"width: 60px;") %><spam id="gestion">-<%= month %>-<%= year %></spam>
+      <%= select_tag(:dia, options_for_select(get_days, @movimiento.new_record? ? day : @movimiento.day), :style=>"width: 60px;") %><spam id="gestion">-<%= month(@movimiento) %>-<%= year(@movimiento) %></spam>
     </div>
     <div class="field-inline">
       <%= m.label :detalle %>:

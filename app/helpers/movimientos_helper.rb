@@ -14,16 +14,22 @@ module MovimientosHelper
     Time.now.day
   end
 
-  def month
-    g = Gestion.gestion_abierta
-
-    g.mes
+  def month(mov)
+    if mov.new_record?
+      g = Gestion.gestion_abierta
+      g.mes
+    else
+      mov.mes
+    end
   end
 
-  def year
-    g = Gestion.gestion_abierta
-
-    g.anio
+  def year(mov)
+    if mov.new_record?
+      g = Gestion.gestion_abierta
+      g.anio
+    else
+      mov.year
+    end
   end
 
   def fields_form(type)

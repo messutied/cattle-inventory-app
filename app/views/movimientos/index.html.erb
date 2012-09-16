@@ -1,5 +1,20 @@
 <% content_for :title, "Listado de Movimientos" %>
 
+<%= form_tag("list", :method => "GET", :class => "form-inline") do %>
+	<label for="filtro_gestion">Gestión:</label>
+	<%= select_tag(:filtro_gestion, options_for_gestiones(@gestion.id), :style => "width:100px") %>
+	&nbsp;&nbsp;
+
+	<label for="filtro_predio">Predio:</label>
+	<%= select_tag(:filtro_predio, options_for_predios(@filtro_predio, true), :style => "width:150px") %>
+	&nbsp;&nbsp;
+
+	<label for="filtro_predio">Mostrar:</label>
+	<%= select_tag(:filtro_extra, options_for_ganado_extra(@filtro_extra), :style => "width:150px") %>
+
+	<input type="submit" value="Filtrar" class="btn">
+<% end %>
+
 <table class="table table-bordered table-striped">
 	<tr>
 		<th>Razón</th>
@@ -16,10 +31,10 @@
 	
 	<% @movs.each do |mov| %>
 	<tr>
-		<td><%= mov.movimientos_tipo.nombre unless mov.movimientos_tipo.nil?%></td>
-		<td><%= mov.predio.nombre%></td>
+		<td><%= mov.razon %></td>
+		<td><%= mov.predio_nombre%></td>
 		<% if @type == "mov" %>
-			<td><%= mov.predio_sec.nombre%></td>
+			<td><%= mov.predio_sec_nombre%></td>
 		<% end%>
 		<td><%= mov.fecha%></td>
 		<td><%= mov.detalle%></td>

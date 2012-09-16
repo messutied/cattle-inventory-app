@@ -1,4 +1,28 @@
+# -*- coding: utf-8 -*-
+
 module ApplicationHelper
+
+  def options_for_gestiones(selected)
+    gestiones = Gestion.all.map {|g| [g.anio.to_s+"-"+g.mes.to_s, g.id]}
+    # gestiones.unshift(["Seleccionar", ""])
+    return options_for_select(gestiones, selected)
+  end
+
+  def options_for_predios(selected, todos=false)
+    predios = Predio.all.map {|p| [p.nombre, p.id]}
+    if todos
+      predios.unshift(["Todos", "*"])
+    else
+      predios.unshift(["Seleccionar...", ""])
+    end
+    return options_for_select(predios, selected)
+  end
+
+  def options_for_ganado_extra(selected)
+    opts = [["Todos", "*"], ["Con pérdidas", "P"], ["Registros Incompletos", "I"]]
+    return options_for_select(opts, selected)
+  end
+
   def link_to_add_fields(name, f, association, form)
     new_object = f.object.class.reflect_on_association(association).klass.new
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|

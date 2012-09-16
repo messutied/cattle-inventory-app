@@ -450,13 +450,21 @@ class Movimiento < ActiveRecord::Base
 	end
 
 
-	def parse_fecha(anio, mes, dia)
+	def parse_fecha!(anio, mes, dia)
 		self.fecha = anio+"-"+mes+"-"+dia
 	end
 
 	def day
 		return fecha.day
 	end
+
+  def mes
+    return self.fecha.month
+  end
+
+  def year
+    return self.fecha.year
+  end
 
 	def mov_tipo
 		self.movimientos_tipo.tipo
