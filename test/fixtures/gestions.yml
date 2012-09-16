@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  anio: 1
-  mes: 1
-  estado: false
+  anio: 2012
+  mes: 8
+  estado: 'C'
 
 two:
-  anio: 1
-  mes: 1
-  estado: false
+  anio: 2012
+  mes: 9
+  estado: 'A'
