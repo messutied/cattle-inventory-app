@@ -1,4 +1,4 @@
-<%= form_for(@movimientos_tipo) do |f| %>
+<%= form_for(@movimientos_tipo, :html => {:class => "form-horizontal small"}) do |f| %>
   <% if @movimientos_tipo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@movimientos_tipo.errors.count, "error") %> prohibited this movimientos_tipo from being saved:</h2>
@@ -11,15 +11,30 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nombre %><br />
-    <%= f.text_field :nombre %>
+  <div class="control-group">
+    <%= f.label :tipo, :class => "control-label" %>
+    <div class="controls">
+      <%= f.select(:tipo, tipos_opts) %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :tipo %><br />
-    <%= f.text_field :tipo %>
+
+  <div class="control-group">
+    <%= f.label :nombre, :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :nombre %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit :class => "btn btn-primary" %>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit @movimientos_tipo.new_record? ? "Crear" : "Guardar", :class => "btn btn-primary" %>
+      <% if not @movimientos_tipo.new_record? %>
+        <%= link_to "Eliminar", @movimientos_tipo, 
+            :confirm => "¿Eliminar este Tipo de Movimiento?", 
+            :method => "delete", :class => "btn btn-danger" %>
+      <% end %>
+      <%= link_to 'Volver', movimientos_tipos_path, :class => "btn" %>
+    </div>
   </div>
-<% end %>
+
+  <% end %>

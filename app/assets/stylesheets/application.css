@@ -1,3 +1,11 @@
 /*
 *= require style
 */
+
+.form-horizontal.small .control-label {
+    width: 80px;
+}
+
+.form-horizontal.small .controls {
+    margin-left: 100px;
+}

@@ -12,4 +12,8 @@ module MovimientosTiposHelper
       return raw "<span style='color: gray'>Movimiento</span>"
     end
   end
+
+  def tipos_opts
+    [["Ingreso", "i"], ["Egreso", "e"], ["Movimiento", "m"], ["Recuento", "r"]]
+  end
 end

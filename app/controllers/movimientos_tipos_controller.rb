@@ -6,7 +6,7 @@ class MovimientosTiposController < ApplicationController
   # GET /movimientos_tipos
   # GET /movimientos_tipos.xml
   def index
-    @movimientos_tipos = MovimientosTipo.all
+    @movimientos_tipos = MovimientosTipo.order("tipo asc")
 
     @br = ["Tipos de Movimiento", "Listado"]
 
