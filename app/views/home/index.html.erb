@@ -1,1 +1,60 @@
-<p>Bienvenido al sistema de gestión ganadera</p>
+<h2>Información de la gestión actual (<%= @gestion.to_str %>)</h2>
+<hr>
+<br>
+
+<span class="lead">Ganado perdido: </span>
+<span style="font-size: 15px" class="badge badge-important"><%= @perdidas_count %></span>
+<br>
+<br>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Predio Desde</th>
+    <th>Predio Hacia</th>
+    <th>Fecha</th>
+    <th>Descripción</th>
+    <th>Nro. Pérdidas</th>
+    <th></th>
+  </tr>
+  
+  <% @perdidas_info.each do |mov| %>
+  <tr>
+    <td><%= mov.predio_nombre %></td>
+    <td><%= mov.predio_sec_nombre %></td>
+    <td><%= mov.fecha %></td>
+    <td><%= mov.detalle %></td>
+    <td><%= mov.perdida %></td>
+    <td><%= link_to "Editar", edit_movimiento_path(mov) %></td>
+  </tr>
+  <% end %>
+</table>
+<br>
+
+<span class="lead">Registros Incompletos: </span>
+<span style="font-size: 15px" class="badge badge-important"><%= @incompletos_count %></span>
+<br>
+<br>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Predio Desde</th>
+    <th>Predio Hacia</th>
+    <th>Fecha</th>
+    <th>Descripción</th>
+    <th>Ganado</th>
+    <th>Enviados</th>
+    <th></th>
+  </tr>
+  
+  <% @incompletos_info.each do |mov| %>
+  <tr>
+    <td><%= mov.predio_nombre %></td>
+    <td><%= mov.predio_sec_nombre %></td>
+    <td><%= mov.fecha %></td>
+    <td><%= mov.detalle %></td>
+    <td><%= mov.ganado_nombre+" "+ mov.ganado_grupo_nombre %></td>
+    <td><%= mov.cantidad %></td>
+    <td><%= link_to "Editar", edit_movimiento_path(mov) %></td>
+  </tr>
+  <% end %>
+</table>

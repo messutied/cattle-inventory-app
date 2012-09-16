@@ -3,7 +3,7 @@
     <div class="alert alert-error">
     <h3>
       Se encontró <%= pluralize(@movimiento.errors.count, "error") %> 
-       al tratar de guardar el movimiento:</h3>
+       al tratar de guardar el registro:</h3>
 
       <ul>
         <% @movimiento.errors.full_messages.each do |msg| %>

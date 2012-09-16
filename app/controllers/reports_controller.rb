@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   	@predio        = params[:filtro_predio] != nil ? params[:filtro_predio] : -1 # San Vicente
     @gestion_id    = params[:filtro_gestion] != nil ? params[:filtro_gestion] : Gestion.gestion_abierta.id
 
-    if @predio != -1
+    if @predio != ''
 
       @gestion       = Gestion.find(@gestion_id)
       @gestion_ant   = @gestion.anterior
@@ -43,6 +43,10 @@ class ReportsController < ApplicationController
       @ganado_menor_anio = [1, 2]
       @ganado_mayor_anio = -1
       @ganado_todos      = -2
+
+
+      @presenter = InvMensualReportPresenter.new(
+                   @ganados, @info_recuento, @gestion )
     end
 
     

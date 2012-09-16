@@ -49,6 +49,10 @@ class Gestion < ActiveRecord::Base
 		return @gestion.anio.to_s + "-" + @gestion.mes.to_s
 	end
 
+	def to_str
+		return self.anio.to_s + "-" + self.mes.to_s
+	end
+
 	def self.gestion_actual
 		@gestion = Gestion.find_by_anio_and_mes(Time.now.year, Time.now.month)
 		return @gestion

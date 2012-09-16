@@ -13,7 +13,7 @@
 <% end %>
 <br />
 
-<% if @predio != -1 %>
+<% if @predio != '' %>
 
 	<table class="table table-bordered" id="tabla-inv-mensual">
 		<tr class="row-ggrupos">
@@ -35,23 +35,17 @@
 
 		<tr class="row-saldo">
 			<th colspan="2">Saldo Inicial</th>
-			<% @ganados.each do |g| %>
-				<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, g.id) %></td>
+			<% @presenter.saldo_mes_ant(@predio) do |saldo| %>
+				<td><%= saldo %></td>
 			<% end %>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, @ganado_menor_anio) %></td>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, @ganado_mayor_anio) %></td>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion_ant, @ganado_todos) %></td>
 		</tr>
 
 		<% @m_tipos_ing.each do |i| %>
 			<tr class="row-mov">
 				<th colspan="2"><%= i.nombre %></th>
-				<% @ganados.each do |g| %>
-					<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, g.id) %></td>
+				<% @presenter.cant_in_eg(@predio, i.id) do |saldo|  %>
+					<td><%= saldo %></td>
 				<% end %>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, @ganado_menor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, @ganado_mayor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, i.id, @ganado_todos)%></td>
 			</tr>
 		<% end %>
 
@@ -62,7 +56,7 @@
 				<% @ganados.each do |g| %>
 					<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
 					<% perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) %>
-					<td class="<%= perdida ? "perdida" : "" %>">
+					<td class="<%= perdida ? "perdida" : "" %>" data-content="<%= perdida ? "Enviados: <b>"+mov_gan.first.cant.to_s+"</b> - Recividos: <b>"+mov_gan.first.cant_sec.to_s+"</b> <br> Animales perdidos: <span class='badge badge-important'>"+(mov_gan.first.cant-mov_gan.first.cant_sec).to_s+"</span>" : "" %>">
 						<%= mov_gan.any? ? mov_gan.first.cant_sec : 0 %>
 					</td>
 					<!-- <td><%= m.total_por_ganado(g.id, true) %> -->
@@ -76,23 +70,17 @@
 
 		<tr class="row-saldo">
 			<th colspan="2">Saldo Parcial</th>
-			<% @ganados.each do |g| %>
-				<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, g.id) %></td>
+			<% @presenter.saldo_parcial_ingresos(@predio) do |saldo| %>
+				<td><%= saldo %></td>
 			<% end %>
-			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, @ganado_menor_anio) %></td>
-			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, @ganado_mayor_anio) %></td>
-			<td><%= Movimiento.saldo_parcial_ingresos(@predio, @info_recuento, @gestion, @ganado_todos) %></td>
 		</tr>
 
 		<% @m_tipos_egr.each do |e| %>
 			<tr class="row-mov">
 				<th colspan="2"><%= e.nombre %></th>
-				<% @ganados.each do |g| %>
-					<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, g.id) %></td>
+				<% @presenter.cant_in_eg(@predio, e.id) do |saldo|  %>
+					<td><%= saldo %></td>
 				<% end %>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, @ganado_menor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, @ganado_mayor_anio)%></td>
-			<td><%= Movimiento.cant_ing_egr(@predio, @info_recuento, @gestion, e.id, @ganado_todos)%></td>
 			</tr>
 		<% end %>
 
@@ -102,7 +90,7 @@
 				<% @ganados.each do |g| %>
 					<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
 					<% perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec) %>
-					<td class="<%= perdida ? "perdida" : "" %>" data-content="<%= perdida ? "Enviados: <b>"+mov_gan.first.cant.to_s+"</b> - Recividos: <b>"+mov_gan.first.cant_sec.to_s+"</b>" : "" %>">
+					<td class="<%= perdida ? "perdida" : "" %>" data-content="<%= perdida ? "Enviados: <b>"+mov_gan.first.cant.to_s+"</b> - Recividos: <b>"+mov_gan.first.cant_sec.to_s+"</b> <br> Animales perdidos: <span class='badge badge-important'>"+(mov_gan.first.cant-mov_gan.first.cant_sec).to_s+"</span>" : "" %>">
 						<span><%= mov_gan.any? ? mov_gan.first.cant : 0 %></span>
 					</td>
 				<% end %>
@@ -114,12 +102,9 @@
 		
 		<tr class="row-saldo">
 			<th colspan="2">Saldo del Mes</th>
-			<% @ganados.each do |g| %>
-				<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, g.id) %></td>
+			<% @presenter.saldo_mes(@predio) do |saldo| %>
+				<td><%= saldo %></td>
 			<% end %>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, @ganado_menor_anio) %></td>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, @ganado_mayor_anio) %></td>
-			<td><%= Movimiento.saldo_mes(@predio, @info_recuento, @gestion, @ganado_todos) %></td>
 		</tr>
 	</table>
 

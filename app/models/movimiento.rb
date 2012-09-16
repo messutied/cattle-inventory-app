@@ -1,6 +1,7 @@
 class Movimiento < ActiveRecord::Base
 	has_many :movimiento_ganados, :dependent => :destroy
-	has_many :ganados, :through => :movimiento_ganados
+  has_many :ganados, :through => :movimiento_ganados, :uniq => true
+	has_many :ganado_grupos, :through => :ganados
 	belongs_to :movimientos_tipo
 	belongs_to :predio
 	belongs_to :predio_sec, :class_name => "Predio", :foreign_key => "predio_sec_id"
@@ -11,6 +12,17 @@ class Movimiento < ActiveRecord::Base
 
 
 	validates  :detalle, :movimientos_tipo_id, :presence => true
+
+  scope :movimientos, where("movimientos_tipos.tipo='m'").joins(:movimientos_tipo)
+  scope :movimientos_perdidas, where("movimientos_tipos.tipo='m' and "+
+        "movimiento_ganados.cant>movimiento_ganados.cant_sec")
+        .joins(:movimientos_tipo, :movimiento_ganados)
+  
+  scope :movimientos_incompletos, where("movimiento_ganados.cant_sec is null")
+        .joins(:ganado_grupos, :predio, :predio_sec)
+        .select("movimientos.id, movimientos.fecha, movimientos.detalle, "+
+          "movimiento_ganados.cant as cantidad, ganado_grupos.nombre ganado_grupo_nombre, ganados.nombre as ganado_nombre, "+
+          "predios.nombre as predio_nombre, predio_secs_movimientos.nombre as predio_sec_nombre")
 
   # Obtiene la sumatoria de ingresos o egresos por ganado y/o fecha 
   # en un predio en el mes gestion
