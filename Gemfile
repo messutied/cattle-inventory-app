@@ -7,7 +7,7 @@ gem 'rails', '3.2.0'
 
 #gem 'mysql2', '~> 0.2.6'
 gem "rake"
-#gem "pg"
+gem "pg"
 gem "sqlite3"
 
 group :assets do
