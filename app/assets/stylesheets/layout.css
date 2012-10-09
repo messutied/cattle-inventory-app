@@ -1,0 +1,26 @@
+ body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.sidebar-nav {
+    
+}
+.nav-list {
+    
+}
+.nav-list .nav-header {
+    
+}
+.table th {
+    background-color: #08C !important;
+    color: white !important;
+}
+
+
+.form-horizontal.small .control-label {
+    width: 80px;
+}
+
+.form-horizontal.small .controls {
+    margin-left: 100px;
+}
