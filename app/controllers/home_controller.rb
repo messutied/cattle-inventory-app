@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
     @perdidas_count = @perdidas
       .select("SUM(movimiento_ganados.cant-movimiento_ganados.cant_sec) as count")
-      .first.count
+      .first.count || 0
 
     @incompletos = Movimiento.movimientos_incompletos
     @incompletos_info = @incompletos
