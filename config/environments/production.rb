@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 Ganaderia::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -51,13 +49,13 @@ Ganaderia::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-   
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
-   
+
   # Generate digests for assets URLs
   config.assets.digest = true
-   
+
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
    

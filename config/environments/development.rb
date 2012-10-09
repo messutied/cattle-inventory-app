@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 Ganaderia::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -27,7 +25,7 @@ Ganaderia::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
-   
+
   # Expands the lines which load the assets
   config.assets.debug = true
 
