@@ -6,11 +6,11 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+# development:
+#   adapter: sqlite3
+#   database: db/development.sqlite3
+#   pool: 5
+#   timeout: 5000
 
 test:
   adapter: sqlite3
@@ -28,15 +28,15 @@ production:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 
-#development:
-#  adapter: postgresql
-#  encoding: utf8
-#  reconnect: false
-#  database: Ganaderia_development
-#  pool: 5
-#  username: edd
-#  password: olesfeo
-#  host: localhost
+development:
+ adapter: postgresql
+ encoding: utf8
+ reconnect: false
+ database: Ganaderia_development
+ pool: 5
+ username: postgres
+ password: 126188
+ host: localhost
 #test:
 #  adapter: postgresql
 #  encoding: utf8

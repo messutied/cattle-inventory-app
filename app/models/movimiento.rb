@@ -21,7 +21,7 @@ class Movimiento < ActiveRecord::Base
   scope :movimientos_incompletos, where("movimiento_ganados.cant_sec is null")
         .joins(:ganado_grupos, :predio, :predio_sec)
         .select("movimientos.id, movimientos.fecha, movimientos.detalle, "+
-          "movimiento_ganados.cant as cantidad, ganado_grupos.nombre ganado_grupo_nombre, ganados.nombre as ganado_nombre, "+
+          "movimiento_ganados.cant as cantidad, ganado_grupos.nombre as ganado_grupo_nombre, ganados.nombre as ganado_nombre, "+
           "predios.nombre as predio_nombre, predio_secs_movimientos.nombre as predio_sec_nombre")
 
   # Obtiene la sumatoria de ingresos o egresos por ganado y/o fecha 
