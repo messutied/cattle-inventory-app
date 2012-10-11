@@ -24,3 +24,6 @@
     font-weight: bold;
     color: #404040;
 }
+html.login, html.login body {
+    background-color: #eee;
+}

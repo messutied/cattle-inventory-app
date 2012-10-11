@@ -55,8 +55,6 @@ Ganaderia::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  config.assets.precompile += %w( bootstrap/bootstrap.css )
-  config.assets.precompile += %w( bootstrap/bootstrap-responsive.css )
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH

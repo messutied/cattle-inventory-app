@@ -7,28 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    <%= stylesheet_link_tag "bootstrap/bootstrap" %>
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-      .nav-list {
-        font-size: 1.2em;
-      }
-      .nav-list .nav-header {
-        font-size: 0.8em;
-      }
-      .table th {
-        background-color: #08C !important;
-        color: white !important;
-      }
-    </style>
-    <%= stylesheet_link_tag "bootstrap/bootstrap-responsive" %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -45,26 +26,29 @@
 
   <body>
 
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top navbar-inverse">
       <div class="navbar-inner">
         <div class="container-fluid">
+
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/">Ganadería HN</a>
+
           <div class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
               <i class="icon-user"></i> <%= current_user.nombre%>
               <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
+            </button>
+            <ul class="dropdown-menu" id="menu1">
               <!-- <li><a href="#">Perfil</a></li>
               <li class="divider"></li> -->
               <li><a href="/logout">Salir</a></li>
             </ul>
           </div>
+
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="/">Inventario</a></li>
@@ -72,9 +56,15 @@
               <!-- <li><a href="#contact">Ayuda</a></li> -->
             </ul>
           </div><!--/.nav-collapse -->
+
           <ul class="nav">
-            <li><a href="#" id="hide-menu"><i class="icon-minus-sign icon-white"></i> <span>Esconder Menú</span></a></li>
+            <li>
+              <a href="#" id="hide-menu">
+                <i class="icon-minus-sign icon-white"></i> <span>Esconder Menú</span>
+              </a>
+            </li>
           </ul>
+
         </div>
       </div>
     </div>
@@ -131,12 +121,5 @@
       </footer>
 
     </div><!--/.fluid-container-->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tag %>
   </body>
 </html>

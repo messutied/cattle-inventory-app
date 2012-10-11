@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="login">
   <head>
     <meta charset="utf-8">
     <title><%=h yield(:title).length > 0 ? yield(:title)+" | " : "" %>Gesti&oacute;n Ganadera</title>
@@ -7,46 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    <%= stylesheet_link_tag "bootstrap/bootstrap" %>
-    <style type="text/css">
-      
-
-       /* Override some defaults */
-      html, body {
-        background-color: #eee;
-      }
-      body {
-        padding-top: 40px;
-      }
-      .container {
-        width: 300px !important;
-      }
- 
-      /* The white background content wrapper */
-      .container > .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px;
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
- 
-      .login-form {
-        margin-left: 65px;
-      }
- 
-      legend {
-        margin-right: -50px;
-        font-weight: bold;
-        color: #404040;
-      }
-    </style>
-    <%= stylesheet_link_tag "bootstrap/bootstrap-responsive" %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -64,7 +27,7 @@
   <body>
 
     <body>
-    <div class="container">
+    <div class="container login">
         <div class="content">
             <div class="row">
               <div style="text-align:center;">
@@ -75,13 +38,6 @@
         </div>
     </div> <!-- /container -->
   </body>
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tag %>
 
   </body>
 </html>

@@ -1,12 +1,8 @@
 ---
 rails.png: rails-be8732dac73d845ac5b142c8fb5f9fb0.png
 vaca.png: vaca-7d148d4150ad381c148d7796c3276440.png
-application.js: application-76188f6a13da18f8a928d31c153b6dcc.js
-bootstrap/README.md: bootstrap/README-7ad9ff614dfba4a8ffc8ff5e3dd3bce9.md
-bootstrap/application.js: bootstrap/application-2085d4ccc537de0f94debb46ff639119.js
-application.css: application-214cc339575f1346e454fc3dab62f7c1.css
-bootstrap/bootstrap-responsive.css: bootstrap/bootstrap-responsive-609b376f4bb032588c054b563d4bca1f.css
-bootstrap/bootstrap.css: bootstrap/bootstrap-2012a68e8267282c0a2c177d7005ae6d.css
+application.js: application-e9d91cdb39d3a2b9205ccbe9f4143680.js
+application.css: application-bdc2f3ffd5398b568431b51273e23f43.css
 img/bird.png: img/bird-c500cb2ed3b6e175bc535e6e09fb7573.png
 img/bootstrap-mdo-sfmoma-01.jpg: img/bootstrap-mdo-sfmoma-01-84bd4ad57586aefe0afa7d675f7ffef0.jpg
 img/bootstrap-mdo-sfmoma-02.jpg: img/bootstrap-mdo-sfmoma-02-39843b6fc4f5883a3e2a512a41c9f1a2.jpg
@@ -38,3 +34,9 @@ img/icon-twitter.png: img/icon-twitter-033fff23c5347418e913a58d86c92293.png
 img/less-logo-large.png: img/less-logo-large-f2adb33de2f3ec15000d1872e99197f6.png
 img/less-small.png: img/less-small-fe22fe0213ba9fc32eb891eea1a18e08.png
 img/responsive-illustrations.png: img/responsive-illustrations-16ad04a572c2f3408c487ebdc26a5562.png
+fontawesome-webfont.eot: fontawesome-webfont-7cf1b0de49e2f8672c9ad6d9e382115f.eot
+fontawesome-webfont.svg: fontawesome-webfont-4d19fdd70a080778557b652cb4868557.svg
+fontawesome-webfont.ttf: fontawesome-webfont-1e29be0bb354c9f664cbca7df9a966d8.ttf
+fontawesome-webfont.woff: fontawesome-webfont-9c0e35b95bf9cea29c77678ebf71a29d.woff
+twitter/bootstrap/glyphicons-halflings-white.png: twitter/bootstrap/glyphicons-halflings-white-13553a5bf21ae3cc374006592488ec64.png
+twitter/bootstrap/glyphicons-halflings.png: twitter/bootstrap/glyphicons-halflings-f6675c325532ec11a984d58e172b8e2a.png
