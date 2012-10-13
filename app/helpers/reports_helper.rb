@@ -1,6 +1,6 @@
 module ReportsHelper
   def perdidas_dcontent(mov_gan)
-    perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec)
+    perdida = (mov_gan.any?  and mov_gan.first.cant_sec and mov_gan.first.cant > mov_gan.first.cant_sec)
     
     if perdida
       "Enviados: <b>"+mov_gan.first.cant.to_s+"</b>"+
@@ -13,13 +13,13 @@ module ReportsHelper
   end
 
   def perdidas_class(mov_gan)
-    perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec)
+    perdida = (mov_gan.any?  and mov_gan.first.cant_sec and mov_gan.first.cant > mov_gan.first.cant_sec)
 
     return perdida ? "perdida" : ""
   end
 
   def perdidas_link(mov_gan)
-    perdida = (mov_gan.any? and mov_gan.first.cant > mov_gan.first.cant_sec)
+    perdida = (mov_gan.any?  and mov_gan.first.cant_sec and mov_gan.first.cant > mov_gan.first.cant_sec)
 
     if perdida
       return "javascript:window.open('/movimiento/list?filtro_gestion="+@gestion.id.to_s+

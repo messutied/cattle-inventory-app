@@ -12,7 +12,7 @@ var AGan = {};
     $(document).ready(function() {
         TYPE = $("input[name=type]").val();
 
-        $("td.perdida").popover({title: "Info. Pérdida de Ganado", delay: { show: 500, hide: 0 }});
+        $("td.perdida").popover({trigger: "hover", title: "Info. Pérdida de Ganado", delay: { show: 500, hide: 0 }});
         
 
         $("#movimiento_submit").click(function() {
