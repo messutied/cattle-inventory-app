@@ -26,7 +26,7 @@ class ReportsController < ApplicationController
         :select => "DISTINCT movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                    "movimientos.movimientos_tipo_id, movimientos.fecha",
         :joins => [:movimientos_tipo, :predio, :movimiento_ganados], 
-        :group => "movimientos.id,movimientos, movimientos.predio_id, movimientos.predio_sec_id, "+
+        :group => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                   "movimientos.movimientos_tipo_id",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
                          "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
         :select => "DISTINCT movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                    "movimientos.movimientos_tipo_id, movimientos.fecha",
         :joins => [:movimientos_tipo, :predio_sec, :movimiento_ganados],
-        :group => "movimientos.id,movimientos, movimientos.predio_id, movimientos.predio_sec_id, "+
+        :group => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                   "movimientos.movimientos_tipo_id",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
                          "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
