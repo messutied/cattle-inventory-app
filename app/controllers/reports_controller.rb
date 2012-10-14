@@ -30,7 +30,8 @@ class ReportsController < ApplicationController
                   "movimientos.movimientos_tipo_id",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
                          "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
-                         @gestion.desde, @gestion.hasta  ]
+                         @gestion.desde, @gestion.hasta  ],
+         :order => "movimientos.id"
       )
 
     	@mov_egresos = Movimiento.find(
@@ -42,7 +43,8 @@ class ReportsController < ApplicationController
                   "movimientos.movimientos_tipo_id",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
                          "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
-                         @gestion.desde, @gestion.hasta  ]
+                         @gestion.desde, @gestion.hasta  ],
+         :order => "movimientos.id"
       )
 
 
