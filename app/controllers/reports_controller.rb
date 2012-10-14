@@ -23,8 +23,11 @@ class ReportsController < ApplicationController
 
     	@mov_ingresos = Movimiento.find(
         :all, 
+        :select => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
+                   "movimientos.movimientos_tipo_id, movimientos.fecha",
         :joins => [:movimientos_tipo, :predio, :movimiento_ganados], 
-        :group => "movimientos.id",
+        :group => "movimientos.id,movimientos, movimientos.predio_id, movimientos.predio_sec_id, "+
+                  "movimientos.movimientos_tipo_id",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
                          "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
                          @gestion.desde, @gestion.hasta  ]
@@ -32,8 +35,11 @@ class ReportsController < ApplicationController
 
     	@mov_egresos = Movimiento.find(
         :all, 
-        :joins      => [:movimientos_tipo, :predio_sec, :movimiento_ganados],
-        :group      => "movimientos.id",
+        :select => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
+                   "movimientos.movimientos_tipo_id, movimientos.fecha",
+        :joins => [:movimientos_tipo, :predio_sec, :movimiento_ganados],
+        :group => "movimientos.id,movimientos, movimientos.predio_id, movimientos.predio_sec_id, "+
+                  "movimientos.movimientos_tipo_id",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
                          "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
                          @gestion.desde, @gestion.hasta  ]
