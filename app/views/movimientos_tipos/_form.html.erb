@@ -25,16 +25,14 @@
     </div>
   </div>
 
-  <div class="control-group">
-    <div class="controls">
-      <%= f.submit @movimientos_tipo.new_record? ? "Crear" : "Guardar", :class => "btn btn-primary" %>
-      <% if not @movimientos_tipo.new_record? %>
-        <%= link_to "Eliminar", @movimientos_tipo, 
-            :confirm => "¿Eliminar este Tipo de Movimiento?", 
-            :method => "delete", :class => "btn btn-danger" %>
-      <% end %>
-      <%= link_to 'Volver', movimientos_tipos_path, :class => "btn" %>
-    </div>
+  <div class="form-actions">
+    <%= f.submit @movimientos_tipo.new_record? ? "Crear" : "Guardar", :class => "btn btn-primary" %>
+    <% if not @movimientos_tipo.new_record? %>
+      <%= link_to "Eliminar", @movimientos_tipo, 
+          :confirm => "¿Eliminar este Tipo de Movimiento?", 
+          :method => "delete", :class => "btn btn-danger" %>
+    <% end %>
+    <%= link_to 'Volver', movimientos_tipos_path, :class => "btn" %>
   </div>
 
   <% end %>

@@ -91,7 +91,7 @@
       </table>
     </div>
     
-    <div class="actions">
+    <div class="form-actions">
       <%= m.submit @movimiento.new_record? ? "Crear "+Movimiento.type_name(@type) : 
         "Guardar", :class => "btn btn-primary" %>
       
@@ -99,6 +99,7 @@
         <%= link_to "Eliminar", @movimiento, :confirm => "¿Eliminar este movimiento?", 
           :method => "delete", :class => "btn btn-danger" %>
       <% end %>
+      <%= link_to "Volver", movimientos_path, :class => "btn" %>
     </div> 
 
   <% end %>
