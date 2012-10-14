@@ -19,6 +19,7 @@ class MovimientosTiposController < ApplicationController
   # GET /movimientos_tipos/1
   # GET /movimientos_tipos/1.xml
   def show
+    @br = ["Tipos de Movimiento", "Ver"]
     @movimientos_tipo = MovimientosTipo.find(params[:id])
 
     respond_to do |format|
@@ -32,6 +33,8 @@ class MovimientosTiposController < ApplicationController
   def new
     @movimientos_tipo = MovimientosTipo.new
 
+    @br = ["Tipos de Movimiento", "Nuevo"]
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @movimientos_tipo }
@@ -40,6 +43,7 @@ class MovimientosTiposController < ApplicationController
 
   # GET /movimientos_tipos/1/edit
   def edit
+    @br = ["Tipos de Movimiento", "Editar"]
     @movimientos_tipo = MovimientosTipo.find(params[:id])
   end
 

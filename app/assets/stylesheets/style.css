@@ -111,6 +111,10 @@ input.small {
   width: 50px;
 }
 
+.a-center {text-align: center !important;}
+.a-right {text-align: right !important;}
+.a-left {text-align: left !important;}
+
 /************* MOVIMIENTOS **************/
 
 #gestion {

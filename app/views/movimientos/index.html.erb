@@ -27,6 +27,7 @@
 		<th>Fecha</th>
 		<th>Detalle</th>
 		<th></th>
+		<th></th>
 	</tr>
 	
 	<% @movs.each do |mov| %>
@@ -38,7 +39,8 @@
 		<% end%>
 		<td><%= mov.fecha%></td>
 		<td><%= mov.detalle%></td>
-		<td><%= link_to "Ver", mov%> | <%= link_to "Editar", edit_movimiento_path(mov)%></td>
+		<td class="a-center"><%= link_to "Ver", mov%></td>
+		<td class="a-center"><%= link_to "Editar", edit_movimiento_path(mov)%></td>
 	</tr>
 	<% end %>
 

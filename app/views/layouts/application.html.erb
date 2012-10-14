@@ -38,10 +38,10 @@
           <a class="brand" href="/">Ganadería HN</a>
 
           <div class="btn-group pull-right">
-            <button class="btn dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
               <i class="icon-user"></i> <%= current_user.nombre%>
               <span class="caret"></span>
-            </button>
+            </a>
             <ul class="dropdown-menu" id="menu1">
               <!-- <li><a href="#">Perfil</a></li>
               <li class="divider"></li> -->
@@ -86,11 +86,11 @@
               <li <%= nav_sel("rec_list") %>><a href="/recuento/list">Recuentos</a></li>
               <li <%= nav_sel("mov_tipos_list") %>><a href="/movimientos_tipos">Tipos de Movimientos</a></li>
               <li class="nav-header">Reportes</li>
-              <li><a href="#">General</a></li>
+              <!-- <li><a href="#">General</a></li> -->
               <li <%= nav_sel("rep_inv_mensual") %>><a href="/reports/inventario_mensual">Inventario</a></li>
               <li class="nav-header">Configuración</li>
               <li <%= nav_sel("config_gestion") %>><a href="/gestions">Gestión</a></li>
-              <li><a href="#">General</a></li>
+              <!-- <li><a href="#">General</a></li> -->
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
