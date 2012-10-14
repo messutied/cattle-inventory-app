@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
 
     	@mov_ingresos = Movimiento.find(
         :all, 
-        :select => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
+        :select => "DISTINCT movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                    "movimientos.movimientos_tipo_id, movimientos.fecha",
         :joins => [:movimientos_tipo, :predio, :movimiento_ganados], 
         :group => "movimientos.id,movimientos, movimientos.predio_id, movimientos.predio_sec_id, "+
@@ -36,7 +36,7 @@ class ReportsController < ApplicationController
 
     	@mov_egresos = Movimiento.find(
         :all, 
-        :select => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
+        :select => "DISTINCT movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                    "movimientos.movimientos_tipo_id, movimientos.fecha",
         :joins => [:movimientos_tipo, :predio_sec, :movimiento_ganados],
         :group => "movimientos.id,movimientos, movimientos.predio_id, movimientos.predio_sec_id, "+
