@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520204714) do
+ActiveRecord::Schema.define(:version => 20121014215605) do
+
+  create_table "empleados", :force => true do |t|
+    t.string   "nombre"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "ganado_grupos", :force => true do |t|
     t.string   "nombre"
@@ -56,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20120520204714) do
     t.datetime "updated_at",          :null => false
     t.date     "fecha"
     t.string   "detalle"
+    t.integer  "empleado_id"
   end
 
   create_table "movimientos_tipos", :force => true do |t|

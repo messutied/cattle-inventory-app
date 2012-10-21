@@ -1,5 +1,7 @@
 Ganaderia::Application.routes.draw do
 
+  resources :empleados
+
   get "reports/inventario_mensual"
 
   get "home/index"

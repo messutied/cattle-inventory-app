@@ -1,0 +1,31 @@
+<%= form_for(@empleado, :remote => @remote, :html => {:id => "create_empleado_form", :class => "form-horizontal"}) do |f| %>
+  <% if @empleado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@empleado.errors.count, "error") %> prohibited this empleado from being saved:</h2>
+
+      <ul>
+      <% @empleado.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label "Nombre Empleado", :class => "control-label" %>
+    <div class="controls"><%= f.text_field :nombre %></div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit @empleado.new_record? ? "Crear" : "Guardar", :class => "btn btn-primary" %>
+    <% if not @empleado.new_record? %>
+      <%= link_to "Eliminar", @empleado, 
+          :confirm => "¿Eliminar este Empleado?", 
+          :method => "delete", :class => "btn btn-danger" %>
+    <% end %>
+
+    <% if not @remote %>
+      <%= link_to 'Volver', empleados_path, :class => "btn" %>
+    <% end %>
+  </div>
+<% end %>

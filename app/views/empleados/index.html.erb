@@ -1,0 +1,19 @@
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Nombre</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @empleados.each do |empleado| %>
+  <tr>
+    <td width="80%"><%= empleado.nombre %></td>
+    <td class="a-center"><%= link_to 'Ver', empleado %></td>
+    <td class="a-center"><%= link_to 'Editar', edit_empleado_path(empleado) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo Empleado', new_empleado_path, :class => "btn btn-primary" %>

@@ -2,5 +2,4 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require general
-//= require_tree .
-
+//= require_directory .

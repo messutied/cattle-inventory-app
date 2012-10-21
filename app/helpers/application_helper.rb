@@ -77,7 +77,10 @@ module ApplicationHelper
       if params[:controller] == "gestions" and params[:action] == "index"
         return raw(" class=\"active\"")
       end
-    
+    when "empleados_list"
+      if params[:controller] == "empleados" and params[:action] == "index"
+        return raw(" class=\"active\"")
+      end
     end
 
   end

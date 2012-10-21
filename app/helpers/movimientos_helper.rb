@@ -59,11 +59,16 @@ module MovimientosHelper
 
   def get_predios
     @predios = Predio.all.map { |predio| [predio.nombre, predio.id] }
-    @predios.unshift(["---", ""])
+    @predios.unshift(["Seleccionar", ""])
   end
 
   def get_days
     @days = (1..days_in_month(Time.now.month)).to_a.map {|e| [e, e]}
+  end
+
+  def get_empleados
+    emp = Empleado.all.map { |emp| [emp.nombre, emp.id] }
+    emp.unshift(["Seleccionar", ""])
   end
 
 end
