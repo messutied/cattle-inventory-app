@@ -83,6 +83,7 @@ class MovimientosController < ApplicationController
 
   def update
     @movimiento = Movimiento.find(params[:id])
+    @movimiento.parse_fecha!(params[:anio], params[:mes], params[:dia])
 
     if @movimiento.update_attributes(params[:movimiento])
       redirect_to @movimiento, :notice => "Se guardó el movimiento"

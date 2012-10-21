@@ -9,7 +9,7 @@ class Gestion < ActiveRecord::Base
 		gestion_mes = self.mes
 
 		if gestion_mes <= 11
-			return self.anio.to_s+"-"+("%02d" % (self.mes+1)).to_s+"-01"
+			return self.anio.to_s+"-"+("%02d" % (self.mes+1)).to_s+("-%02d" % days_in_month(self.mes+1)).to_s
 		else
 			return (gestion_anio+1).to_s+"-01-01" # si es diciembre, pasar a enero
 		end
@@ -19,7 +19,7 @@ class Gestion < ActiveRecord::Base
 		if self.mes > 1
 			return Gestion.find_by_anio_and_mes(self.anio, self.mes-1)
 		else
-			return Gestion.find_by_anio_and_mes(self.anio-1, 1)
+			return Gestion.find_by_anio_and_mes(self.anio-1, 12)
 		end
 	end
 

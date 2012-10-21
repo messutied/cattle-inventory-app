@@ -16,6 +16,7 @@
 <% if @predio != '' %>
 
 	<table class="table table-bordered" id="tabla-inv-mensual">
+		<!-- Cabeceras con grupos de ganado -->
 		<tr class="row-ggrupos">
 			<th colspan="2"></th>
 			<% @g_grupos.each do |gg| %>
@@ -26,13 +27,15 @@
 			<th rowspan="2">Total<br />Animal.</th>
 		</tr>
 
+		<!-- Cabecera con nombre del ganados -->
 		<tr class="row-ganado">
 			<th colspan="2"></th>
 			<% @ganados.each do |g| %>
 				<th><%= g.nombre %></th>
 			<% end %>
 		</tr>
-
+		
+		<!-- Saldo Inicial -->
 		<tr class="row-saldo">
 			<th colspan="2">Saldo Inicial</th>
 			<% @presenter.saldo_mes_ant(@predio) do |saldo| %>
@@ -40,6 +43,7 @@
 			<% end %>
 		</tr>
 
+		<!-- Ingresos -->
 		<% @m_tipos_ing.each do |i| %>
 			<tr class="row-mov">
 				<th colspan="2"><%= i.nombre %></th>
@@ -49,7 +53,7 @@
 			</tr>
 		<% end %>
 
-
+		<!-- Movimientos de entrada al predio -->
 		<% @mov_ingresos.each do |m| %>
 			<tr class="row-mov">
 				<th colspan="2">De <%= m.predio.nombre %></th>
@@ -69,6 +73,7 @@
 			</tr>
 		<% end %>
 
+		<!-- Saldo Parcial -->
 		<tr class="row-saldo">
 			<th colspan="2">Saldo Parcial</th>
 			<% @presenter.saldo_parcial_ingresos(@predio) do |saldo| %>
@@ -76,6 +81,7 @@
 			<% end %>
 		</tr>
 
+		<!-- Movimientos de salida del predio -->
 		<% @m_tipos_egr.each do |e| %>
 			<tr class="row-mov">
 				<th colspan="2"><%= e.nombre %></th>
@@ -85,6 +91,7 @@
 			</tr>
 		<% end %>
 
+		<!-- Egresos -->
 		<% @mov_egresos.each do |m| %>
 			<tr class="row-mov">
 				<th colspan="2">A <%= m.predio_sec.nombre %></th>
@@ -102,6 +109,7 @@
 			</tr>
 		<% end %>
 		
+		<!-- Saldos Finales de la Gestion -->
 		<tr class="row-saldo">
 			<th colspan="2">Saldo del Mes</th>
 			<% @presenter.saldo_mes(@predio) do |saldo| %>

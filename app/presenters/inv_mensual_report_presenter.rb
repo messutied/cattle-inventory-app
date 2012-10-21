@@ -24,7 +24,7 @@ class InvMensualReportPresenter
   end
 
   def saldo_mes_ant(predio, _gestion=nil)
-    gestion = _gestion || @gestion_ant
+    gestion = _gestion || @gestion_ant || -1
 
     saldo_mes(predio, gestion) {|g| yield(g) }
   end

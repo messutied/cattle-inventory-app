@@ -7,8 +7,8 @@ class ReportsController < ApplicationController
   	@g_grupos      = GanadoGrupo.order("orden asc").find(:all)
   	@ganados       = Ganado.find(:all, :joins => :ganado_grupo, :order => "ganado_grupos.orden asc, ganados.orden asc")
 
-  	@predio        = params[:filtro_predio] != nil ? params[:filtro_predio] : -1 # San Vicente
-    @gestion_id    = params[:filtro_gestion] != nil ? params[:filtro_gestion] : Gestion.gestion_abierta.id
+  	@predio        = params[:filtro_predio] || ""
+    @gestion_id    = params[:filtro_gestion] || Gestion.gestion_abierta.id
 
     if @predio != ''
 
@@ -19,7 +19,8 @@ class ReportsController < ApplicationController
     	@m_tipos_egr   = MovimientosTipo.where("tipo = 'e'")
 
       rec = @info_recuento[:last]
-      
+      fecha_desde = @info_recuento[:mes_actual] ? @info_recuento[:mes_actual].fecha.advance(days: 1) : 
+                    @gestion.desde
 
     	@mov_ingresos = Movimiento.find(
         :all, 
@@ -29,8 +30,8 @@ class ReportsController < ApplicationController
         :group => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                   "movimientos.movimientos_tipo_id, movimientos.fecha",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_sec_id = ? "+
-                         "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
-                         @gestion.desde, @gestion.hasta  ],
+                         "and movimientos.fecha >= ? and movimientos.fecha <= ?", @predio, 
+                         fecha_desde, @gestion.hasta  ],
          :order => "movimientos.id"
       )
 
@@ -42,8 +43,8 @@ class ReportsController < ApplicationController
         :group => "movimientos.id, movimientos.predio_id, movimientos.predio_sec_id, "+
                   "movimientos.movimientos_tipo_id, movimientos.fecha",
     		:conditions => [ "movimientos_tipos.tipo='m' and movimientos.predio_id = ? "+
-                         "and movimientos.fecha > ? and movimientos.fecha <= ?", @predio, 
-                         @gestion.desde, @gestion.hasta  ],
+                         "and movimientos.fecha >= ? and movimientos.fecha <= ?", @predio, 
+                         fecha_desde, @gestion.hasta  ],
          :order => "movimientos.id"
       )
 

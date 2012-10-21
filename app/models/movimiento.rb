@@ -53,11 +53,11 @@ class Movimiento < ActiveRecord::Base
     end
 
     if fecha_desde != nil
-      conditions_str += " and fecha > ?"
+      conditions_str += " and fecha >= ?"
     end
 
     if fecha_hasta != nil
-      conditions_str += " and fecha < ?"
+      conditions_str += " and fecha <= ?"
     end
 
     conditions_arr = [conditions_str]
@@ -110,11 +110,11 @@ class Movimiento < ActiveRecord::Base
     end
 
     if fecha_desde != nil
-      conditions_str += " and fecha > ?"
+      conditions_str += " and fecha >= ?"
     end
 
     if fecha_hasta != nil
-      conditions_str += " and fecha < ?"
+      conditions_str += " and fecha <= ?"
     end
 
     conditions_arr = [conditions_str]
@@ -175,7 +175,6 @@ class Movimiento < ActiveRecord::Base
       if rec_info[:mes_anterior] != nil # si hay recuentos
         mov = rec_info[:mes_anterior]
 
-		    # print("*********** "+conditions_str)
 
         rec_mov       = mov
         # rec_cant      = rec_mov.movimiento_ganados.where(conditions_str).first.cant
@@ -194,6 +193,7 @@ class Movimiento < ActiveRecord::Base
         egresos       = 0
         mov_salidas   = 0
         mov_entradas  = 0
+
 
         # sumatoria de los ingresos
         ingresos    = Movimiento.sumatoria_ingr_egr("i", predio, ganado, nil, rec_mov.fecha)
@@ -259,9 +259,9 @@ class Movimiento < ActiveRecord::Base
 
     rec = rec_info[:mes_anterior]
 
-    if rec_info[:mes_actual] != nil
-      rec = rec_info[:mes_actual]
-      fecha_desde = rec.fecha
+    if rec_info[:last] != nil
+      rec = rec_info[:last]
+      fecha_desde = rec.fecha.advance(days: 1)
     else
       fecha_desde = gestion.desde
     end
@@ -295,51 +295,60 @@ class Movimiento < ActiveRecord::Base
     mov_ingresos = 0
     egresos      = 0
     mov_egresos  = 0
+    conditions_str = ""
 
-    if gestion != nil
-      rec = rec_info[:mes_anterior]
+    if ganado.class == Fixnum
+      if ganado == -1
+        conditions_str += "ganado_id > 2 "
+      elsif ganado != -2
+        conditions_str += " ganado_id = "+ganado.to_s
+      end
+    else
+      ganados_str = ""
 
-      if rec_info[:mes_actual] != nil
-        rec = rec_info[:mes_actual]
-        fecha_desde = rec.fecha
-      else
-        fecha_desde = gestion.desde
+      ganado.each do |g|
+        ganados_str += "OR ganado_id = "+g.to_s+" "
       end
 
-      conditions_str = ""
+      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
 
-      if ganado.class == Fixnum
-      	if ganado == -1
-  				conditions_str += "ganado_id > 2 "
-  			elsif ganado != -2
-        	conditions_str += " ganado_id = "+ganado.to_s
-        end
-      else
-        ganados_str = ""
-
-        ganado.each do |g|
-          ganados_str += "OR ganado_id = "+g.to_s+" "
-        end
-
-        ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
-
-        if ganados_str != ""
-          conditions_str += "("+ganados_str+") "
-        end
+      if ganados_str != ""
+        conditions_str += "("+ganados_str+") "
       end
-    
-      # sumatoria de los ingresos
-      # debugger
-      ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, fecha_desde, gestion.hasta)
-
-      mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, fecha_desde, gestion.hasta)
-
-      # sumatoria de los egresos
-      egresos = Movimiento.sumatoria_ingr_egr("e", predio, ganado, fecha_desde, gestion.hasta)
-
-      mov_egresos = Movimiento.sumatoria_mov('e', predio, ganado, fecha_desde, gestion.hasta)
     end
 
+    # Se esta buscando un mes/gestion anterior, pero ya no existe
+    if gestion == -1
+      # Si hay un recuento en el mes actual se muestra como cant. inicial
+      if rec_info[:mes_actual] != nil
+        rec = rec_info[:mes_actual]
+        fecha_desde = rec.fecha.advance(days: 1)
+      else
+        return 0 # Si no se devuelve 0
+      end
+    else
+      if gestion != nil
+        fecha_hasta = gestion.hasta
+
+        if rec_info[:last] != nil
+          rec = rec_info[:last] 
+          fecha_desde = rec.fecha.advance(days: 1)
+        else
+          fecha_desde = gestion.desde
+        end
+
+        # sumatoria de los ingresos
+        # debugger
+        ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, fecha_desde, fecha_hasta)
+
+        mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, fecha_desde, fecha_hasta)
+
+        # sumatoria de los egresos
+        egresos = Movimiento.sumatoria_ingr_egr("e", predio, ganado, fecha_desde, fecha_hasta)
+
+        mov_egresos = Movimiento.sumatoria_mov('e', predio, ganado, fecha_desde, fecha_hasta)
+      end
+    end
     
     if rec != nil
       rec_cant = rec.movimiento_ganados.find(
@@ -368,14 +377,12 @@ class Movimiento < ActiveRecord::Base
 		fecha_desde = nil
 
 		if rec_info[:mes_actual] != nil
-			fecha_desde = rec_info[:mes_actual].fecha
-		elsif rec_info[:mes_anterior] != nil
-      fecha_desde = rec_info[:mes_anterior].fecha
+			fecha_desde = rec_info[:mes_actual].fecha.advance(days: 1)
     else
 			fecha_desde = gestion.desde
 		end
 
-		conditions_str = "fecha > ? and fecha < ? and movimientos_tipos.id = ? and movimientos.predio_id = ? "
+		conditions_str = "fecha >= ? and fecha <= ? and movimientos_tipos.id = ? and movimientos.predio_id = ? "
 		
     if ganados.class == Fixnum
       if ganados == -1

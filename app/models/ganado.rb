@@ -15,7 +15,7 @@ class Ganado < ActiveRecord::Base
     mov = Movimiento.find( 
       :all, 
       :joins => :ganados, 
-      :conditions => ["fecha >= ? and fecha < ? and movimientos_tipo_id=9 and predio_id = ?", 
+      :conditions => ["fecha >= ? and fecha <= ? and movimientos_tipo_id=9 and predio_id = ?", 
       gestion.desde, gestion.hasta, predio],
       :order => "fecha desc",
       :limit => 1
