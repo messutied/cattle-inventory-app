@@ -110,13 +110,12 @@ class GestionsController < ApplicationController
         @nueva_gestion = Gestion.new({:anio => g_anio, :mes => g_mes, :estado => "C"})
         if @nueva_gestion.save
           format.html { redirect_to "/gestions" }
+        else
+          flash[:error] = "No se pudo crear la gestión"
+          format.html { redirect_to "/gestions" }
         end
       end
-
-      flash[:error] = "No se pudo crear la gestión"
-      format.html { redirect_to "/gestions" }
     end
-    
   end
 
   # POST /gestions
