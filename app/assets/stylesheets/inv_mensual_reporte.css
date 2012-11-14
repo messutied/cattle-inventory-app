@@ -38,11 +38,16 @@
         background-color: #FFF3F1;
         font-weight: bold;
     }
+    td.incompleta {
+        color: red;
+        background-color: #ffbaaf;
+        font-weight: bold;
+    }
     .table tbody tr:hover td.perdida {
         color: red;
         background-color: #FFF3F1;
     }
 
-    .table tbody td:hover.perdida {
+    .table tbody td:hover.perdida, .table tbody td:hover.incompleta {
         cursor: pointer;
     }

@@ -59,9 +59,10 @@
 				<th colspan="2">De <%= m.predio.nombre %></th>
 				<% @ganados.each do |g| %>
 					<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-					<td class="<%= perdidas_class(mov_gan) %>" 
-						  data-content="<%= perdidas_dcontent(mov_gan) %>"
-						  onclick="<%= perdidas_link(mov_gan) %>">
+					<td data-title="<%= popover_title(mov_gan) %>"
+							class="<%= popover_class(mov_gan) %>" 
+						  data-content="<%= popover_dcontent(mov_gan) %>"
+						  onclick="<%= popover_link(mov_gan) %>">
 						<%= mov_gan.any? ? mov_gan.first.cant_sec : 0 %>
 					</td>
 					<!-- <td><%= m.total_por_ganado(g.id, true) %> -->
@@ -97,9 +98,10 @@
 				<th colspan="2">A <%= m.predio_sec.nombre %></th>
 				<% @ganados.each do |g| %>
 					<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-					<td class="<%= perdidas_class(mov_gan) %>"
-						  data-content="<%= perdidas_dcontent(mov_gan) %>"
-						  onclick="<%= perdidas_link(mov_gan) %>">
+					<td data-title="<%= popover_title(mov_gan) %>"
+							class="<%= popover_class(mov_gan) %>"
+						  data-content="<%= popover_dcontent(mov_gan) %>"
+						  onclick="<%= popover_link(mov_gan) %>">
 						<span><%= mov_gan.any? ? mov_gan.first.cant : 0 %></span>
 					</td>
 				<% end %>
