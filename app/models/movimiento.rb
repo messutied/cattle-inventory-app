@@ -234,58 +234,21 @@ class Movimiento < ActiveRecord::Base
   # en un predio, por ganado, en el mes gestion
   def self.saldo_parcial_ingresos(predio, rec_info, gestion, ganado)
 
-    conditions_str = ""
-
-    if ganado.class == Fixnum
-      if ganado == -1
-        conditions_str += "ganado_id > 2 "
-      elsif ganado != -2
-        conditions_str += " ganado_id = "+ganado.to_s
-      end
-    else
-      ganados_str = ""
-
-      ganado.each do |g|
-        ganados_str += "OR ganado_id = "+g.to_s+" "
-      end
-
-      ganados_str = ganados_str[3..-1] # quitamos el OR del comienzo
-
-      if ganados_str != ""
-        conditions_str += "("+ganados_str+") "
-      end
-    end
-
-
-    rec = rec_info[:mes_anterior]
-
-    if rec_info[:last] != nil
-      rec = rec_info[:last]
+    if rec_info[:mes_actual] != nil
+      rec = rec_info[:mes_actual] 
       fecha_desde = rec.fecha.advance(days: 1)
     else
       fecha_desde = gestion.desde
     end
+
+    saldo_ant = saldo_mes(predio, rec_info, gestion.anterior, ganado)
+
     # sumatoria de los ingresos
     ingresos = Movimiento.sumatoria_ingr_egr("i", predio, ganado, fecha_desde, gestion.hasta)
 
-    mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, fecha_desde, gestion.hasta)
+    mov_ingresos = Movimiento.sumatoria_mov('i', predio, ganado, fecha_desde, gestion.hasta)  
 
-    if rec != nil
-      rec_cant = rec.movimiento_ganados.find(
-        :all, 
-        :select     => 'SUM(movimiento_ganados.cant) as total',
-        :joins      => [:movimiento], 
-        :group      => (ganado.class == Fixnum and ganado > 0) ? 'movimiento_ganados.ganado_id' : 
-                       'movimientos.movimientos_tipo_id',
-        :conditions => [conditions_str]
-      )
-
-      rec_cant = rec_cant.any? ? rec_cant.first.total : 0
-    else
-      rec_cant = 0
-    end    
-
-    return ingresos.to_i + mov_ingresos.to_i + rec_cant.to_i
+    return ingresos.to_i + mov_ingresos.to_i + saldo_ant
   end
 
   # Saldo total en un predio, por ganado en el mes gestion
