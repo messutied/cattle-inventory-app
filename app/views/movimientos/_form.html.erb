@@ -86,8 +86,7 @@
           <% end %>
           
         </tr>
-
-        <%= m.fields_for :movimiento_ganados, @movimiento.movimiento_ganados.order('id') do |g| %>
+        <%= m.fields_for :movimiento_ganados, @movimiento.new_record? ? nil : @movimiento.movimiento_ganados.order('id') do |g| %>
           <%= render fields_form(@type), :f => g, :no_select => false %>
         <% end %>
         <tr>
