@@ -3,7 +3,7 @@
 module ApplicationHelper
 
   def options_for_gestiones(selected)
-    gestiones = Gestion.all.map {|g| [g.anio.to_s+"-"+g.mes.to_s, g.id]}
+    gestiones = Gestion.order("anio DESC, mes DESC").map {|g| [g.anio.to_s+"-"+g.mes.to_s, g.id]}
     # gestiones.unshift(["Seleccionar", ""])
     return options_for_select(gestiones, selected)
   end
