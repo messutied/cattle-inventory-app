@@ -24,6 +24,7 @@ Ganaderia::Application.routes.draw do
   get "recuento/list" => "movimientos#index", :type => "rec"
 
   get "/login" => "users#login"
+  get "/demo" => "users#login", :demo => true
   post "/login" => "users#do_login"
   get "/logout" => "users#logout"
 

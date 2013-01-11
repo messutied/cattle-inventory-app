@@ -94,6 +94,8 @@ class UsersController < ApplicationController
       @from = params[:from]
     end
 
+    @demo = !!params[:demo]
+
     render :layout => 'login'
   end
 
