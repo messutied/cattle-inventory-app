@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  inventario_predio_id: 1
+  tipo: MyString
+  predio_sec_id: 1
+  cant: 1
+  cant_may_a: 1
+  cant_men_a: 1
+
+two:
+  inventario_predio_id: 1
+  tipo: MyString
+  predio_sec_id: 1
+  cant: 1
+  cant_may_a: 1
+  cant_men_a: 1

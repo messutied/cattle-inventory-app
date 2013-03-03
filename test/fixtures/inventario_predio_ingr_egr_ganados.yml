@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  inventario_predio_ingr_egr_id: 1
+  ganado_id: 1
+  cant: 1
+
+two:
+  inventario_predio_ingr_egr_id: 1
+  ganado_id: 1
+  cant: 1
