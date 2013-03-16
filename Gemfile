@@ -16,4 +16,7 @@ gem 'jquery-rails'
 
 group :development, :test do
   gem 'ruby-debug19'
+  gem "rspec-rails", "~> 2.0"
+  gem 'fabrication'
+  gem 'ffaker'
 end

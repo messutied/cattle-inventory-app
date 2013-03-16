@@ -17,6 +17,7 @@ module Ganaderia
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/app/presenters)
+    config.autoload_paths += %W(#{config.root}/app/services)
 
     config.assets.initialize_on_precompile=false
 

@@ -4,6 +4,15 @@ test:
   pool: 5
   timeout: 5000
 
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: Ganaderia_test
+  pool: 5
+  username: 
+  password: 
+  host: localhost
+
 production:
   adapter: sqlite3
   database: db/production.sqlite3
@@ -11,11 +20,11 @@ production:
   timeout: 5000
 
 development:
- adapter: postgresql
- encoding: utf8
- reconnect: false
- database: Ganaderia_development
- pool: 5
- username: 
- password: 
- host: localhost
+  adapter: postgresql
+  encoding: utf8
+  reconnect: false
+  database: Ganaderia_development
+  pool: 5
+  username: 
+  password: 
+  host: localhost

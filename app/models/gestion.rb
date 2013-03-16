@@ -1,4 +1,14 @@
 class Gestion < ActiveRecord::Base
+	has_one :inventario
+
+	def get_inventario
+		return inventario if inventario
+
+		self.inventario = Inventario.create(gestion: self)
+		save
+
+		return self.inventario
+	end
 
 	def desde
 		#return "#{self.anio}-#{self.mes}-01"

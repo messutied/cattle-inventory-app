@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302235632) do
+ActiveRecord::Schema.define(:version => 20130310201858) do
 
   create_table "empleados", :force => true do |t|
     t.string   "nombre"
@@ -48,77 +48,77 @@ ActiveRecord::Schema.define(:version => 20130302235632) do
   create_table "inventario_ganados", :force => true do |t|
     t.integer  "inventario_id"
     t.integer  "ganado_id"
-    t.integer  "cant"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "cant",          :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "inventario_predio_ganados", :force => true do |t|
     t.integer  "inventario_predio_id"
     t.integer  "ganado_id"
-    t.integer  "cant"
-    t.integer  "saldo_parcial"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.integer  "cant",                 :default => 0
+    t.integer  "saldo_parcial",        :default => 0
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "inventario_predio_ingr_egr_ganados", :force => true do |t|
     t.integer  "inventario_predio_ingr_egr_id"
     t.integer  "ganado_id"
-    t.integer  "cant"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "cant",                          :default => 0
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
   create_table "inventario_predio_ingr_egrs", :force => true do |t|
     t.integer  "inventario_predio_id"
     t.integer  "movimientos_tipo_id"
-    t.integer  "cant"
-    t.integer  "cant_may_a"
-    t.integer  "cant_men_a"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.integer  "cant",                 :default => 0
+    t.integer  "cant_may_a",           :default => 0
+    t.integer  "cant_men_a",           :default => 0
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "inventario_predio_mov_ganados", :force => true do |t|
     t.integer  "inventario_predio_mov_id"
     t.integer  "ganado_id"
-    t.integer  "cant"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.integer  "cant",                     :default => 0
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "inventario_predio_movs", :force => true do |t|
     t.integer  "inventario_predio_id"
     t.string   "tipo",                 :limit => 10
     t.integer  "predio_sec_id"
-    t.integer  "cant"
-    t.integer  "cant_may_a"
-    t.integer  "cant_men_a"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "cant",                               :default => 0
+    t.integer  "cant_may_a",                         :default => 0
+    t.integer  "cant_men_a",                         :default => 0
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   create_table "inventario_predios", :force => true do |t|
     t.integer  "inventario_id"
     t.integer  "predio_id"
-    t.integer  "cant"
-    t.integer  "cant_may_a"
-    t.integer  "cant_men_a"
+    t.integer  "cant",          :default => 0
+    t.integer  "cant_may_a",    :default => 0
+    t.integer  "cant_men_a",    :default => 0
     t.integer  "saldo_p"
     t.integer  "saldo_p_may_a"
     t.integer  "saldo_p_men_a"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "inventarios", :force => true do |t|
     t.integer  "gestion_id"
-    t.integer  "cant"
-    t.integer  "cant_may_a"
-    t.integer  "cant_men_a"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "cant",       :default => 0
+    t.integer  "cant_may_a", :default => 0
+    t.integer  "cant_men_a", :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "movimiento_ganados", :force => true do |t|

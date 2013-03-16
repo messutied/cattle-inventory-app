@@ -14,6 +14,9 @@ class Movimiento < ActiveRecord::Base
 
 	validates  :detalle, :movimientos_tipo_id, :presence => true
 
+  after_save :update_inventario
+  after_destroy :update_inventario
+
   scope :movimientos, where("movimientos_tipos.tipo='m'").joins(:movimientos_tipo)
   scope :movimientos_perdidas, where("movimientos_tipos.tipo='m' and "+
         "movimiento_ganados.cant>movimiento_ganados.cant_sec")
@@ -460,4 +463,17 @@ class Movimiento < ActiveRecord::Base
 			return "Recuentos"
 		end
 	end
+
+  private
+
+  def update_inventario
+    inv_predio = InventarioPredio.get_inventario(predio_id)
+    inv_calc = InventarioPredioCalculador.new(inv_predio)
+
+    if movimientos_tipo.tipo == 'i' or movimientos_tipo.tipo == 'e'
+      inv_calc.calculate_ingr_egr_ganado_predio()
+    end
+
+    inv_calc.calculate_totals()
+  end
 end
