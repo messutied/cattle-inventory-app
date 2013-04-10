@@ -6,6 +6,7 @@ class Movimiento < ActiveRecord::Base
 	belongs_to :predio
 	belongs_to :predio_sec, :class_name => "Predio", :foreign_key => "predio_sec_id"
   belongs_to :empleado
+  belongs_to :gestion
 
 	accepts_nested_attributes_for :movimiento_ganados, 
 	#:reject_if => lambda { |m| m[:ganado_id].blank? or m[:cant].blank? }, 
@@ -16,6 +17,7 @@ class Movimiento < ActiveRecord::Base
 
   after_save :update_inventario
   after_destroy :update_inventario
+  before_save :set_gestion
 
   scope :movimientos, where("movimientos_tipos.tipo='m'").joins(:movimientos_tipo)
   scope :movimientos_perdidas, where("movimientos_tipos.tipo='m' and "+
@@ -480,5 +482,9 @@ class Movimiento < ActiveRecord::Base
     end
 
     inv_calc.calculate_totals()
+  end
+
+  def set_gestion
+    self.gestion = Gestion.gestion_abierta
   end
 end

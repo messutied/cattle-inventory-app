@@ -10,12 +10,13 @@ class InventarioPredioCalculador
 
   def calculate_ingr_egr_ganado_predio
     mov = Movimiento.joins(:ganados, :movimientos_tipo)
-          .select("movimientos_tipos.id as movimiento_tipo_id, ganados.id as ganado_id, sum(movimiento_ganados.cant) as sumatoria")
-          .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and fecha >= ? and fecha <= ?", 
-                 @predio.id, @fecha_inicio, @fecha_fin)
-          .group("movimientos_tipos.id, ganados.id")
-          .order("movimientos_tipos.tipo asc")
+      .select("movimientos_tipos.id as movimiento_tipo_id, ganados.id as ganado_id, sum(movimiento_ganados.cant) as sumatoria")
+      .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and gestion_id = ?", 
+        @predio.id, @inventario.gestion.id) 
+      .group("movimientos_tipos.id, ganados.id")
+      .order("movimientos_tipos.tipo asc")
 
+    mov = mov.where("fecha >= ?", @fecha_inicio) if @recuento
 
     mov.each do |ingr_egr|
       inv_predio_ingr_egr = @inventario_predio.inventario_predio_ingr_egrs
@@ -40,17 +41,21 @@ class InventarioPredioCalculador
   def calculate_mov_ganado_predio(inv_predio_sec)
     # salida a otros predios
     mov_egr = Movimiento.joins(:ganados, :movimientos_tipo)
-          .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, sum(movimiento_ganados.cant_sec) as cant_sec, sum(movimiento_ganados.cant)-sum(movimiento_ganados.cant_sec) as perdidos, movimientos.predio_id, movimientos.predio_sec_id")
-          .where("movimientos_tipos.tipo in ('m') and movimientos.predio_id = ? and movimientos.predio_sec_id = ? and fecha >= ? and fecha <= ?", 
-                 @predio.id, inv_predio_sec.predio_id, @fecha_inicio, @fecha_fin)
-          .group("movimientos.predio_id, movimientos.predio_sec_id, ganados.id")
+      .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, sum(movimiento_ganados.cant_sec) as cant_sec, sum(movimiento_ganados.cant)-sum(movimiento_ganados.cant_sec) as perdidos, movimientos.predio_id, movimientos.predio_sec_id")
+      .where("movimientos_tipos.tipo in ('m') and movimientos.predio_id = ? and movimientos.predio_sec_id = ? and gestion_id = ?", 
+        @predio.id, inv_predio_sec.predio_id, @inventario.gestion.id)
+      .group("movimientos.predio_id, movimientos.predio_sec_id, ganados.id")
+
+    mov_egr = mov_egr.where("fecha >= ?", @fecha_inicio) if @recuento
 
     # entrada de otros predios
     mov_ingr = Movimiento.joins(:ganados, :movimientos_tipo)
-          .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, sum(movimiento_ganados.cant_sec) as cant_sec, sum(movimiento_ganados.cant)-sum(movimiento_ganados.cant_sec) as perdidos, movimientos.predio_id, movimientos.predio_sec_id ")
-          .where("movimientos_tipos.tipo in ('m') and movimientos.predio_id = ? and movimientos.predio_sec_id = ? and fecha >= ? and fecha <= ?", 
-                 inv_predio_sec.predio_id, @predio.id, @fecha_inicio, @fecha_fin)
-          .group("movimientos.predio_sec_id , movimientos.predio_id, ganados.id")
+      .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, sum(movimiento_ganados.cant_sec) as cant_sec, sum(movimiento_ganados.cant)-sum(movimiento_ganados.cant_sec) as perdidos, movimientos.predio_id, movimientos.predio_sec_id ")
+      .where("movimientos_tipos.tipo in ('m') and movimientos.predio_id = ? and movimientos.predio_sec_id = ? and gestion_id = ?", 
+        inv_predio_sec.predio_id, @predio.id, @inventario.gestion.id)
+      .group("movimientos.predio_sec_id , movimientos.predio_id, ganados.id")
+
+    mov_ingr = mov_ingr.where("fecha >= ?", @fecha_inicio) if @recuento
 
     mov_egr.each do |mov|
       # es un egreso para el predio actual
@@ -98,9 +103,11 @@ class InventarioPredioCalculador
     saldos_mes_actual = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("ganados.id as ganado_id, "+
         "sum(case when movimientos_tipos.tipo='e' then -1*movimiento_ganados.cant else movimiento_ganados.cant end) as sumatoria")
-      .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and fecha >= ? and fecha <= ?", 
-         @predio.id, @fecha_inicio, @fecha_fin)
+      .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and gestion_id = ?", 
+         @predio.id, @inventario.gestion.id)
       .group("ganados.id")
+
+    saldos_mes_actual = saldos_mes_actual.where("fecha >= ?", @fecha_inicio) if @recuento
 
     missing = Ganado.where("id not in (?)", saldos_mes_actual.map(&:ganado_id).push(0))
       .select("id as ganado_id, 0 as sumatoria")
