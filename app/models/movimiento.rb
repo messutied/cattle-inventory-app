@@ -470,8 +470,13 @@ class Movimiento < ActiveRecord::Base
     inv_predio = InventarioPredio.get_inventario(predio_id)
     inv_calc = InventarioPredioCalculador.new(inv_predio)
 
-    if movimientos_tipo.tipo == 'i' or movimientos_tipo.tipo == 'e'
+    if ['i', 'e'].include? movimientos_tipo.tipo
       inv_calc.calculate_ingr_egr_ganado_predio()
+    end
+
+    if ['m'].include? movimientos_tipo.tipo
+      inv_predio_sec = InventarioPredio.get_inventario(predio_sec_id)
+      inv_calc.calculate_mov_ganado_predio(inv_predio_sec)
     end
 
     inv_calc.calculate_totals()

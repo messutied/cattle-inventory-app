@@ -8,7 +8,12 @@ Fabricator :venta, from: :movimientos_tipo do
   tipo 'e'
 end
 
-Fabricator :recuento, from: :movimientos_tipo do 
+Fabricator :tipo_recuento, from: :movimientos_tipo do 
   nombre 'Recuentos'
   tipo 'r'
+end
+
+Fabricator :tipo_movimiento, from: :movimientos_tipo do 
+  nombre 'Movimientos'
+  tipo 'm'
 end

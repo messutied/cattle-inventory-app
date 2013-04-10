@@ -33,6 +33,11 @@ class Gestion < ActiveRecord::Base
 		end
 	end
 
+	def abrir
+		Gestion.find_by_estado("A").update_attributes(estado: "C")
+		update_attributes(estado: "A")
+	end
+
 	def self.get_gestion
 		gestion_anio = Time.now.year
 		gestion_mes = Time.now.month

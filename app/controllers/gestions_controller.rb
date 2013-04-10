@@ -32,28 +32,17 @@ class GestionsController < ApplicationController
   end
 
   def abrir
-    @gestion_abrir = Gestion.find(params[:id])
-
-    @gestion_abierta = Gestion.find_by_estado("A")
-    if @gestion_abierta
-      @gestion_abierta.estado = "C"
-      @gestion_abierta.save
-    end
-
-    @gestion_abrir.estado = "A"
-    @gestion_abrir.save
+    @gestion = Gestion.find(params[:id])
+    @gestion.abrir
 
     redirect_to "/gestions"
   end
 
   def cerrar
     @gestion_cerrar = Gestion.find(params[:id])
-
     @gestion_actual = Gestion.gestion_actual
     
-
-    @gestion_cerrar.estado = "C"
-    @gestion_cerrar.save
+    @gestion_cerrar.update_attributes(estado: "C")
 
     #debugger
     # quiere decir que se esta cerrando el mes en gestion

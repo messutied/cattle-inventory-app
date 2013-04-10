@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130310201858) do
+ActiveRecord::Schema.define(:version => 20130403013438) do
 
   create_table "empleados", :force => true do |t|
     t.string   "nombre"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130310201858) do
     t.integer  "cant",                     :default => 0
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
+    t.integer  "perdidos"
   end
 
   create_table "inventario_predio_movs", :force => true do |t|
