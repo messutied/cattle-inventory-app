@@ -479,6 +479,8 @@ class Movimiento < ActiveRecord::Base
     if ['m'].include? movimientos_tipo.tipo
       inv_predio_sec = InventarioPredio.get_inventario(predio_sec_id)
       inv_calc.calculate_mov_ganado_predio(inv_predio_sec)
+      # calcular totales para el predio secundario
+      InventarioPredioCalculador.new(inv_predio_sec).calculate_totals()
     end
 
     inv_calc.calculate_totals()

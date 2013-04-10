@@ -5,7 +5,6 @@ class InventarioPredioCalculador
     @predio            = inventario_predio.predio
     @recuento          = last_recuento
     @fecha_inicio      = @recuento ? @recuento.fecha.advance(days: 1) : @inventario.gestion.desde
-    @fecha_fin         = @inventario.gestion.hasta
   end
 
   def calculate_ingr_egr_ganado_predio
@@ -112,6 +111,8 @@ class InventarioPredioCalculador
     missing = Ganado.where("id not in (?)", saldos_mes_actual.map(&:ganado_id).push(0))
       .select("id as ganado_id, 0 as sumatoria")
 
+    movimientos = @inventario_predio.inventario_predio_movs.includes(:inventario_predio_mov_ganados)
+
     saldos_mes_actual += missing
 
     saldos_mes_actual.each do |ganado|
@@ -129,6 +130,18 @@ class InventarioPredioCalculador
         # si hubo un recuento esta gestion, se ignoran las gestiones anteriores, 
         # y se suma el recuento a los movimientos realizados despues del mismo
         cant += @recuento.movimiento_ganados.find_by_ganado_id(ganado.ganado_id).cant
+      end
+
+      # sumar los ingresos recividos por movimientos desde otros predios
+      cant += movimientos.select {|m| m.tipo == "ingr"}.inject(0) do |sum, m|
+        g = (m.inventario_predio_mov_ganados.select {|g| g.ganado_id == ganado.ganado_id.to_i}).first
+        sum + (g ? g.cant : 0)
+      end
+
+      # restar los egresos de ganado enviado a otros predios
+      cant -= movimientos.select {|m| m.tipo == "egr"}.inject(0) do |sum, m|
+        g = m.inventario_predio_mov_ganados.select {|g| g.ganado_id == ganado.ganado_id.to_i}.first
+        sum + (g ? g.cant : 0)
       end
 
       @inventario_predio.inventario_predio_ganados

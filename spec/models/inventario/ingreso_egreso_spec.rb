@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require "spec_helper"
 
 describe "Calculo del inventario" do
@@ -146,6 +148,13 @@ describe "Calculo del inventario" do
 
         context "cuando el usuario crea movimientos desde 'Camba Muerto' hacia 'San Vicente'" do
           before do
+            # inicializar camba_muerto con un recuento
+            Fabricate(:recuento, predio: camba_muerto,
+              fecha: Time.now, movimiento_ganados: [
+              Fabricate(:movimiento_ganado, cant: 100, ganado: ganados.first),
+              Fabricate(:movimiento_ganado, cant: 400, ganado: ganados.second)
+            ])
+
             Fabricate(:movimiento, movimientos_tipo: tipo_movimiento, predio: camba_muerto, predio_sec: san_vicente,
               fecha: Time.now.advance(days: 2), movimiento_ganados: [
               Fabricate(:movimiento_ganado, cant: 5, cant_sec: 4, ganado: ganados.first)
@@ -164,6 +173,16 @@ describe "Calculo del inventario" do
 
             inventario_predio.inventario_predio_movs.find_by_tipo_and_predio_sec_id("ingr", camba_muerto.id)
               .inventario_predio_mov_ganados.find_by_ganado_id(ganados.first.id).perdidos.should == 1 + 5
+          end
+
+          it "el inventario por predio por ganado deberia ser igual al recuento + mas el ingreso desde 'Camba Muerto'" do
+            inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).cant.should == 5 + 20 + 4
+            inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).cant.should == 10
+          end
+
+          it "'Camba Muerto' deberia haber disminuido su inventario en lo que se envió a 'San Vicente'" do
+            inventario_predio_sec.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).cant.should == 100 - (5+25)
+            inventario_predio_sec.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).cant.should == 400
           end
         end
       end
