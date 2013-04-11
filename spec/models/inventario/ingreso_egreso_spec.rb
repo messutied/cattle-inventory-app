@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: UTF-8
 
 require "spec_helper"
 
@@ -65,6 +65,9 @@ describe "Calculo del inventario" do
     end
 
     it "deberia guardarse en el inventario por predio por ganado" do
+      inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_parcial.should == 60
+      inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_parcial.should == 40
+
       inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).cant.should == 30
       inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).cant.should == 40
     end
@@ -135,8 +138,6 @@ describe "Calculo del inventario" do
         end
 
         let(:inventario_predio) { InventarioPredio.get_inventario(san_vicente.id) }
-        let(:inventario_ingr_egr_comprados) { inventario_predio.inventario_predio_ingr_egrs.find_by_movimientos_tipo_id(compra.id) }
-        let(:inventario_ingr_egr_vendidos) { inventario_predio.inventario_predio_ingr_egrs.find_by_movimientos_tipo_id(venta.id) }
 
         it "el inventario por predio por ganado deberia ser igual al recuento" do
           inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).cant.should == 5
@@ -178,6 +179,12 @@ describe "Calculo del inventario" do
 
             inventario_predio.inventario_predio_movs.find_by_tipo_and_predio_sec_id("ingr", camba_muerto.id)
               .inventario_predio_mov_ganados.find_by_ganado_id(ganados.first.id).perdidos.should == 1 + 5
+          end
+
+          it "deberia guardarse en el inventario por predio de movimientos" do
+            inventario_predio.inventario_predio_movs.find_by_tipo_and_predio_sec_id("ingr", camba_muerto.id).cant.should == 20 + 4
+            inventario_predio.inventario_predio_movs.find_by_tipo_and_predio_sec_id("ingr", camba_muerto.id).cant_may_a.should == 0
+            inventario_predio.inventario_predio_movs.find_by_tipo_and_predio_sec_id("ingr", camba_muerto.id).cant_men_a.should == 20 + 4
           end
 
           it "el inventario por predio por ganado deberia ser igual al recuento + mas el ingreso desde 'Camba Muerto'" do

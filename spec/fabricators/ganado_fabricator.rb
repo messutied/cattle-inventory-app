@@ -5,7 +5,9 @@ Fabricator :ganado_grupo do
       nombre: "Ganado #{i}", 
       nombre_corto: "G #{i}", 
       orden: i,
-      tipo: i%2 == 0 ? "may_a" : "men_a" # pares son mayores al año, impares son menores
+      # pares   = mayores al año
+      # impares = menores al año
+      tipo: i%2 == 0 ? "may_a" : "men_a"
     )
   end
 end

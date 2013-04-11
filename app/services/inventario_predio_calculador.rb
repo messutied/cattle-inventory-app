@@ -32,10 +32,11 @@ class InventarioPredioCalculador
 
     inv_ingr_egr.each do |ingr_egr|
       # actualizar inventario por predio, ingr/egr
-      ingr_egr.cant = ingr_egr.inventario_predio_ingr_egr_ganados.sum(&:cant)
-      ingr_egr.cant_may_a = ingr_egr.inventario_predio_ingr_egr_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant)
-      ingr_egr.cant_men_a = ingr_egr.inventario_predio_ingr_egr_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
-      ingr_egr.save
+      ingr_egr.update_attributes(
+        cant: ingr_egr.inventario_predio_ingr_egr_ganados.sum(&:cant),
+        cant_may_a: ingr_egr.inventario_predio_ingr_egr_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant),
+        cant_men_a: ingr_egr.inventario_predio_ingr_egr_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
+      )
     end
   end
 
@@ -97,13 +98,17 @@ class InventarioPredioCalculador
 
       ganado.update_attributes(cant: mov.cant, perdidos: mov.perdidos)
     end
+
+    update_inventario_predio_movs_totals(@inventario_predio)
+    update_inventario_predio_movs_totals(inv_predio_sec)
   end
 
   def calculate_totals
     # calcular inventario por predio por ganado
     saldos_mes_actual = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("ganados.id as ganado_id, "+
-        "sum(case when movimientos_tipos.tipo='e' then -1*movimiento_ganados.cant else movimiento_ganados.cant end) as sumatoria")
+        "sum(case when movimientos_tipos.tipo='e' then movimiento_ganados.cant else 0 end) as sum_egresos, "+
+        "sum(case when movimientos_tipos.tipo='i' then movimiento_ganados.cant else 0 end) as sum_ingresos")
       .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and gestion_id = ?", 
          @predio.id, @inventario.gestion.id)
       .group("ganados.id")
@@ -111,7 +116,7 @@ class InventarioPredioCalculador
     saldos_mes_actual = saldos_mes_actual.where("fecha >= ?", @fecha_inicio) if @recuento
 
     missing = Ganado.where("id not in (?)", saldos_mes_actual.map(&:ganado_id).push(0))
-      .select("id as ganado_id, 0 as sumatoria")
+      .select("id as ganado_id, 0 as sum_egresos, 0 as sum_ingresos")
 
     movimientos = @inventario_predio.inventario_predio_movs.includes(:inventario_predio_mov_ganados)
 
@@ -120,25 +125,27 @@ class InventarioPredioCalculador
     saldos_mes_actual.each do |ganado|
       # sumatoria de movimientos de esta gestion 
       # o despues del ultimo recuento de esta gestion si lo hubo
-      cant = ganado.sumatoria.to_i 
+      saldo_parcial = ganado.sum_ingresos.to_i
 
       if @recuento.nil? # si no hubo un recuento esta gestion, tomar en cuenta la anterior gestion
         if @inventario.gestion.anterior
           inv = @inventario.gestion.anterior.get_inventario.get_inventario_predio(@predio.id)
           inv_ganado = inv.inventario_predio_ganados.find_by_ganado_id(ganado.ganado_id)
-          cant += inv_ganado.cant if inv_ganado
+          saldo_parcial += inv_ganado.cant if inv_ganado
         end
       else
         # si hubo un recuento esta gestion, se ignoran las gestiones anteriores, 
         # y se suma el recuento a los movimientos realizados despues del mismo
-        cant += @recuento.movimiento_ganados.find_by_ganado_id(ganado.ganado_id).cant
+        saldo_parcial += @recuento.movimiento_ganados.find_by_ganado_id(ganado.ganado_id).cant
       end
 
       # sumar los ingresos recividos por movimientos desde otros predios
-      cant += movimientos.select {|m| m.tipo == "ingr"}.inject(0) do |sum, m|
+      saldo_parcial += movimientos.select {|m| m.tipo == "ingr"}.inject(0) do |sum, m|
         g = (m.inventario_predio_mov_ganados.select {|g| g.ganado_id == ganado.ganado_id.to_i}).first
         sum + (g ? g.cant : 0)
       end
+
+      cant = saldo_parcial - ganado.sum_egresos.to_i
 
       # restar los egresos de ganado enviado a otros predios
       cant -= movimientos.select {|m| m.tipo == "egr"}.inject(0) do |sum, m|
@@ -148,18 +155,25 @@ class InventarioPredioCalculador
 
       @inventario_predio.inventario_predio_ganados
         .find_or_create_by_ganado_id(ganado.ganado_id)
-        .update_attributes(cant: cant)
+        .update_attributes(cant: cant, saldo_parcial: saldo_parcial)
     end
     
     # calcular inventario por predio
-    @inventario_predio.update_attributes(cant: @inventario_predio.inventario_predio_ganados.sum(&:cant))
-    @inventario_predio.update_attributes(cant_may_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant))
-    @inventario_predio.update_attributes(cant_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant))
+    @inventario_predio.update_attributes(
+      cant: @inventario_predio.inventario_predio_ganados.sum(&:cant),
+      cant_may_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant),
+      cant_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant),
+      saldo_p: @inventario_predio.inventario_predio_ganados.sum(&:saldo_parcial),
+      saldo_p_may_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:saldo_parcial),
+      saldo_p_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:saldo_parcial)
+    )
 
     # calcular inventario total
-    @inventario.update_attributes(cant: @inventario.inventario_predios.sum(&:cant))
-    @inventario.update_attributes(cant_may_a: @inventario.inventario_predios.sum(&:cant_may_a))
-    @inventario.update_attributes(cant_men_a: @inventario.inventario_predios.sum(&:cant_men_a))
+    @inventario.update_attributes(
+      cant: @inventario.inventario_predios.sum(&:cant),
+      cant_may_a: @inventario.inventario_predios.sum(&:cant_may_a),
+      cant_men_a: @inventario.inventario_predios.sum(&:cant_men_a)
+    )
   end
 
   private
@@ -170,5 +184,18 @@ class InventarioPredioCalculador
         @inventario.gestion.desde, @inventario.gestion.hasta, @predio.id)
       .order("fecha desc").first
     return mov
+  end
+
+  def update_inventario_predio_movs_totals(inventario_predio)
+    inv_movs = inventario_predio.inventario_predio_movs.includes(:inventario_predio_mov_ganados)
+
+    inv_movs.each do |mov|
+      # actualizar inventario por predio, mov
+      mov.update_attributes(
+        cant: mov.inventario_predio_mov_ganados.sum(&:cant),
+        cant_may_a: mov.inventario_predio_mov_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant),
+        cant_men_a: mov.inventario_predio_mov_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
+      )
+    end
   end
 end
