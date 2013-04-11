@@ -126,18 +126,21 @@ class InventarioPredioCalculador
       # sumatoria de movimientos de esta gestion 
       # o despues del ultimo recuento de esta gestion si lo hubo
       saldo_parcial = ganado.sum_ingresos.to_i
+      saldo_inicial = 0
 
       if @recuento.nil? # si no hubo un recuento esta gestion, tomar en cuenta la anterior gestion
         if @inventario.gestion.anterior
           inv = @inventario.gestion.anterior.get_inventario.get_inventario_predio(@predio.id)
           inv_ganado = inv.inventario_predio_ganados.find_by_ganado_id(ganado.ganado_id)
-          saldo_parcial += inv_ganado.cant if inv_ganado
+          saldo_inicial = inv_ganado.cant if inv_ganado
         end
       else
         # si hubo un recuento esta gestion, se ignoran las gestiones anteriores, 
         # y se suma el recuento a los movimientos realizados despues del mismo
-        saldo_parcial += @recuento.movimiento_ganados.find_by_ganado_id(ganado.ganado_id).cant
+        saldo_inicial = @recuento.movimiento_ganados.find_by_ganado_id(ganado.ganado_id).cant
       end
+
+      saldo_parcial += saldo_inicial
 
       # sumar los ingresos recividos por movimientos desde otros predios
       saldo_parcial += movimientos.select {|m| m.tipo == "ingr"}.inject(0) do |sum, m|
@@ -155,7 +158,11 @@ class InventarioPredioCalculador
 
       @inventario_predio.inventario_predio_ganados
         .find_or_create_by_ganado_id(ganado.ganado_id)
-        .update_attributes(cant: cant, saldo_parcial: saldo_parcial)
+        .update_attributes(
+          saldo_inicial: saldo_inicial, 
+          saldo_parcial: saldo_parcial, 
+          cant: cant
+        )
     end
     
     # calcular inventario por predio
@@ -165,7 +172,10 @@ class InventarioPredioCalculador
       cant_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant),
       saldo_p: @inventario_predio.inventario_predio_ganados.sum(&:saldo_parcial),
       saldo_p_may_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:saldo_parcial),
-      saldo_p_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:saldo_parcial)
+      saldo_p_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:saldo_parcial),
+      saldo_i: @inventario_predio.inventario_predio_ganados.sum(&:saldo_inicial),
+      saldo_i_may_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:saldo_inicial),
+      saldo_i_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:saldo_inicial)
     )
 
     # calcular inventario total

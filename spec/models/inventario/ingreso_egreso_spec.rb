@@ -65,6 +65,9 @@ describe "Calculo del inventario" do
     end
 
     it "deberia guardarse en el inventario por predio por ganado" do
+      inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_inicial.should == 0
+      inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_inicial.should == 0
+
       inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_parcial.should == 60
       inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_parcial.should == 40
 
