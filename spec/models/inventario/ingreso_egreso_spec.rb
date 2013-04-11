@@ -51,7 +51,12 @@ describe "Calculo del inventario" do
 
     it "deberia guardarse en el inventario por predio ingr/egr" do
       inventario_ingr_egr_comprados.cant.should == 100
+      inventario_ingr_egr_comprados.cant_men_a.should == 60
+      inventario_ingr_egr_comprados.cant_may_a.should == 40
+
       inventario_ingr_egr_vendidos.cant.should == 30
+      inventario_ingr_egr_vendidos.cant_men_a.should == 30
+      inventario_ingr_egr_vendidos.cant_may_a.should == 0
     end
 
     it "deberia guardarse 1 inventario_predio_ganado por cada ganado" do

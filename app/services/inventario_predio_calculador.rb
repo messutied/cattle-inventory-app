@@ -28,11 +28,13 @@ class InventarioPredioCalculador
       ganado.update_attributes(cant: ingr_egr.sumatoria)
     end
 
-    inv_ingr_egr = @inventario_predio.inventario_predio_ingr_egrs
+    inv_ingr_egr = @inventario_predio.inventario_predio_ingr_egrs.includes(:inventario_predio_ingr_egr_ganados)
 
     inv_ingr_egr.each do |ingr_egr|
       # actualizar inventario por predio, ingr/egr
       ingr_egr.cant = ingr_egr.inventario_predio_ingr_egr_ganados.sum(&:cant)
+      ingr_egr.cant_may_a = ingr_egr.inventario_predio_ingr_egr_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant)
+      ingr_egr.cant_men_a = ingr_egr.inventario_predio_ingr_egr_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
       ingr_egr.save
     end
   end
@@ -151,9 +153,13 @@ class InventarioPredioCalculador
     
     # calcular inventario por predio
     @inventario_predio.update_attributes(cant: @inventario_predio.inventario_predio_ganados.sum(&:cant))
+    @inventario_predio.update_attributes(cant_may_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant))
+    @inventario_predio.update_attributes(cant_men_a: @inventario_predio.inventario_predio_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant))
 
     # calcular inventario total
     @inventario.update_attributes(cant: @inventario.inventario_predios.sum(&:cant))
+    @inventario.update_attributes(cant_may_a: @inventario.inventario_predios.sum(&:cant_may_a))
+    @inventario.update_attributes(cant_men_a: @inventario.inventario_predios.sum(&:cant_men_a))
   end
 
   private

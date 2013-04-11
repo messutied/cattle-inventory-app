@@ -4,7 +4,8 @@ Fabricator :ganado_grupo do
     Fabricate(:ganado, 
       nombre: "Ganado #{i}", 
       nombre_corto: "G #{i}", 
-      orden: i
+      orden: i,
+      tipo: i%2 == 0 ? "may_a" : "men_a" # pares son mayores al año, impares son menores
     )
   end
 end
