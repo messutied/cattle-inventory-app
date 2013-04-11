@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410230600) do
+ActiveRecord::Schema.define(:version => 20130411214337) do
 
   create_table "empleados", :force => true do |t|
     t.string   "nombre"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130410230600) do
     t.integer  "saldo_parcial",        :default => 0
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "saldo_inicial"
   end
 
   create_table "inventario_predio_ingr_egr_ganados", :force => true do |t|
@@ -112,6 +113,9 @@ ActiveRecord::Schema.define(:version => 20130410230600) do
     t.integer  "saldo_p_men_a"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.integer  "saldo_i"
+    t.integer  "saldo_i_may_a"
+    t.integer  "saldo_i_men_a"
   end
 
   create_table "inventarios", :force => true do |t|
