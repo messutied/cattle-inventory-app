@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: UTF-8
 
 class HomeController < ApplicationController
   before_filter :require_user

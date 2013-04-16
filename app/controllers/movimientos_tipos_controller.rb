@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: UTF-8
 
 class MovimientosTiposController < ApplicationController
   before_filter :require_user

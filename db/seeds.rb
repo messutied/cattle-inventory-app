@@ -52,24 +52,24 @@ GanadoGrupo.create([
 ])
 
 Ganado.create([
-  {:nombre=>'Hemb', :ganado_grupo_id=>1, :orden => 1},
-  {:nombre=>'Mach', :ganado_grupo_id=>1, :orden => 2},
-  {:nombre=>'Hemb', :ganado_grupo_id=>2, :orden => 1},
-  {:nombre=>'Tore', :ganado_grupo_id=>2, :orden => 2},
-  {:nombre=>'Nov', :ganado_grupo_id=>2, :orden => 3},
-  {:nombre=>'2A', :ganado_grupo_id=>3, :orden => 1},
-  {:nombre=>'3A', :ganado_grupo_id=>3, :orden => 2},
-  {:nombre=>'4 y MY', :ganado_grupo_id=>3, :orden => 3},
-  {:nombre=>'2A', :ganado_grupo_id=>4, :orden => 1},
-  {:nombre=>'3A', :ganado_grupo_id=>4, :orden => 2},
-  {:nombre=>'4 y MY', :ganado_grupo_id=>4, :orden => 3},
-  {:nombre=>'2A', :ganado_grupo_id=>5, :orden => 1},
-  {:nombre=>'3A', :ganado_grupo_id=>5, :orden => 2},
-  {:nombre=>'4 y MY', :ganado_grupo_id=>5, :orden => 3},
-  {:nombre=>'2A', :ganado_grupo_id=>6, :orden => 1},
-  {:nombre=>'3A', :ganado_grupo_id=>6, :orden => 2},
-  {:nombre=>'4 y MY', :ganado_grupo_id=>6, :orden => 3},
-  {:nombre=>' ', :ganado_grupo_id=>7, :orden => 1}
+  {:nombre=>'Hemb', :ganado_grupo_id=>1, :orden => 1, :tipo => "men_a"},
+  {:nombre=>'Mach', :ganado_grupo_id=>1, :orden => 2, :tipo => "men_a"},
+  {:nombre=>'Hemb', :ganado_grupo_id=>2, :orden => 1, :tipo => "may_a"},
+  {:nombre=>'Tore', :ganado_grupo_id=>2, :orden => 2, :tipo => "may_a"},
+  {:nombre=>'Nov', :ganado_grupo_id=>2, :orden => 3, :tipo => "may_a"},
+  {:nombre=>'2A', :ganado_grupo_id=>3, :orden => 1, :tipo => "may_a"},
+  {:nombre=>'3A', :ganado_grupo_id=>3, :orden => 2, :tipo => "may_a"},
+  {:nombre=>'4 y MY', :ganado_grupo_id=>3, :orden => 3, :tipo => "may_a"},
+  {:nombre=>'2A', :ganado_grupo_id=>4, :orden => 1, :tipo => "may_a"},
+  {:nombre=>'3A', :ganado_grupo_id=>4, :orden => 2, :tipo => "may_a"},
+  {:nombre=>'4 y MY', :ganado_grupo_id=>4, :orden => 3, :tipo => "may_a"},
+  {:nombre=>'2A', :ganado_grupo_id=>5, :orden => 1, :tipo => "may_a"},
+  {:nombre=>'3A', :ganado_grupo_id=>5, :orden => 2, :tipo => "may_a"},
+  {:nombre=>'4 y MY', :ganado_grupo_id=>5, :orden => 3, :tipo => "may_a"},
+  {:nombre=>'2A', :ganado_grupo_id=>6, :orden => 1, :tipo => "may_a"},
+  {:nombre=>'3A', :ganado_grupo_id=>6, :orden => 2, :tipo => "may_a"},
+  {:nombre=>'4 y MY', :ganado_grupo_id=>6, :orden => 3, :tipo => "may_a"},
+  {:nombre=>' ', :ganado_grupo_id=>7, :orden => 1, :tipo => "may_a"}
 ])
 
 MovimientosTipo.create([

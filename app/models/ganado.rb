@@ -3,7 +3,10 @@ class Ganado < ActiveRecord::Base
   has_many :movimiento_ganados, :dependent => :destroy
   has_many :movimientos, :through => :movimiento_ganados, :uniq => true
 
-  scope :un_mes, lambda {where("id=1 or id=2")}
+  default_scope joins(:ganado_grupo)
+    .order("ganado_grupos.orden asc, ganados.orden asc")
+    .select("ganados.*")
+  scope :un_mes, where("ganados.id=1 or ganados.id=2")
 
   def self.recuento_info(predio, gestion)
     #gestion = Gestion.get_gestion

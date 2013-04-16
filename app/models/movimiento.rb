@@ -19,7 +19,8 @@ class Movimiento < ActiveRecord::Base
   after_destroy :update_inventario
   before_save :set_gestion
 
-  scope :movimientos, where("movimientos_tipos.tipo='m'").joins(:movimientos_tipo)
+  scope :movimientos, joins(:movimientos_tipo).where("movimientos_tipos.tipo = ?", 'm')
+  scope :recuentos, joins(:movimientos_tipo).where("movimientos_tipos.tipo = ?", 'r')
   scope :movimientos_perdidas, where("movimientos_tipos.tipo='m' and "+
         "movimiento_ganados.cant>movimiento_ganados.cant_sec")
         .joins(:movimientos_tipo, :movimiento_ganados)
@@ -472,15 +473,12 @@ class Movimiento < ActiveRecord::Base
     inv_predio = InventarioPredio.get_inventario(predio_id)
     inv_calc = InventarioPredioCalculador.new(inv_predio)
 
-    if ['i', 'e'].include? movimientos_tipo.tipo
+    if ['i', 'e', 'r'].include? movimientos_tipo.tipo
       inv_calc.calculate_ingr_egr_ganado_predio()
     end
 
-    if ['m'].include? movimientos_tipo.tipo
-      inv_predio_sec = InventarioPredio.get_inventario(predio_sec_id)
-      inv_calc.calculate_mov_ganado_predio(inv_predio_sec)
-      # calcular totales para el predio secundario
-      InventarioPredioCalculador.new(inv_predio_sec).calculate_totals()
+    if ['m', 'r'].include? movimientos_tipo.tipo
+      inv_calc.calculate_mov_ganado_predio()
     end
 
     inv_calc.calculate_totals()

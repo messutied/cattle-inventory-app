@@ -21,11 +21,20 @@ class InventarioPredioCalculador
       inv_predio_ingr_egr = @inventario_predio.inventario_predio_ingr_egrs
         .find_or_create_by_movimientos_tipo_id(ingr_egr.movimiento_tipo_id)
 
-      ganado = inv_predio_ingr_egr.inventario_predio_ingr_egr_ganados
-        .find_or_initialize_by_ganado_id(ingr_egr.ganado_id)
+      ip_ganados = inv_predio_ingr_egr.inventario_predio_ingr_egr_ganados
+
+      ganado = ip_ganados.find_or_initialize_by_ganado_id(ingr_egr.ganado_id)
 
       # actualizar inventario por predio, ingr/egr, por ganado
       ganado.update_attributes(cant: ingr_egr.sumatoria)
+
+      
+      missing = Ganado.where("ganados.id not in (?)", ip_ganados.map(&:ganado_id).push(0))
+        .select("ganados.id as ganado_id, 0 as sumatoria")
+
+      missing.each do |ganado|
+        ip_ganados.create(ganado_id: ganado.id, cant: 0)
+      end
     end
 
     inv_ingr_egr = @inventario_predio.inventario_predio_ingr_egrs.includes(:inventario_predio_ingr_egr_ganados)
@@ -40,70 +49,45 @@ class InventarioPredioCalculador
     end
   end
 
-  def calculate_mov_ganado_predio(inv_predio_sec)
-    # salida a otros predios
-    mov_egr = Movimiento.joins(:ganados, :movimientos_tipo)
+  def calculate_mov_ganado_predio
+    movimientos = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, sum(movimiento_ganados.cant_sec) as cant_sec, sum(movimiento_ganados.cant)-sum(movimiento_ganados.cant_sec) as perdidos, movimientos.predio_id, movimientos.predio_sec_id")
-      .where("movimientos_tipos.tipo in ('m') and movimientos.predio_id = ? and movimientos.predio_sec_id = ? and gestion_id = ?", 
-        @predio.id, inv_predio_sec.predio_id, @inventario.gestion.id)
+      .where("movimientos_tipos.tipo in ('m') and gestion_id = ?", 
+        @inventario.gestion.id)
       .group("movimientos.predio_id, movimientos.predio_sec_id, ganados.id")
 
-    mov_egr = mov_egr.where("fecha >= ?", @fecha_inicio) if @recuento
+    movimientos = movimientos.where("fecha >= ?", @fecha_inicio) if @recuento
 
-    # entrada de otros predios
-    mov_ingr = Movimiento.joins(:ganados, :movimientos_tipo)
-      .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, sum(movimiento_ganados.cant_sec) as cant_sec, sum(movimiento_ganados.cant)-sum(movimiento_ganados.cant_sec) as perdidos, movimientos.predio_id, movimientos.predio_sec_id ")
-      .where("movimientos_tipos.tipo in ('m') and movimientos.predio_id = ? and movimientos.predio_sec_id = ? and gestion_id = ?", 
-        inv_predio_sec.predio_id, @predio.id, @inventario.gestion.id)
-      .group("movimientos.predio_sec_id , movimientos.predio_id, ganados.id")
+    movimientos.each do |mov|
+      inventario_predio = InventarioPredio.get_inventario(mov.predio_id)
 
-    mov_ingr = mov_ingr.where("fecha >= ?", @fecha_inicio) if @recuento
-
-    mov_egr.each do |mov|
-      # es un egreso para el predio actual
-      inv_predio_mov = @inventario_predio.inventario_predio_movs
+      inv_predio_mov = inventario_predio.inventario_predio_movs
         .find_or_create_by_tipo_and_predio_sec_id("egr", mov.predio_sec_id)
 
       ganado = inv_predio_mov.inventario_predio_mov_ganados
         .find_or_initialize_by_ganado_id(mov.ganado_id)
 
       ganado.update_attributes(cant: mov.cant, perdidos: mov.perdidos)
+      create_missing_mov_ganados(inv_predio_mov.inventario_predio_mov_ganados)
 
-      # es un ingreso para el otro predio
-      inv_predio_mov = inv_predio_sec.inventario_predio_movs
+      inventario_predio_sec = InventarioPredio.get_inventario(mov.predio_sec_id)
+
+      inv_predio_mov = inventario_predio_sec.inventario_predio_movs
         .find_or_create_by_tipo_and_predio_sec_id("ingr", mov.predio_id)
 
       ganado = inv_predio_mov.inventario_predio_mov_ganados
         .find_or_initialize_by_ganado_id(mov.ganado_id)
 
       ganado.update_attributes(cant: mov.cant_sec, perdidos: mov.perdidos)
+      create_missing_mov_ganados(inv_predio_mov.inventario_predio_mov_ganados)
+
+
+      update_inventario_predio_movs_totals(inventario_predio)
+      update_inventario_predio_movs_totals(inventario_predio_sec)
     end
-
-    mov_ingr.each do |mov|
-      # es un ingreso para el predio actual
-      inv_predio_mov = @inventario_predio.inventario_predio_movs
-        .find_or_create_by_tipo_and_predio_sec_id("ingr", mov.predio_id)
-
-      ganado = inv_predio_mov.inventario_predio_mov_ganados
-        .find_or_initialize_by_ganado_id(mov.ganado_id)
-
-      ganado.update_attributes(cant: mov.cant_sec, perdidos: mov.perdidos)
-
-      # es un egreso para el otro predio
-      inv_predio_mov = inv_predio_sec.inventario_predio_movs
-        .find_or_create_by_tipo_and_predio_sec_id("egr", mov.predio_sec_id)
-
-      ganado = inv_predio_mov.inventario_predio_mov_ganados
-        .find_or_initialize_by_ganado_id(mov.ganado_id)
-
-      ganado.update_attributes(cant: mov.cant, perdidos: mov.perdidos)
-    end
-
-    update_inventario_predio_movs_totals(@inventario_predio)
-    update_inventario_predio_movs_totals(inv_predio_sec)
   end
 
-  def calculate_totals
+  def calculate_totals(calc_predio_sec=true)
     # calcular inventario por predio por ganado
     saldos_mes_actual = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("ganados.id as ganado_id, "+
@@ -115,8 +99,8 @@ class InventarioPredioCalculador
 
     saldos_mes_actual = saldos_mes_actual.where("fecha >= ?", @fecha_inicio) if @recuento
 
-    missing = Ganado.where("id not in (?)", saldos_mes_actual.map(&:ganado_id).push(0))
-      .select("id as ganado_id, 0 as sum_egresos, 0 as sum_ingresos")
+    missing = Ganado.where("ganados.id not in (?)", saldos_mes_actual.map(&:ganado_id).push(0))
+      .select("ganados.id as ganado_id, 0 as sum_egresos, 0 as sum_ingresos")
 
     movimientos = @inventario_predio.inventario_predio_movs.includes(:inventario_predio_mov_ganados)
 
@@ -184,6 +168,14 @@ class InventarioPredioCalculador
       cant_may_a: @inventario.inventario_predios.sum(&:cant_may_a),
       cant_men_a: @inventario.inventario_predios.sum(&:cant_men_a)
     )
+
+    if calc_predio_sec
+      @inventario_predio.inventario_predio_movs.select(:predio_sec_id).uniq.map(&:predio_sec_id).each do |predio_id|
+        inv_predio_sec = InventarioPredio.get_inventario(predio_id)
+        inv_calc = InventarioPredioCalculador.new(inv_predio_sec)
+        inv_calc.calculate_totals(false)
+      end
+    end
   end
 
   private
@@ -206,6 +198,15 @@ class InventarioPredioCalculador
         cant_may_a: mov.inventario_predio_mov_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant),
         cant_men_a: mov.inventario_predio_mov_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
       )
+    end
+  end
+
+  def create_missing_mov_ganados(inventario_predio_mov_ganados)
+    missing = Ganado.where("ganados.id not in (?)", inventario_predio_mov_ganados.map(&:ganado_id).push(0))
+      .select("ganados.id as ganado_id, 0 as sumatoria")
+
+    missing.each do |ganado|
+      inventario_predio_mov_ganados.create(ganado_id: ganado.id, cant: 0)
     end
   end
 end

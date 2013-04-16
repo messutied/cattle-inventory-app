@@ -1,123 +1,124 @@
 <%= stylesheet_link_tag "inv_mensual_reporte" %>
 
 <%= form_tag("inventario_mensual", :method => "GET", :class => "form-inline") do %>
-	<label for="gestion">Gestión:</label>
-	<%= select_tag(:filtro_gestion, options_for_gestiones(@gestion_id)) %>
-	&nbsp;
-	&nbsp;
+<label for="gestion">Gestión:</label>
+<%= select_tag(:filtro_gestion, options_for_gestiones(@gestion_id)) %>
+&nbsp;
+&nbsp;
 
-	<label for="gestion">Predio:</label>
-	<%= select_tag(:filtro_predio, options_for_predios(@predio)) %>
+<label for="gestion">Predio:</label>
+<%= select_tag(:filtro_predio, options_for_predios(@predio)) %>
 
-	<input type="submit" value="Filtrar" class="btn">
+<input type="submit" value="Filtrar" class="btn">
 <% end %>
 <br />
 
 <% if @predio != '' %>
 
-	<table class="table table-bordered" id="tabla-inv-mensual">
-		<!-- Cabeceras con grupos de ganado -->
-		<tr class="row-ggrupos">
-			<th colspan="2"></th>
-			<% @g_grupos.each do |gg| %>
-				<th colspan="<%= gg.ganados.length %>"><%= gg.nombre %></th>
-			<% end %>
-			<th rowspan="2">Total<br />Menor<br />de Año</th>
-			<th rowspan="2">Total<br />Mayor<br />de Año</th>
-			<th rowspan="2">Total<br />Animal.</th>
-		</tr>
-
-		<!-- Cabecera con nombre del ganados -->
-		<tr class="row-ganado">
-			<th colspan="2"></th>
-			<% @ganados.each do |g| %>
-				<th><%= g.nombre %></th>
-			<% end %>
-		</tr>
-		
-		<!-- Saldo Inicial -->
-		<tr class="row-saldo">
-			<th colspan="2">Saldo Inicial</th>
-			<% @presenter.saldo_mes_ant(@predio) do |saldo| %>
-				<td><%= saldo %></td>
-			<% end %>
-		</tr>
-
-		<!-- Ingresos -->
-		<% @m_tipos_ing.each do |i| %>
-			<tr class="row-mov">
-				<th colspan="2"><%= i.nombre %></th>
-				<% @presenter.cant_in_eg(@predio, i.id) do |saldo|  %>
-					<td><%= saldo %></td>
-				<% end %>
-			</tr>
+<table class="table table-bordered" id="tabla-inv-mensual">
+	<!-- Cabeceras con grupos de ganado -->
+	<tr class="row-ggrupos">
+		<th colspan="2"></th>
+		<% @g_grupos.each do |gg| %>
+		<th colspan="<%= gg.ganados.length %>"><%= gg.nombre %></th>
 		<% end %>
+		<th rowspan="2">Total<br />Menor<br />de Año</th>
+		<th rowspan="2">Total<br />Mayor<br />de Año</th>
+		<th rowspan="2">Total<br />Animal.</th>
+	</tr>
 
-		<!-- Movimientos de entrada al predio -->
-		<% @mov_ingresos.each do |m| %>
-			<tr class="row-mov">
-				<th colspan="2">De <%= m.predio.nombre %></th>
-				<% @ganados.each do |g| %>
-					<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-					<td data-title="<%= popover_title(mov_gan) %>"
-							class="<%= popover_class(mov_gan) %>" 
-						  data-content="<%= popover_dcontent(mov_gan) %>"
-						  onclick="<%= popover_link(mov_gan) %>">
-						<%= mov_gan.any? ? mov_gan.first.cant_sec : 0 %>
-					</td>
-					<!-- <td><%= m.total_por_ganado(g.id, true) %> -->
-					</td>
-				<% end %>
-			<td><%= m.total_por_ganado(@ganado_menor_anio, true) %></td>
-			<td><%= m.total_por_ganado(@ganado_mayor_anio, true) %></td>
-			<td><%= m.total_por_ganado(@ganado_todos, true) %></td>
-			</tr>
+	<!-- Cabecera con nombre del ganados -->
+	<tr class="row-ganado">
+		<th colspan="2"></th>
+		<% @ganados.each do |g| %>
+		<th><%= g.nombre %></th>
 		<% end %>
+	</tr>
 
-		<!-- Saldo Parcial Ingresos -->
-		<tr class="row-saldo">
-			<th colspan="2">Saldo Parcial</th>
-			<% @presenter.saldo_parcial_ingresos(@predio) do |saldo| %>
-				<td><%= saldo %></td>
-			<% end %>
-		</tr>
-
-		<!-- Movimientos de salida del predio -->
-		<% @m_tipos_egr.each do |e| %>
-			<tr class="row-mov">
-				<th colspan="2"><%= e.nombre %></th>
-				<% @presenter.cant_in_eg(@predio, e.id) do |saldo|  %>
-					<td><%= saldo %></td>
-				<% end %>
-			</tr>
+	<!-- Saldo Inicial -->
+	<tr class="row-saldo">
+		<th colspan="2">Saldo Inicial</th>
+		<% @ip_ganados.each do |ip_ganado| %>
+		<td><%= ip_ganado.saldo_inicial %></td>
 		<% end %>
+		<th><%= @inv_predio.saldo_i_men_a %></th>
+		<th><%= @inv_predio.saldo_i_may_a %></th>
+		<th><%= @inv_predio.saldo_i %></th>
+	</tr>
 
-		<!-- Egresos -->
-		<% @mov_egresos.each do |m| %>
-			<tr class="row-mov">
-				<th colspan="2">A <%= m.predio_sec.nombre %></th>
-				<% @ganados.each do |g| %>
-					<% mov_gan = m.movimiento_ganados.where("ganado_id=?", g.id) %>
-					<td data-title="<%= popover_title(mov_gan) %>"
-							class="<%= popover_class(mov_gan) %>"
-						  data-content="<%= popover_dcontent(mov_gan) %>"
-						  onclick="<%= popover_link(mov_gan) %>">
-						<span><%= mov_gan.any? ? mov_gan.first.cant : 0 %></span>
-					</td>
-				<% end %>
-			<td><%= m.total_por_ganado(@ganado_menor_anio, false) %></td>
-			<td><%= m.total_por_ganado(@ganado_mayor_anio, false) %></td>
-			<td><%= m.total_por_ganado(@ganado_todos, false) %></td>
-			</tr>
+	<!-- Ingresos -->
+	<% @inv_predio.inventario_predio_ingr_egrs.ingresos.each do |i| %>
+	<tr class="row-mov">
+		<th colspan="2"><%= i.movimientos_tipo.nombre %></th>
+		<% i.inventario_predio_ingr_egr_ganados.each do |ip_ganado|  %>
+		<td><%= ip_ganado.cant %></td>
 		<% end %>
-		
-		<!-- Saldos Finales de la Gestion -->
-		<tr class="row-saldo">
-			<th colspan="2">Saldo del Mes</th>
-			<% @presenter.saldo_mes(@predio) do |saldo| %>
-				<td><%= saldo %></td>
-			<% end %>
-		</tr>
-	</table>
+		<th><%= i.cant_men_a %></th>
+		<th><%= i.cant_may_a %></th>
+		<th><%= i.cant %></th>
+	</tr>
+	<% end %>
+
+	<!-- Movimientos de entrada al predio -->
+	<% @inv_predio.inventario_predio_movs.ingresos.each do |i| %>
+	<tr class="row-mov">
+		<th colspan="2">De: <%= i.predio_sec.nombre %></th>
+		<% i.inventario_predio_mov_ganados.each do |ip_ganado|  %>
+		<td><%= ip_ganado.cant %></td>
+		<% end %>
+		<th><%= i.cant_men_a %></th>
+		<th><%= i.cant_may_a %></th>
+		<th><%= i.cant %></th>
+	</tr>
+	<% end %>
+
+	<!-- Saldo Parcial Ingresos -->
+	<tr class="row-saldo">
+		<th colspan="2">Saldo Parcial</th>
+		<% @ip_ganados.each do |ip_ganado| %>
+		<td><%= ip_ganado.saldo_parcial %></td>
+		<% end %>
+		<th><%= @inv_predio.saldo_p_men_a %></th>
+		<th><%= @inv_predio.saldo_p_may_a %></th>
+		<th><%= @inv_predio.saldo_p %></th>
+	</tr>
+
+	<!-- Egresos -->
+	<% @inv_predio.inventario_predio_ingr_egrs.egresos.each do |e| %>
+	<tr class="row-mov">
+		<th colspan="2"><%= e.movimientos_tipo.nombre %></th>
+		<% e.inventario_predio_ingr_egr_ganados.each do |ip_ganado|  %>
+		<td><%= ip_ganado.cant %></td>
+		<% end %>
+		<th><%= e.cant_men_a %></th>
+		<th><%= e.cant_may_a %></th>
+		<th><%= e.cant %></th>
+	</tr>
+	<% end %>
+
+	<!-- Movimientos de salidas del predio -->
+	<% @inv_predio.inventario_predio_movs.egresos.each do |e| %>
+	<tr class="row-mov">
+		<th colspan="2">A: <%= e.predio_sec.nombre %></th>
+		<% e.inventario_predio_mov_ganados.each do |ip_ganado|  %>
+		<td><%= ip_ganado.cant %></td>
+		<% end %>
+		<th><%= e.cant_men_a %></th>
+		<th><%= e.cant_may_a %></th>
+		<th><%= e.cant %></th>
+	</tr>
+	<% end %>
+
+	<!-- Saldo Final -->
+	<tr class="row-saldo">
+		<th colspan="2">Saldo del Mes</th>
+		<% @ip_ganados.each do |ip_ganado| %>
+		<td><%= ip_ganado.cant %></td>
+		<% end %>
+		<th><%= @inv_predio.cant_men_a %></th>
+		<th><%= @inv_predio.cant_may_a %></th>
+		<th><%= @inv_predio.cant %></th>
+	</tr>
+</table>
 
 <% end %>

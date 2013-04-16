@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: UTF-8
 
 class MovimientoGanado < ActiveRecord::Base
     belongs_to :movimiento
