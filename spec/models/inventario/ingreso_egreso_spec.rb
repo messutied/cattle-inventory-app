@@ -91,6 +91,42 @@ describe "Calculo del inventario" do
       inventario_predio.inventario.cant.should == 70
     end
 
+    # TODO: probar lo mismo pero despues de movimientos
+    context "cuando el usuario crea un recuento despues de haber creado ingresos/egresos" do
+      before do
+        a_month_ago = Time.now.advance(months: -1)
+        Fabricate(:recuento, predio: san_vicente,
+            fecha: a_month_ago.advance(days: 1), movimiento_ganados: [
+            Fabricate(:movimiento_ganado, cant: 0, ganado: ganados.first),
+            Fabricate(:movimiento_ganado, cant: 2, ganado: ganados.second)
+          ])
+      end
+
+      let(:inventario_ingr_egr_comprados) { inventario_predio.inventario_predio_ingr_egrs.find_by_movimientos_tipo_id(compra.id) }
+      let(:inventario_ingr_egr_vendidos) { inventario_predio.inventario_predio_ingr_egrs.find_by_movimientos_tipo_id(venta.id) }
+
+      it "los ingresos/egresos anteriores al recuento no deben aparecer" do
+        inventario_predio.inventario_predio_ingr_egrs.count.should == 0
+      end
+
+      it "el inventario por predio por ganado deberia ser igual al recuento" do
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_inicial.should == 0
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_inicial.should == 2
+
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_parcial.should == 0
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_parcial.should == 2
+
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).cant.should == 0
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).cant.should == 2
+      end
+
+      it "el inventario por predio debe ser igual al recuento" do
+        inventario_predio.saldo_i.should == 2
+        inventario_predio.saldo_p.should == 2
+        inventario_predio.cant.should == 2
+      end
+    end
+
     context "cuando el usuario cierra una gestion, abre una nueva y crea mas ingresos/egresos" do
       before do
         gestion.abrir

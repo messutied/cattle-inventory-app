@@ -6,8 +6,8 @@ class InventarioPredio < ActiveRecord::Base
   has_many :inventario_predio_movs
   has_many :inventario_predio_ganados
 
-  def self.get_inventario(predio_id)
-    inventario = Inventario.get_inventario
+  def self.get_inventario(predio_id, gestion=false)
+    inventario = Inventario.get_inventario(gestion)
     inventario_predio = InventarioPredio.find_by_inventario_id_and_predio_id(inventario.id, predio_id)
 
     if inventario_predio.nil?

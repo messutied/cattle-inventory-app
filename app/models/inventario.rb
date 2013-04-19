@@ -3,9 +3,9 @@ class Inventario < ActiveRecord::Base
   has_many :inventario_ganados
   belongs_to :gestion
 
-  def self.get_inventario
-    # puts Gestion.gestion_abierta.to_json
-    Gestion.gestion_abierta.get_inventario
+  def self.get_inventario(gestion=false)
+    gestion ||= Gestion.gestion_abierta
+    gestion.get_inventario
   end
 
   def get_inventario_predio(predio_id)

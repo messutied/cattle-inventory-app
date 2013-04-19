@@ -64,7 +64,9 @@
 	<tr class="row-mov">
 		<th colspan="2">De: <%= i.predio_sec.nombre %></th>
 		<% i.inventario_predio_mov_ganados.each do |ip_ganado|  %>
-		<td><%= ip_ganado.cant %></td>
+		<td <%= popover(ip_ganado, @gestion_id, @inv_predio.predio_id) %>>
+			<span><%= ip_ganado.cant %></span>
+		</td>
 		<% end %>
 		<th><%= i.cant_men_a %></th>
 		<th><%= i.cant_may_a %></th>
@@ -101,7 +103,9 @@
 	<tr class="row-mov">
 		<th colspan="2">A: <%= e.predio_sec.nombre %></th>
 		<% e.inventario_predio_mov_ganados.each do |ip_ganado|  %>
-		<td><%= ip_ganado.cant %></td>
+		<td <%= popover(ip_ganado, @gestion_id, @inv_predio.predio_id) %>>
+			<span><%= ip_ganado.cant %></span>
+		</td>
 		<% end %>
 		<th><%= e.cant_men_a %></th>
 		<th><%= e.cant_may_a %></th>

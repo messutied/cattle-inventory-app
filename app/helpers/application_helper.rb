@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def options_for_ganado_extra(selected)
-    opts = [["Todos", "*"], ["Con pérdidas", "P"], ["Registros Incompletos", "I"]]
+    opts = [["Todos", "*"], ["Con pérdidas", "P"], ["Registros Incompletos", "I"], ["Incompletos + Pérdidas", "F"]]
     return options_for_select(opts, selected)
   end
 

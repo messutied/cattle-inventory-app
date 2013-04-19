@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
       @gestion = Gestion.find(@gestion_id)
       @gestion_ant = @gestion.anterior
     	
-      @inv_predio = InventarioPredio.get_inventario(@predio)
+      @inv_predio = InventarioPredio.get_inventario(@predio, @gestion)
       @ip_ganados = @inv_predio.inventario_predio_ganados
     end
 

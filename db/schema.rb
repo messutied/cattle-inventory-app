@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411214337) do
+ActiveRecord::Schema.define(:version => 20130418233653) do
 
   create_table "empleados", :force => true do |t|
     t.string   "nombre"
@@ -86,9 +86,10 @@ ActiveRecord::Schema.define(:version => 20130411214337) do
     t.integer  "inventario_predio_mov_id"
     t.integer  "ganado_id"
     t.integer  "cant",                     :default => 0
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.integer  "perdidos"
+    t.boolean  "incompletos",              :default => false
   end
 
   create_table "inventario_predio_movs", :force => true do |t|
