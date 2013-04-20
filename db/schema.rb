@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418233653) do
+ActiveRecord::Schema.define(:version => 20130420221808) do
+
+  create_table "cambio_animal_ganados", :force => true do |t|
+    t.integer  "cambio_animal_id"
+    t.integer  "ganado_id"
+    t.integer  "ganado_sec_id"
+    t.integer  "cant"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "cambio_animals", :force => true do |t|
+    t.integer  "predio_id"
+    t.string   "detalle"
+    t.string   "tipo",       :limit => 10
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
 
   create_table "empleados", :force => true do |t|
     t.string   "nombre"
@@ -52,6 +69,22 @@ ActiveRecord::Schema.define(:version => 20130418233653) do
     t.integer  "cant",          :default => 0
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "inventario_predio_cambio_animal_ganados", :force => true do |t|
+    t.integer  "inventario_predio_cambio_animal_id"
+    t.integer  "ganado_id"
+    t.integer  "cant_salida"
+    t.integer  "cant_entrada"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  create_table "inventario_predio_cambio_animals", :force => true do |t|
+    t.integer  "inventario_predio_id"
+    t.string   "tipo"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "inventario_predio_ganados", :force => true do |t|
