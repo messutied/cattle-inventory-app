@@ -1,0 +1,65 @@
+<%= form_for(@descarte, :html => { :class => "form-inline"}) do |m| %>
+  <% if @descarte.errors.any? %>
+    <div class="alert alert-error">
+    <h3>
+      Se encontró <%= pluralize(@descarte.errors.count, "error") %> 
+       al tratar de guardar el registro:</h3>
+
+      <ul>
+        <% @descarte.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= m.hidden_field :tipo, {:value=>"descarte"} %>
+
+  <div class="field-inline">
+    <%= m.label "Fecha" %>:
+    <%= select_tag(:dia, options_for_select(get_days, @descarte.new_record? ? day : @descarte.fecha.day), :style=>"width: 60px;") %><spam id="gestion">-<%= month(@descarte) %>-<%= year(@descarte) %></spam>
+  </div>
+
+  <div class="field-inline">
+    <%= m.label "Predio:" %>
+    <%= m.select :predio_id, get_predios %>
+  </div>
+  <br><br>
+
+  <div class="field-inline">
+    <%= label_tag :ganado_id %>:
+    <%= select_tag :ganado_id, options_for_select(Ganado.descartable.map {|g| [g.ganado_grupo.nombre+" "+g.nombre, g.id]}, @descarte.ganado_descartado_id) %>
+  </div>
+  <div class="field-inline">
+    <%= label_tag :cant %>:
+    <%= text_field_tag :cant, @descarte.cant, class: :small %>
+  </div>
+  <br><br>
+
+  <div class="field-inline">
+    <%= m.label :detalle %>:
+    <%= m.text_field :detalle %>
+  </div>
+
+  <br>
+  <br>
+  <div class="field-inline">
+    <%= m.label "Encargado" %>:
+    <%= m.select(:empleado_id, get_empleados, {}, {class: :empleado_selector, style: "width: 150px;"}) %>
+    <a id="add_empleado" class="btn" href="#addEmpleadoModal" role="button" data-toggle="modal" title="Nuevo Empleado"><i class="icon-plus-sign"></i></a>
+  </div>
+
+  <div class="form-actions">
+    <%= m.submit @descarte.new_record? ? "Descartar ganado" : 
+      "Guardar", :class => "btn btn-primary" %>
+    
+    <% if !@descarte.new_record? %>
+      <%= link_to "Eliminar", @descarte, :confirm => "¿Eliminar este descarte?", 
+        :method => "delete", :class => "btn btn-danger" %>
+    <% end %>
+    <%= link_to "Volver", descartes_path, :class => "btn" %>
+  </div>
+
+<% end %>
+
+<%= render "empleados/show_modal" %>

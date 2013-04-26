@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420221808) do
+ActiveRecord::Schema.define(:version => 20130422225956) do
 
   create_table "cambio_animal_ganados", :force => true do |t|
     t.integer  "cambio_animal_id"
@@ -25,9 +25,12 @@ ActiveRecord::Schema.define(:version => 20130420221808) do
   create_table "cambio_animals", :force => true do |t|
     t.integer  "predio_id"
     t.string   "detalle"
-    t.string   "tipo",       :limit => 10
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.string   "tipo",        :limit => 10
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "gestion_id"
+    t.integer  "empleado_id"
+    t.date     "fecha"
   end
 
   create_table "empleados", :force => true do |t|
@@ -74,10 +77,10 @@ ActiveRecord::Schema.define(:version => 20130420221808) do
   create_table "inventario_predio_cambio_animal_ganados", :force => true do |t|
     t.integer  "inventario_predio_cambio_animal_id"
     t.integer  "ganado_id"
-    t.integer  "cant_salida"
-    t.integer  "cant_entrada"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "cant_salida",                        :default => 0
+    t.integer  "cant_entrada",                       :default => 0
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   create_table "inventario_predio_cambio_animals", :force => true do |t|

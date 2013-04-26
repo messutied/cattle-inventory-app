@@ -35,6 +35,26 @@
 		<% end %>
 	</tr>
 
+	<!-- Cambios Animales -->
+	<% @inv_predio.inventario_predio_cambio_animals.each do |c| %>
+	<tr class="row-mov">
+		<th colspan="2"><%= c.tipo %></th>
+		<% c.inventario_predio_cambio_animal_ganados.each do |ip_ganado|  %>
+		<td>
+			<% if ip_ganado.cant_entrada > 0 %>
+				<span class="entrada">+<%= ip_ganado.cant_entrada %></span>
+			<% end %>
+			<% if ip_ganado.cant_salida > 0 %>
+				<span class="salida">-<%= ip_ganado.cant_salida %></span>
+			<% end %>
+		</td>
+		<% end %>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<% end %>
+
 	<!-- Saldo Inicial -->
 	<tr class="row-saldo">
 		<th colspan="2">Saldo Inicial</th>

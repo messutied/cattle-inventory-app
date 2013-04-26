@@ -10,28 +10,6 @@ module MovimientosHelper
     end
   end
 
-  def day
-    Time.now.day
-  end
-
-  def month(mov)
-    if mov.new_record?
-      g = Gestion.gestion_abierta
-      g.mes
-    else
-      mov.mes
-    end
-  end
-
-  def year(mov)
-    if mov.new_record?
-      g = Gestion.gestion_abierta
-      g.anio
-    else
-      mov.year
-    end
-  end
-
   def fields_form(type)
       if type == "mov"
         return "movimiento_ganado_fields"
@@ -47,19 +25,9 @@ module MovimientosHelper
     @movimientos.unshift(["Seleccionar", ""])
   end
 
-  def get_all_ganado
-    @all_ganado = Ganado.all.map { |g| [g.ganado_grupo.nombre+" "+g.nombre, g.id] }
-    @all_ganado.unshift(["Seleccionar", ""])
-  end
-
   def get_ganado_un_mes
-    @ganado_un_mes = Ganado.un_mes.map { |g| [g.ganado_grupo.nombre+" "+g.nombre, g.id] }
+    @ganado_un_mes = Ganado.menor_anio.map { |g| [g.ganado_grupo.nombre+" "+g.nombre, g.id] }
     @ganado_un_mes.unshift(["Seleccionar", ""])
-  end
-
-  def get_predios
-    @predios = Predio.all.map { |predio| [predio.nombre, predio.id] }
-    @predios.unshift(["Seleccionar", ""])
   end
 
   def get_days

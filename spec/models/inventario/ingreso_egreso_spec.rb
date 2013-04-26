@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Calculo del inventario" do
+describe Inventario do
   let!(:gestion) { Fabricate :gestion,  estado: 'C'}
   let!(:gestion_anterior) { Fabricate :anterior, estado: 'A' }
   let(:san_vicente) { Fabricate :san_vicente }

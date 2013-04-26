@@ -1,0 +1,24 @@
+<% content_for :title, "Listado de Descartes de Ganado" %>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Ganado descartado</th>
+    <th>Cantidad</th>
+    <th>Empleado</th>
+    <th>Fecha</th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+  <% @descartes.each do |descarte| %>
+  <tr>
+    <td><%= descarte.ganado_descartado.nombre_completo %></td>
+    <td><%= descarte.cant %></td>
+    <td><%=  %></td>
+    <td><%= descarte.fecha %></td>
+    <td class="a-center"><%= link_to "Ver", descarte%></td>
+    <td class="a-center"><%= link_to "Editar", edit_descarte_path(descarte)%></td>
+  </tr>
+  <% end %>
+
+</table>

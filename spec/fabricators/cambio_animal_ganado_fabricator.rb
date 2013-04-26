@@ -1,0 +1,2 @@
+Fabricator :cambio_animal_ganado do
+end

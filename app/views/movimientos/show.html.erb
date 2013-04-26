@@ -34,4 +34,4 @@
 
 <%= render @movimiento.type_str == "mov" ? "lista_movimiento_ganado" : "lista_ingreso_egreso_ganado", :ganados => @movimiento.movimiento_ganados %>
 
-<%= link_to "Editar", edit_movimiento_path(@movimiento) %> | <%= link_to "Volver", movimientos_mix_path(@movimiento) %>
+<%= link_to "Editar", edit_movimiento_path(@movimiento), :class => "btn" %> <%= link_to "Volver", movimientos_mix_path(@movimiento), :class => "btn" %>

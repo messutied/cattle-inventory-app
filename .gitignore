@@ -5,3 +5,4 @@ tmp/
 /*.sublime-*
 /vendor/cache
 .sass-cache/
+.DS_Store

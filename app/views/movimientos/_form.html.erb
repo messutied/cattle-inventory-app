@@ -65,7 +65,7 @@
     <br>
     <div class="field-inline">
       <%= m.label "Encargado" %>:
-      <%= m.select :empleado_id, get_empleados, :style=>"width: 150px;" %>
+      <%= m.select :empleado_id, get_empleados, {}, {class: :empleado_selector, style: "width: 150px;"} %>
       <a id="add_empleado" class="btn" href="#addEmpleadoModal" role="button" data-toggle="modal" title="Nuevo Empleado"><i class="icon-plus-sign"></i></a>
     </div>
 
@@ -111,13 +111,4 @@
 
   <% end %>
 
-<!-- Modal -->
-<div class="modal" id="addEmpleadoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Nuevo Empleado</h3>
-  </div>
-  <div class="modal-body">
-    
-  </div>
-</div>
+<%= render "empleados/show_modal" %>

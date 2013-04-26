@@ -1,0 +1,20 @@
+<p>
+  <b>Fecha: </b> <%= @descarte.fecha %>
+</p>
+
+<p>
+  <b>Predio: </b> <%= @descarte.predio.nombre %>
+</p>
+
+<p>
+  <b>Ganado descartado: </b> <%= @descarte.ganado_descartado.nombre_completo %>
+  (<b>cantidad:</b> <%= @descarte.cant %>)
+</p>
+
+<% if @descarte.detalle.length > 0 %>
+  <p>
+    <b>Detalle: </b> <%= @descarte.detalle %>
+  </p>
+<% end %>
+
+<%= link_to "Editar", edit_descarte_path(@descarte), :class => "btn" %> <%= link_to "Volver", descartes_path, :class => "btn" %>

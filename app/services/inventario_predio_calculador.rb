@@ -97,6 +97,38 @@ class InventarioPredioCalculador
     end
   end
 
+  def calculate_cambio_animal
+    @inventario_predio.inventario_predio_cambio_animals.delete_all
+
+    @inventario.gestion.cambio_animals.where(predio_id: @predio.id)
+      .includes(:cambio_animal_ganados).each do |cambio_animal|
+
+      ip_cambio_animal = @inventario_predio.inventario_predio_cambio_animals.
+        find_or_create_by_tipo(cambio_animal.tipo)
+
+      cambio_animal.cambio_animal_ganados.each do |ca_ganado|
+        ip_ganado_from = ip_cambio_animal.inventario_predio_cambio_animal_ganados.
+          find_or_initialize_by_ganado_id(ca_ganado.ganado_id)
+        
+        ip_ganado_to = ip_cambio_animal.inventario_predio_cambio_animal_ganados.
+          find_or_initialize_by_ganado_id(ca_ganado.ganado_sec_id)
+
+        ip_ganado_from.update_attributes(cant_salida: ip_ganado_from.cant_salida+ca_ganado.cant)
+        ip_ganado_to.update_attributes(cant_entrada: ip_ganado_to.cant_entrada+ca_ganado.cant)
+      end
+    end
+
+    @inventario_predio.inventario_predio_cambio_animals.each do |ip_cambio_animal|
+      missing = Ganado.where("ganados.id not in (?)", 
+        ip_cambio_animal.inventario_predio_cambio_animal_ganados.map(&:ganado_id) )
+
+      missing.each do |ganado|
+        ip_cambio_animal.inventario_predio_cambio_animal_ganados
+          .create(ganado_id: ganado.id, cant_salida: 0, cant_entrada: 0)
+      end
+    end
+  end
+
   def calculate_totals(calc_predio_sec=true)
     # calcular inventario por predio por ganado
     saldos_mes_actual = Movimiento.joins(:ganados, :movimientos_tipo)
@@ -113,6 +145,7 @@ class InventarioPredioCalculador
       .select("ganados.id as ganado_id, 0 as sum_egresos, 0 as sum_ingresos")
 
     movimientos = @inventario_predio.inventario_predio_movs.includes(:inventario_predio_mov_ganados)
+    cambio_animals = @inventario_predio.inventario_predio_cambio_animals.includes(:inventario_predio_cambio_animal_ganados)
 
     saldos_mes_actual += missing
 
@@ -135,6 +168,12 @@ class InventarioPredioCalculador
       end
 
       saldo_parcial += saldo_inicial
+
+      # sumar/restar los cambios de ganado
+      cambio_animals.each do |cambio_animal|
+        g = cambio_animal.inventario_predio_cambio_animal_ganados.select {|g| g.ganado_id == ganado.ganado_id.to_i}.first
+        saldo_parcial += (g.cant_entrada - g.cant_salida) if g
+      end
 
       # sumar los ingresos recividos por movimientos desde otros predios
       saldo_parcial += movimientos.select {|m| m.tipo == "ingr"}.inject(0) do |sum, m|

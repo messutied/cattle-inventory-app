@@ -2,6 +2,38 @@
 
 module ApplicationHelper
 
+  def get_predios
+    @predios = Predio.all.map { |predio| [predio.nombre, predio.id] }
+    @predios.unshift(["Seleccionar", ""])
+  end
+
+  def get_all_ganado
+    @all_ganado = Ganado.all.map { |g| [g.ganado_grupo.nombre+" "+g.nombre, g.id] }
+    @all_ganado.unshift(["Seleccionar", ""])
+  end
+
+  def day
+    Time.now.day
+  end
+
+  def month(mov)
+    if mov.new_record?
+      g = Gestion.gestion_abierta
+      g.mes
+    else
+      mov.fecha.month
+    end
+  end
+
+  def year(mov)
+    if mov.new_record?
+      g = Gestion.gestion_abierta
+      g.anio
+    else
+      mov.fecha.year
+    end
+  end
+
   def options_for_gestiones(selected)
     gestiones = Gestion.order("anio DESC, mes DESC").map {|g| [g.anio.to_s+"-"+g.mes.to_s, g.id]}
     # gestiones.unshift(["Seleccionar", ""])
@@ -35,53 +67,69 @@ module ApplicationHelper
     f.hidden_field(:_destroy) + link_to_function(name, "AGan.remove_fields(this)")
   end
 
-  def nav_sel(page)
-    case page
-    when "home"
-      if params[:controller] == "home" 
-        return raw(" class=\"active\"") 
-      end
-    when "in_eg_new"
-      if params[:controller] == "movimientos" and params[:action] == "new" and params[:type] == "in_eg"
-        return raw(" class=\"active\"")
-      end
-    when "mov_new"
-      if params[:controller] == "movimientos" and params[:action] == "new" and params[:type] == "mov"
-        return raw(" class=\"active\"")
-      end
-    when "rec_new"
-      if params[:controller] == "movimientos" and params[:action] == "new" and params[:type] == "rec"
-        return raw(" class=\"active\"")
-      end
-    when "in_eg_list"
-      if params[:controller] == "movimientos" and params[:action] == "index" and params[:type] == "in_eg"
-        return raw(" class=\"active\"")
-      end
-    when "mov_list"
-      if params[:controller] == "movimientos" and params[:action] == "index" and params[:type] == "mov"
-        return raw(" class=\"active\"")
-      end
-    when "rec_list"
-      if params[:controller] == "movimientos" and params[:action] == "index" and params[:type] == "rec"
-        return raw(" class=\"active\"")
-      end
-    when "mov_tipos_list"
-      if params[:controller] == "movimientos_tipos" and params[:action] == "index"
-        return raw(" class=\"active\"")
-      end
-    when "rep_inv_mensual"
-      if params[:controller] == "reports" and params[:action] == "inventario_mensual"
-        return raw(" class=\"active\"")
-      end
-    when "config_gestion"
-      if params[:controller] == "gestions" and params[:action] == "index"
-        return raw(" class=\"active\"")
-      end
-    when "empleados_list"
-      if params[:controller] == "empleados" and params[:action] == "index"
-        return raw(" class=\"active\"")
-      end
+  def we_are_in(controller, action=nil)
+      return (params[:controller] == controller and params[:action] == action) if action.present?
+
+      params[:controller] == controller
     end
 
+  def nav_sel(page)
+    param_type = params[:type]
+    active = raw(" class=\"active\"")
+
+    case page
+    when "home"
+      if self.we_are_in("home")
+        return active 
+      end
+    when "in_eg_new"
+      if we_are_in("movimientos", "new") and param_type == "in_eg"
+        return active
+      end
+    when "mov_new"
+      if we_are_in("movimientos", "new") and param_type == "mov"
+        return active
+      end
+    when "rec_new"
+      if we_are_in("movimientos", "new") and param_type == "rec"
+        return active
+      end
+    when "in_eg_list"
+      if we_are_in("movimientos", "index") and param_type == "in_eg"
+        return active
+      end
+    when "mov_list"
+      if we_are_in("movimientos", "index") and param_type == "mov"
+        return active
+      end
+    when "rec_list"
+      if we_are_in("movimientos", "index") and param_type == "rec"
+        return active
+      end
+    when "mov_tipos_list"
+      if we_are_in("movimientos_tipos", "index")
+        return active
+      end
+    when "rep_inv_mensual"
+      if we_are_in("reports", "inventario_mensual")
+        return active
+      end
+    when "config_gestion"
+      if we_are_in("gestions", "index")
+        return active
+      end
+    when "empleados_list"
+      if we_are_in("empleados", "index")
+        return active
+      end
+    when "descartes_new"
+      if we_are_in("descartes", "new")
+        return active
+      end
+    when "descartes_list"
+      if we_are_in("descartes", "index")
+        return active
+      end
+    end
   end
 end
