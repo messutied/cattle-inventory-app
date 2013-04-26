@@ -1,5 +1,6 @@
 class Descarte < CambioAnimal
   default_scope where(tipo: "descarte")
+  after_create -> { self.tipo = "descarte" }
 
   def self.new_with_descarte(attributes, ganado_id, cant)
     descarte = Descarte.new(attributes)
