@@ -22,6 +22,17 @@ class DescartesController < ApplicationController
     @descarte = Descarte.find(params[:id])
   end
 
+  def update
+    @descarte = Descarte.find(params[:id])
+    @descarte.parse_fecha!(params[:dia])
+
+    if @descarte.update_attributes(params[:descarte])
+      redirect_to @descarte, :notice => "Se guardó el descarte de ganado"
+    else
+      render action: "edit"
+    end
+  end
+
   def index
     @descartes = Descarte.all
   end

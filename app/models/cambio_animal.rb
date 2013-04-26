@@ -10,6 +10,11 @@ class CambioAnimal < ActiveRecord::Base
   after_destroy :update_inventario
   before_save :set_gestion
 
+  def parse_fecha!(dia)
+    gestion = Gestion.gestion_abierta
+    self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
+  end
+
   private
 
   def update_inventario
@@ -22,10 +27,5 @@ class CambioAnimal < ActiveRecord::Base
 
   def set_gestion
     self.gestion = Gestion.gestion_abierta
-  end
-
-  def parse_fecha!(dia)
-    gestion = Gestion.gestion_abierta
-    self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
   end
 end
