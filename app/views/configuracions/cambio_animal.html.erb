@@ -1,0 +1,43 @@
+<%= form_for(@configuracion, :html => { :class => "form-inline"}) do |m| %>
+  <% if @configuracion.errors.any? %>
+    <div class="alert alert-error">
+    <h3>
+      Se encontró <%= pluralize(@configuracion.errors.count, "error") %> 
+       al tratar de guardar el registro:</h3>
+
+      <ul>
+        <% @configuracion.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <script type='text/javascript' charset="utf-8">
+    var ganado = <%= raw get_all_ganado.to_json %>;
+  </script>
+
+  <%= hidden_field_tag :config_saved, params[:action] %>
+  
+  <table class="table table-bordered">
+    <tr>
+      <th>Ganado Desde</th>
+      <th>Ganado Hacia</th>
+    </tr>
+
+    <%= m.fields_for params[:action] == "cambio_edad" ? :configuracion_cambio_edads : :configuracion_descartes, nil do |c_cambio_animal| %>
+      <%= render "cambio_animal_item", f: c_cambio_animal, no_select: false %>
+    <% end %>
+    <tr>
+      <td></td>
+      <td class="a-center">
+        <%= link_to_add_fields("Mas", m, :configuracion_cambio_animals, "cambio_animal_item" ) %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="form-actions">
+    <%= m.submit "Guardar", :class => "btn btn-primary" %>
+  </div>
+
+<% end %>

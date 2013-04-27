@@ -60,7 +60,7 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
       render(form, {:f => builder, :no_select => true})
     end
-    link_to_function(name, raw("AGan.add_fields(this, '#{association}', '#{escape_javascript(fields)}')"), :id => "add_mov")
+    link_to_function(name, raw("AGan.add_#{association}_fields(this, '#{association}', '#{escape_javascript(fields)}')"), :id => "add_mov")
   end
 
   def link_to_remove_fields(name, f)
@@ -128,6 +128,14 @@ module ApplicationHelper
       end
     when "descartes_list"
       if we_are_in("descartes", "index")
+        return active
+      end
+    when "config_cambio_edad"
+      if we_are_in("configuracions", "cambio_edad")
+        return active
+      end
+    when "config_descartes"
+      if we_are_in("configuracions", "descartes")
         return active
       end
     end

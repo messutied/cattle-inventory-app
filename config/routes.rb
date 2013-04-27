@@ -15,6 +15,7 @@ Ganaderia::Application.routes.draw do
   resources :gestions
   resources :movimientos_tipos
   resources :descartes
+  resources :configuracions
 
   get "ingreso-egreso/new" => "movimientos#new", :type => "in_eg"
   get "movimiento/new" => "movimientos#new", :type => "mov"
@@ -23,6 +24,9 @@ Ganaderia::Application.routes.draw do
   get "ingreso-egreso/list" => "movimientos#index", :type => "in_eg"
   get "movimiento/list" => "movimientos#index", :type => "mov"
   get "recuento/list" => "movimientos#index", :type => "rec"
+
+  get "configuracion/cambio-edad" => "configuracions#cambio_edad"
+  get "configuracion/descartes" => "configuracions#descartes"
 
   get "/login" => "users#login"
   get "/demo" => "users#login", :demo => true

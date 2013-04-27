@@ -1,6 +1,4 @@
-
-
-var AGan = {};
+if (typeof AGan == "undefined") AGan = {};
 
 (function($) {
     var deMeses = [1, 2];
@@ -22,7 +20,7 @@ var AGan = {};
         // quitando el predio seleccionado en el primario
         $("#movimiento_predio_id").change(function() {
             var selected = $(this).val() * 1;
-            var opts     = getOptions(predios, [selected]);
+            var opts     = AGan.getOptions(predios, [selected]);
 
             $("#movimiento_predio_sec_id").html(opts);
         });
@@ -79,11 +77,12 @@ var AGan = {};
         }
     }
 
-    function getOptions(opts_arr, exclude, min) {
+    AGan.getOptions = function (opts_arr, exclude, min) {
         var opts  = "";
         var count = 0;
 
         if (typeof(min) == "undefined") min = 0;
+        if (typeof(exclude) == "undefined") exclude = [];
 
         for (var i = 0; i < opts_arr.length; i++) {
             var id = opts_arr[i][1];
@@ -124,7 +123,7 @@ var AGan = {};
         }
     }
 
-    AGan.add_fields = function (link, association, content) {
+    AGan.add_movimiento_ganados_fields = function (link, association, content) {
         var used = [];
         var unselected = false;
         $('.movimiento select:visible').each(function() {
@@ -138,9 +137,9 @@ var AGan = {};
         }
 
         if (!NACIDOS)
-            var opts = getOptions(ganado, used, 1);
+            var opts = AGan.getOptions(ganado, used, 1);
         else
-            var opts = getOptions(ganado_unmes, used, 1);
+            var opts = AGan.getOptions(ganado_unmes, used, 1);
 
         if (opts === false) return;
 

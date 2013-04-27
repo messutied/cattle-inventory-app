@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426222718) do
+ActiveRecord::Schema.define(:version => 20130427061933) do
 
   create_table "cambio_animal_ganados", :force => true do |t|
     t.integer  "cambio_animal_id"
@@ -34,11 +34,12 @@ ActiveRecord::Schema.define(:version => 20130426222718) do
   end
 
   create_table "configuracion_cambio_animals", :force => true do |t|
-    t.string   "tipo",         :limit => 10
+    t.string   "tipo",             :limit => 10
     t.integer  "ganado_desde"
     t.integer  "ganado_hasta"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "configuracion_id"
   end
 
   create_table "configuracions", :force => true do |t|
