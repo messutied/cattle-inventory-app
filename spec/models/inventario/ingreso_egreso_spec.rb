@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Inventario do
-  let!(:gestion) { Fabricate :gestion,  estado: 'C'}
+  before { Timecop.freeze Time.now.advance(months: -1).change(day: 1) }
   let!(:gestion_anterior) { Fabricate :anterior, estado: 'A' }
   let(:san_vicente) { Fabricate :san_vicente }
   let(:camba_muerto) { Fabricate :camba_muerto }
@@ -16,24 +16,26 @@ describe Inventario do
 
   context "Cuando el usuario registra ingresos/egresos de ganado" do
     before do
-      a_month_ago = Time.now.advance(months: -1)
+
       Fabricate(:ingreso, predio: san_vicente, movimientos_tipo: compra,
-        fecha: a_month_ago, movimiento_ganados: [
+        movimiento_ganados: [
         Fabricate(:movimiento_ganado, cant: 10, ganado: ganados.first),
         Fabricate(:movimiento_ganado, cant: 40, ganado: ganados.second)
       ])
 
       Fabricate(:ingreso, predio: san_vicente, movimientos_tipo: compra, 
-        fecha: a_month_ago, movimiento_ganados: [
+        movimiento_ganados: [
         Fabricate(:movimiento_ganado, cant: 50, ganado: ganados.first)
       ])
 
       Fabricate(:egreso, predio: san_vicente, movimientos_tipo: venta, 
-        fecha: a_month_ago, movimiento_ganados: [
+        movimiento_ganados: [
         Fabricate(:movimiento_ganado, cant: 30, ganado: ganados.first)
       ])
       # ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
     end
+
+    after(:each) { Timecop.return }
 
     let(:inventario_ingr_egr_comprados) { inventario_predio.inventario_predio_ingr_egrs.find_by_movimientos_tipo_id(compra.id) }
     let(:inventario_ingr_egr_vendidos) { inventario_predio.inventario_predio_ingr_egrs.find_by_movimientos_tipo_id(venta.id) }
@@ -94,9 +96,10 @@ describe Inventario do
     # TODO: probar lo mismo pero despues de movimientos
     context "cuando el usuario crea un recuento despues de haber creado ingresos/egresos" do
       before do
-        a_month_ago = Time.now.advance(months: -1)
+        Timecop.freeze Time.now.advance(days: 1)
+
         Fabricate(:recuento, predio: san_vicente,
-            fecha: a_month_ago.advance(days: 1), movimiento_ganados: [
+            movimiento_ganados: [
             Fabricate(:movimiento_ganado, cant: 0, ganado: ganados.first),
             Fabricate(:movimiento_ganado, cant: 2, ganado: ganados.second)
           ])
@@ -128,11 +131,13 @@ describe Inventario do
     end
 
     context "cuando el usuario cierra una gestion, abre una nueva y crea mas ingresos/egresos" do
+      before { Timecop.freeze Time.now.advance(months: 1).change(day: 1) }
+      let!(:gestion) { Fabricate :gestion,  estado: 'C'}
+
       before do
         gestion.abrir
-
         Fabricate(:ingreso, predio: san_vicente, movimientos_tipo: compra,
-          fecha: Time.now, movimiento_ganados: [
+          movimiento_ganados: [
           Fabricate(:movimiento_ganado, cant: 90, ganado: ganados.first),
           Fabricate(:movimiento_ganado, cant: 200, ganado: ganados.second)
         ])
@@ -169,8 +174,10 @@ describe Inventario do
 
       context "cuando el usuario realiza un recuento en el mismo predio" do
         before do
+          Timecop.freeze Time.now.advance(days: 2)
+
           Fabricate(:recuento, predio: san_vicente,
-            fecha: Time.now.advance(days: 1), movimiento_ganados: [
+            movimiento_ganados: [
             Fabricate(:movimiento_ganado, cant: 5, ganado: ganados.first),
             Fabricate(:movimiento_ganado, cant: 10, ganado: ganados.second)
           ])
@@ -193,19 +200,23 @@ describe Inventario do
 
         context "cuando el usuario crea movimientos desde 'Camba Muerto' hacia 'San Vicente'" do
           before do
+            Timecop.freeze Time.now.advance(days: 1)
             # inicializar camba_muerto con un recuento
             Fabricate(:recuento, predio: camba_muerto,
-              fecha: Time.now, movimiento_ganados: [
+              movimiento_ganados: [
               Fabricate(:movimiento_ganado, cant: 100, ganado: ganados.first),
               Fabricate(:movimiento_ganado, cant: 400, ganado: ganados.second)
             ])
 
+            Timecop.freeze Time.now.advance(days: 1)
             Fabricate(:movimiento, movimientos_tipo: tipo_movimiento, predio: camba_muerto, predio_sec: san_vicente,
-              fecha: Time.now.advance(days: 2), movimiento_ganados: [
+              movimiento_ganados: [
               Fabricate(:movimiento_ganado, cant: 5, cant_sec: 4, ganado: ganados.first)
             ])
+
+            Timecop.freeze Time.now.advance(days: 1)
             Fabricate(:movimiento, movimientos_tipo: tipo_movimiento, predio: camba_muerto, predio_sec: san_vicente,
-              fecha: Time.now.advance(days: 3), movimiento_ganados: [
+              movimiento_ganados: [
               Fabricate(:movimiento_ganado, cant: 25, cant_sec: 20, ganado: ganados.first)
             ])
           end

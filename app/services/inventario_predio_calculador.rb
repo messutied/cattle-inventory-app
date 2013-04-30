@@ -140,6 +140,7 @@ class InventarioPredioCalculador
       .group("ganados.id")
 
     saldos_mes_actual = saldos_mes_actual.where("fecha >= ?", @fecha_inicio) if @recuento
+    # puts "** rec" if @recuento
 
     missing = Ganado.where("ganados.id not in (?)", saldos_mes_actual.map(&:ganado_id).push(0))
       .select("ganados.id as ganado_id, 0 as sum_egresos, 0 as sum_ingresos")
@@ -235,6 +236,7 @@ class InventarioPredioCalculador
       .where("fecha >= ? and fecha <= ? and movimientos_tipos.tipo='r' and predio_id = ?", 
         @inventario.gestion.desde, @inventario.gestion.hasta, @predio.id)
       .order("fecha desc").first
+
     return mov
   end
 

@@ -5,7 +5,7 @@ Fabricator :gestion do
 end
 
 Fabricator :anterior, from: :gestion do
-  anio { Time.now.advance(months: -1).year }
-  mes { Time.now.advance(months: -1).month }
+  anio { Time.now.year }
+  mes { Time.now.month }
   estado 'C'
 end
