@@ -78,14 +78,14 @@ class Movimiento < ActiveRecord::Base
     inv_calc = InventarioPredioCalculador.new(inv_predio)
 
     if ['i', 'e', 'r'].include? movimientos_tipo.tipo
-      inv_calc.calculate_ingr_egr_ganado_predio
+      inv_calc.calcular_ingr_egr_ganado_predio
     end
 
     if ['m', 'r'].include? movimientos_tipo.tipo
-      inv_calc.calculate_mov_ganado
+      inv_calc.calcular_mov_ganado
     end
 
-    inv_calc.calculate_totals
+    inv_calc.calcular_totales
   end
 
   def set_gestion

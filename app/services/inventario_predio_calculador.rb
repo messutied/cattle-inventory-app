@@ -7,7 +7,7 @@ class InventarioPredioCalculador
     @fecha_inicio      = @recuento ? @recuento.fecha.advance(days: 1) : @inventario.gestion.desde
   end
 
-  def calculate_ingr_egr_ganado_predio
+  def calcular_ingr_egr_ganado_predio
     mov = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("movimientos_tipos.id as movimiento_tipo_id, ganados.id as ganado_id, sum(movimiento_ganados.cant) as sumatoria")
       .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and gestion_id = ?", 
@@ -51,7 +51,7 @@ class InventarioPredioCalculador
   end
 
   # Calcular el inventario de movimientos en todos los predios de la gestion
-  def calculate_mov_ganado
+  def calcular_mov_ganado
     movimientos = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("ganados.id as ganado_id, sum(movimiento_ganados.cant) as cant, "+
         "sum( COALESCE(movimiento_ganados.cant_sec, 0) ) as cant_sec, "+
@@ -97,7 +97,7 @@ class InventarioPredioCalculador
     end
   end
 
-  def calculate_cambio_animal
+  def calcular_cambio_animal
     @inventario_predio.inventario_predio_cambio_animals.destroy_all
 
     @inventario.gestion.cambio_animals.where(predio_id: @predio.id)
@@ -129,7 +129,7 @@ class InventarioPredioCalculador
     end
   end
 
-  def calculate_totals(calc_predio_sec=true)
+  def calcular_totales(calc_predio_sec=true)
     # calcular inventario por predio por ganado
     saldos_mes_actual = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("ganados.id as ganado_id, "+
@@ -223,7 +223,7 @@ class InventarioPredioCalculador
       @inventario_predio.inventario_predio_movs.select(:predio_sec_id).uniq.map(&:predio_sec_id).each do |predio_id|
         inv_predio_sec = InventarioPredio.get_inventario(predio_id)
         inv_calc = InventarioPredioCalculador.new(inv_predio_sec)
-        inv_calc.calculate_totals(false)
+        inv_calc.calcular_totales(false)
       end
     end
   end

@@ -4,7 +4,7 @@ class InventarioCalculador
     @config_cambios_edad = ConfiguracionCambioEdad.all
   end
 
-  def calculate_cambio_edades
+  def calcular_cambio_edades
     @inventario.inventario_predios.each do |inv_predio|
       inv_predio.inventario_predio_cambio_animals.cambios_edad.destroy_all
 
@@ -28,9 +28,9 @@ class InventarioCalculador
     end
   end
 
-  def calculate_totals
+  def calcular_totales
     @inventario.inventario_predios.each do |inv_predio|
-      InventarioPredioCalculador.new(inv_predio).calculate_totals
+      InventarioPredioCalculador.new(inv_predio).calcular_totales
     end
   end
 end

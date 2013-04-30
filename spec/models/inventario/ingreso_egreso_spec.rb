@@ -10,7 +10,7 @@ describe Inventario do
   let(:compra) { Fabricate :compra }
   let(:venta) { Fabricate :venta }
   let(:tipo_movimiento) { Fabricate :tipo_movimiento }
-  let(:ganado_grupo) { Fabricate :ganado_grupo }
+  let!(:ganado_grupo) { Fabricate :ganado_grupo }
   let(:ganados) { ganado_grupo.ganados }
   let(:inventario_predio) { InventarioPredio.get_inventario(san_vicente.id) }
 
