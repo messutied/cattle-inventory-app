@@ -1,10 +1,14 @@
 module InventarioHelpers
   def crear_recuento_cero
-    Fabricate(:recuento, predio: san_vicente,
-      fecha: Time.now.change(day:1), movimiento_ganados: [
-      Fabricate(:movimiento_ganado, cant: 0, ganado: ganados.first),
-      Fabricate(:movimiento_ganado, cant: 0, ganado: ganados.second)
-    ])
+    mov_ganados = []
+    Ganado.all.each do |ganado|
+      mov_ganados.push Fabricate(:movimiento_ganado, cant: 0, ganado: ganado)
+    end
+
+    Fabricate(:recuento, 
+      predio: san_vicente,
+      fecha: Time.now.change(day:1), 
+      movimiento_ganados: mov_ganados)
   end
 
   def crear_ingreso(ganados_cant)

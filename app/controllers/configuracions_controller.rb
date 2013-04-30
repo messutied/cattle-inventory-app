@@ -4,14 +4,14 @@ class ConfiguracionsController < ApplicationController
   before_filter :require_user
 
   def cambio_edad
-    @configuracion = Configuracion.first || Configuracion.new
+    @configuracion = Configuracion.first_or_initialize
     @configuracion.configuracion_cambio_edads.build
 
     render "cambio_animal"
   end
 
   def descartes
-    @configuracion = Configuracion.first || Configuracion.new
+    @configuracion = Configuracion.first_or_initialize
     @configuracion.configuracion_descartes.build
 
     render "cambio_animal"

@@ -17,7 +17,7 @@ class InventarioPredioCalculador
 
     mov = mov.where("fecha >= ?", @fecha_inicio) if @recuento
 
-    @inventario_predio.inventario_predio_ingr_egrs.delete_all
+    @inventario_predio.inventario_predio_ingr_egrs.destroy_all
 
     mov.each do |ingr_egr|
       inv_predio_ingr_egr = @inventario_predio.inventario_predio_ingr_egrs
@@ -65,7 +65,7 @@ class InventarioPredioCalculador
     movimientos = movimientos.where("fecha >= ?", @fecha_inicio) if @recuento
 
     @inventario.inventario_predios.each do |inventario_predio|
-      inventario_predio.inventario_predio_movs.delete_all
+      inventario_predio.inventario_predio_movs.destroy_all
     end
 
     movimientos.each do |mov|
@@ -98,7 +98,7 @@ class InventarioPredioCalculador
   end
 
   def calculate_cambio_animal
-    @inventario_predio.inventario_predio_cambio_animals.delete_all
+    @inventario_predio.inventario_predio_cambio_animals.destroy_all
 
     @inventario.gestion.cambio_animals.where(predio_id: @predio.id)
       .includes(:cambio_animal_ganados).each do |cambio_animal|

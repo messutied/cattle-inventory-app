@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Inventario do
+describe Descarte do
   include InventarioHelpers
 
   let!(:gestion) { Fabricate :gestion}

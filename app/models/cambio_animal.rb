@@ -10,6 +10,9 @@ class CambioAnimal < ActiveRecord::Base
   after_destroy :update_inventario
   before_save :set_gestion
 
+  scope :descartes, where(tipo: 'descarte')
+  scope :cambios_edad, where(tipo: 'c_edad')
+
   def parse_fecha!(dia)
     gestion = Gestion.gestion_abierta
     self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
@@ -18,11 +21,19 @@ class CambioAnimal < ActiveRecord::Base
   private
 
   def update_inventario
-    inv_predio = InventarioPredio.get_inventario(predio_id)
-    inv_calc = InventarioPredioCalculador.new(inv_predio)
+    if tipo == "descarte"
+      inv_predio = InventarioPredio.get_inventario(predio_id)
+      inv_predio_calc = InventarioPredioCalculador.new(inv_predio)
 
-    inv_calc.calculate_cambio_animal
-    inv_calc.calculate_totals
+      inv_predio_calc.calculate_cambio_animal
+      inv_predio_calc.calculate_totals
+    else
+      inv = Inventario.get_inventario
+      inv_calc = InventarioCalculador.new(inv)
+
+      inv_calc.calculate_cambio_edades
+      inv_calc.calculate_totals
+    end
   end
 
   def set_gestion
