@@ -8,12 +8,11 @@ class Movimiento < ActiveRecord::Base
   belongs_to :empleado
   belongs_to :gestion
 
-	accepts_nested_attributes_for :movimiento_ganados, 
-	#:reject_if => lambda { |m| m[:ganado_id].blank? or m[:cant].blank? }, 
-	:allow_destroy => true
+	accepts_nested_attributes_for :movimiento_ganados, allow_destroy: true
 
 
-	validates  :detalle, :movimientos_tipo_id, :presence => true
+	validates :detalle, :movimientos_tipo_id, :fecha, :predio_id, 
+            :gestion_id, :empleado_id, presence: true
 
   after_save :update_inventario
   after_destroy :update_inventario

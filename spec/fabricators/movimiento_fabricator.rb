@@ -4,6 +4,7 @@ Fabricator :ingreso, from: :movimiento do
   fecha { Time.now }
   detalle { Faker::Lorem.words(5) }
   empleado
+  gestion { Gestion.gestion_abierta }
 end
 
 Fabricator :egreso, from: :movimiento do
@@ -12,6 +13,7 @@ Fabricator :egreso, from: :movimiento do
   fecha { Time.now }
   detalle { Faker::Lorem.words(5) }
   empleado
+  gestion { Gestion.gestion_abierta }
 end
 
 Fabricator :movimiento, from: :movimiento do
@@ -20,6 +22,7 @@ Fabricator :movimiento, from: :movimiento do
   fecha { Time.now }
   detalle { Faker::Lorem.words(5) }
   empleado
+  gestion { Gestion.gestion_abierta }
 end
 
 Fabricator :recuento, from: :movimiento do
@@ -28,4 +31,5 @@ Fabricator :recuento, from: :movimiento do
   fecha { Time.now }
   detalle { Faker::Lorem.words(5) }
   empleado
+  gestion { Gestion.gestion_abierta }
 end

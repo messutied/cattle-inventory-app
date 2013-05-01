@@ -14,6 +14,8 @@ class CambioAnimal < ActiveRecord::Base
   scope :menos_cambio_edad, where("tipo != ?", 'c_edad')
   scope :cambios_edad, where(tipo: 'c_edad')
 
+  validates :tipo, :gestion_id, :fecha, presence: true
+
   def self.tipo_nombre(tipo)
     nombres = {'descarte' => 'Descarte', 'c_edad' => 'Cambio Edad'}
     nombres[tipo]
