@@ -14,8 +14,6 @@
   <% end %>
 
   <input type="hidden" name="type" value="<%= @type %>" />
-  <input type="hidden" name="anio" value="<%= year(@movimiento) %>" />
-  <input type="hidden" name="mes" value="<%= month(@movimiento) %>" />
 
   <script type='text/javascript' charset="utf-8">
     var predios = <%= raw get_predios.to_json %>;

@@ -31,7 +31,7 @@ module MovimientosHelper
   end
 
   def get_days
-    @days = (1..days_in_month(Time.now.month)).to_a.map {|e| [e, e]}
+    @days = (1..days_in_month(Gestion.gestion_abierta.mes)).to_a.map {|e| [e, e]}
   end
 
   def get_empleados

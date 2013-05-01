@@ -65,7 +65,7 @@ class MovimientosController < ApplicationController
 
   def create
     @movimiento = Movimiento.new(params[:movimiento])
-    @movimiento.parse_fecha!(params[:anio], params[:mes], params[:dia])
+    @movimiento.parse_fecha!(params[:dia])
     @type = params[:type]
     @br = [Movimiento.type_name(@type), "Nuevo"]
 
@@ -86,7 +86,7 @@ class MovimientosController < ApplicationController
   def update
     @movimiento = Movimiento.find(params[:id])
     @type = @movimiento.type_str
-    @movimiento.parse_fecha!(params[:anio], params[:mes], params[:dia])
+    @movimiento.parse_fecha!(params[:dia])
 
     if @movimiento.update_attributes(params[:movimiento])
       redirect_to @movimiento, :notice => "Se guardó el movimiento"

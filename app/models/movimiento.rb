@@ -31,9 +31,14 @@ class Movimiento < ActiveRecord::Base
           "movimiento_ganados.cant as cantidad, ganado_grupos.nombre as ganado_grupo_nombre, ganados.nombre as ganado_nombre, "+
           "predios.nombre as predio_nombre, predio_secs_movimientos.nombre as predio_sec_nombre")
 
-	def parse_fecha!(anio, mes, dia)
-		self.fecha = anio+"-"+mes+"-"+dia
-	end
+	def parse_fecha!(dia)
+    if new_record?
+      gestion = Gestion.gestion_abierta
+      self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
+    else
+      self.fecha.change(day: dia)
+    end
+  end
 
 	def day
 		return fecha.day

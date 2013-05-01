@@ -20,8 +20,12 @@ class CambioAnimal < ActiveRecord::Base
   end
 
   def parse_fecha!(dia)
-    gestion = Gestion.gestion_abierta
-    self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
+    if new_record?
+      gestion = Gestion.gestion_abierta
+      self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
+    else
+      self.fecha.change(day: dia)
+    end
   end
 
   private
