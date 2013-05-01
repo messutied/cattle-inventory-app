@@ -98,7 +98,7 @@ class InventarioPredioCalculador
   end
 
   def calcular_cambio_animal
-    @inventario_predio.inventario_predio_cambio_animals.destroy_all
+    @inventario_predio.inventario_predio_cambio_animals.menos_cambio_edad.destroy_all
 
     @inventario.gestion.cambio_animals.where(predio_id: @predio.id)
       .includes(:cambio_animal_ganados).each do |cambio_animal|
@@ -118,7 +118,7 @@ class InventarioPredioCalculador
       end
     end
 
-    @inventario_predio.inventario_predio_cambio_animals.each do |ip_cambio_animal|
+    @inventario_predio.inventario_predio_cambio_animals.menos_cambio_edad.each do |ip_cambio_animal|
       missing = Ganado.where("ganados.id not in (?)", 
         ip_cambio_animal.inventario_predio_cambio_animal_ganados.map(&:ganado_id) )
 

@@ -138,6 +138,10 @@ module ApplicationHelper
       if we_are_in("configuracions", "descartes")
         return active
       end
+    when "cambio_edad"
+      if we_are_in("cambio_edads", "index")
+        return active
+      end
     end
   end
 end

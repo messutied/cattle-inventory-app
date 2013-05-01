@@ -40,4 +40,11 @@ class DescartesController < ApplicationController
   def show
     @descarte = Descarte.find(params[:id])
   end
+
+  def destroy
+    @descarte = Descarte.find(params[:id])
+    @descarte.destroy
+
+    redirect_to descartes_path, notice: "Se eliminó el registro exitosamente"
+  end
 end

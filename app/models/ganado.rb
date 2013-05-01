@@ -14,16 +14,11 @@ class Ganado < ActiveRecord::Base
   scope :mayor_anio, where(tipo: "may_a")
   scope :descartable, includes(:ganado_grupo)
     .order("ganado_grupos.orden asc, ganados.orden asc")
-    .where("ganados.id in (?)", [6,7,8])
+    .where("ganados.id in (?)", ConfiguracionDescarte.all.map(&:ganado_desde_id))
 
 
   def self.descarte_de(ganado_id)
-    a_descartar = Ganado.find(ganado_id)
-
-    Ganado.joins(:ganado_grupo).where(
-      "ganado_grupos.nombre = ? and ganados.nombre = ?", 
-      "Vacas de Descarte", a_descartar.nombre
-    ).first
+    ConfiguracionDescarte.where(ganado_desde_id: ganado_id).first.ganado_hasta
   end
 
   def nombre_completo

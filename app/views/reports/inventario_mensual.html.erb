@@ -35,10 +35,21 @@
 		<% end %>
 	</tr>
 
+	<!-- Saldo Inicial -->
+	<tr class="row-saldo">
+		<th colspan="2">Saldo Inicial</th>
+		<% @ip_ganados.each do |ip_ganado| %>
+		<td><%= ip_ganado.saldo_inicial %></td>
+		<% end %>
+		<th><%= @inv_predio.saldo_i_men_a %></th>
+		<th><%= @inv_predio.saldo_i_may_a %></th>
+		<th><%= @inv_predio.saldo_i %></th>
+	</tr>
+
 	<!-- Cambios Animales -->
 	<% @inv_predio.inventario_predio_cambio_animals.each do |c| %>
 	<tr class="row-mov">
-		<th colspan="2"><%= c.tipo %></th>
+		<th colspan="2"><%= c.tipo_nombre %></th>
 		<% c.inventario_predio_cambio_animal_ganados.each do |ip_ganado|  %>
 		<td>
 			<% if ip_ganado.cant_entrada > 0 %>
@@ -54,17 +65,6 @@
 		<td></td>
 	</tr>
 	<% end %>
-
-	<!-- Saldo Inicial -->
-	<tr class="row-saldo">
-		<th colspan="2">Saldo Inicial</th>
-		<% @ip_ganados.each do |ip_ganado| %>
-		<td><%= ip_ganado.saldo_inicial %></td>
-		<% end %>
-		<th><%= @inv_predio.saldo_i_men_a %></th>
-		<th><%= @inv_predio.saldo_i_may_a %></th>
-		<th><%= @inv_predio.saldo_i %></th>
-	</tr>
 
 	<!-- Ingresos -->
 	<% @inv_predio.inventario_predio_ingr_egrs.ingresos.each do |i| %>

@@ -22,16 +22,20 @@
   <table class="table table-bordered">
     <tr>
       <th>Ganado Desde</th>
+      <th></th>
       <th>Ganado Hacia</th>
+      <th></th>
     </tr>
+    <% association = params[:action] == "cambio_edad" ? :configuracion_cambio_edads : :configuracion_descartes %>
 
-    <%= m.fields_for params[:action] == "cambio_edad" ? :configuracion_cambio_edads : :configuracion_descartes, nil do |c_cambio_animal| %>
+    <%= m.fields_for association, nil do |c_cambio_animal| %>
       <%= render "cambio_animal_item", f: c_cambio_animal, no_select: false %>
     <% end %>
     <tr>
       <td></td>
-      <td class="a-center">
-        <%= link_to_add_fields("Mas", m, :configuracion_cambio_animals, "cambio_animal_item" ) %>
+      <td></td>
+      <td class="a-center" colspan="2">
+        <%= link_to_add_fields("Mas", m, association, "cambio_animal_item" ) %>
       </td>
     </tr>
   </table>

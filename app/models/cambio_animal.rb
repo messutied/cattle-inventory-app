@@ -11,7 +11,13 @@ class CambioAnimal < ActiveRecord::Base
   before_save :set_gestion
 
   scope :descartes, where(tipo: 'descarte')
+  scope :menos_cambio_edad, where("tipo != ?", 'c_edad')
   scope :cambios_edad, where(tipo: 'c_edad')
+
+  def self.tipo_nombre(tipo)
+    nombres = {'descarte' => 'Descarte', 'c_edad' => 'Cambio Edad'}
+    nombres[tipo]
+  end
 
   def parse_fecha!(dia)
     gestion = Gestion.gestion_abierta

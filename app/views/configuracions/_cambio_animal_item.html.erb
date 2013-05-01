@@ -2,7 +2,12 @@
   <td class="a-center">
     <%= f.select :ganado_desde_id, no_select ? [] : get_all_ganado, {}, {class: :ganado_desde} %>
   </td>
+  <td class="a-center">→</td>
   <td class="a-center">
     <%= f.select :ganado_hasta_id, no_select ? [] : get_all_ganado, {}, {class: :ganado_hasta} %>
+  </td>
+  <td class="a-center" class="remove">
+    <a href="#" class="delete_field">×</a>
+    <%= f.hidden_field :_destroy, {value: 0, class: :destroy_input} %>
   </td>
 </tr>
