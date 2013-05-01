@@ -15,7 +15,7 @@ function (link, association, content) {
 }
 
 $(function () {
-  $("select").append( AGan.getOptions(ganado) );
+  // $("select").append( AGan.getOptions(ganado) );
 
   $(document).on("click", ".delete_field", function () {
     $(this).parent().find("input.destroy_input").val("1");
