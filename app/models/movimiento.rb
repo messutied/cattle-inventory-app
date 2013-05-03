@@ -89,6 +89,10 @@ class Movimiento < ActiveRecord::Base
       inv_calc.calcular_mov_ganado
     end
 
+    if ['r'].include? movimientos_tipo.tipo
+      inv_calc.calcular_rec_ganado
+    end
+
     inv_calc.calcular_totales
   end
 

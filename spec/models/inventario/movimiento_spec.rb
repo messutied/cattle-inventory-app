@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Inventario do
+describe Movimiento do
   before { Timecop.freeze Time.now.advance(months: -1).change(day: 1) }
   let!(:gestion_anterior) { Fabricate :anterior, estado: 'A' }
   let(:san_vicente) { Fabricate :san_vicente }
@@ -114,7 +114,10 @@ describe Inventario do
 
       it "el inventario por predio por ganado deberia ser igual al recuento" do
         inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_inicial.should == 0
-        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_inicial.should == 2
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_inicial.should == 0
+
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_pre_rec.should == 30
+        inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_pre_rec.should == 40
 
         inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.first.id).saldo_parcial.should == 0
         inventario_predio.inventario_predio_ganados.find_by_ganado_id(ganados.second.id).saldo_parcial.should == 2
@@ -124,7 +127,7 @@ describe Inventario do
       end
 
       it "el inventario por predio debe ser igual al recuento" do
-        inventario_predio.saldo_i.should == 2
+        inventario_predio.saldo_i.should == 0
         inventario_predio.saldo_p.should == 2
         inventario_predio.cant.should == 2
       end

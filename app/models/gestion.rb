@@ -1,6 +1,7 @@
 class Gestion < ActiveRecord::Base
 	has_one :inventario
 	has_many :cambio_animals
+	has_many :movimientos
 
 	def to_str
 		return self.anio.to_s + "-" + self.mes.to_s

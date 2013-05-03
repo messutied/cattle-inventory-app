@@ -5,6 +5,7 @@ class InventarioPredio < ActiveRecord::Base
   has_many :inventario_predio_ingr_egrs
   has_many :inventario_predio_movs
   has_many :inventario_predio_cambio_animals
+  has_many :inventario_predio_recs
   has_many :inventario_predio_ganados
 
   def self.get_inventario(predio_id, gestion=false)
