@@ -46,9 +46,34 @@
 		<th><%= @inv_predio.saldo_i %></th>
 	</tr>
 
+	<!-- Recuentos -->
+	<% if @inv_predio.tiene_recuentos %>
+		<tr class="row-pre-rec">
+			<th colspan="2">Pre-Recuento</th>
+			<% @ip_ganados.each do |ip_ganado| %>
+			<td><%= ip_ganado.saldo_pre_rec %></td>
+			<% end %>
+			<th><%= @inv_predio.saldo_pre_r_men_a %></th>
+			<th><%= @inv_predio.saldo_pre_r_may_a %></th>
+			<th><%= @inv_predio.saldo_pre_r %></th>
+		</tr>
+	<% end %>
+
+	<% @inv_predio.inventario_predio_recs.each_with_index do |ip_rec, index| %>
+		<tr class="row-rec">
+			<th colspan="2">Recuento <%= index+1 %></th>
+			<% ip_rec.inventario_predio_rec_ganados.each do |ip_rec_ganado| %>
+				<td><%= ip_rec_ganado.cant %></td>
+			<% end %>
+			<th><%= ip_rec.cant_men_a %></th>
+			<th><%= ip_rec.cant_may_a %></th>
+			<th><%= ip_rec.cant %></th>
+		</tr>
+	<% end %>
+
 	<!-- Cambios Animales -->
 	<% @inv_predio.inventario_predio_cambio_animals.each do |c| %>
-	<tr class="row-mov">
+	<tr class="row-c-animal">
 		<th colspan="2"><%= c.tipo_nombre %></th>
 		<% c.inventario_predio_cambio_animal_ganados.each do |ip_ganado|  %>
 		<td>

@@ -8,7 +8,7 @@ class CambioAnimal < ActiveRecord::Base
 
   after_save :update_inventario
   after_destroy :update_inventario
-  before_save :set_gestion
+  before_validation :set_gestion
 
   scope :descartes, where(tipo: 'descarte')
   scope :menos_cambio_edad, where("tipo != ?", 'c_edad')

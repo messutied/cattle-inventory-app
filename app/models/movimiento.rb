@@ -16,7 +16,7 @@ class Movimiento < ActiveRecord::Base
 
   after_save :update_inventario
   after_destroy :update_inventario
-  before_save :set_gestion
+  before_validation :set_gestion
 
   scope :movimientos, joins(:movimientos_tipo).where("movimientos_tipos.tipo = ?", 'm')
   scope :recuentos, joins(:movimientos_tipo).where("movimientos_tipos.tipo = ?", 'r')

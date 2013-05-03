@@ -131,21 +131,21 @@ class InventarioPredioCalculador
   end
 
   def calcular_rec_ganado
-    last_rec = @gestion.movimientos.recuentos.last
     @inventario_predio.inventario_predio_recs.destroy_all
 
-    # solo se guarda un recuento en inventario, el ultimo
-    ip_rec = @inventario_predio.inventario_predio_recs.create
+    @gestion.movimientos.recuentos.each do |rec|
+      ip_rec = @inventario_predio.inventario_predio_recs.create
 
-    last_rec.movimiento_ganados.each do |m_ganado|
-      ip_rec.inventario_predio_rec_ganados.create(ganado_id: m_ganado.ganado_id, cant: m_ganado.cant)
+      rec.movimiento_ganados.each do |m_ganado|
+        ip_rec.inventario_predio_rec_ganados.create(ganado_id: m_ganado.ganado_id, cant: m_ganado.cant)
+      end
+
+      ip_rec.update_attributes(
+        cant: ip_rec.inventario_predio_rec_ganados.sum(&:cant),
+        cant_may_a: ip_rec.inventario_predio_rec_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant),
+        cant_men_a: ip_rec.inventario_predio_rec_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
+      )
     end
-
-    ip_rec.update_attributes(
-      cant: ip_rec.inventario_predio_rec_ganados.sum(&:cant),
-      cant_may_a: ip_rec.inventario_predio_rec_ganados.select {|g| g.ganado.tipo == "may_a"}.sum(&:cant),
-      cant_men_a: ip_rec.inventario_predio_rec_ganados.select {|g| g.ganado.tipo == "men_a"}.sum(&:cant)
-    )
   end
 
   def calcular_totales(calc_predio_sec=true)

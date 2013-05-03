@@ -1,53 +1,57 @@
-    .row-ggrupos th {
-        text-align: center;
-        font-weight: bold;
-    }
+.row-ggrupos th {
+    text-align: center;
+    font-weight: bold;
+}
 
-    .row-ganado th {
-        text-align: center;
-    }
+.row-ganado th {
+    text-align: center;
+}
 
-    .row-saldo-ant td {
-        text-align: right;
-    }
+.row-saldo-ant td {
+    text-align: right;
+}
 
-    .row-mov td {
-        text-align: right;
-    }
+.row-mov td,
+.row-rec td,
+.row-pre-rec td,
+.row-c-animal td
+{
+    text-align: right;
+}
 
-    .table th {
-        background-color: #F4F4F4 !important;
-        color: black !important;
+.table th {
+    background-color: #F4F4F4 !important;
+    color: black !important;
 
-    }
+}
 
-    .table {
-        font-size: 0.9em;
-    }
+.table {
+    font-size: 0.9em;
+}
 
-    .row-saldo td {
-        background-color: #F4F4F4 !important;
-        color: black !important;
-        text-align: right;
-        font-weight: bold;
+.row-saldo td {
+    background-color: #F4F4F4 !important;
+    color: black !important;
+    text-align: right;
+    font-weight: bold;
 
-    }
+}
 
-    td.perdida {
-        color: red;
-        background-color: #FFF3F1;
-        font-weight: bold;
-    }
-    td.incompleta {
-        color: red;
-        background-color: #ffbaaf;
-        font-weight: bold;
-    }
-    .table tbody tr:hover td.perdida {
-        color: red;
-        background-color: #FFF3F1;
-    }
+td.perdida {
+    color: red;
+    background-color: #FFF3F1;
+    font-weight: bold;
+}
+td.incompleta {
+    color: red;
+    background-color: #ffbaaf;
+    font-weight: bold;
+}
+.table tbody tr:hover td.perdida {
+    color: red;
+    background-color: #FFF3F1;
+}
 
-    .table tbody td:hover.perdida, .table tbody td:hover.incompleta {
-        cursor: pointer;
-    }
+.table tbody td:hover.perdida, .table tbody td:hover.incompleta {
+    cursor: pointer;
+}

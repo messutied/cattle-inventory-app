@@ -18,4 +18,8 @@ class InventarioPredio < ActiveRecord::Base
 
     return inventario_predio
   end
+
+  def tiene_recuentos
+    inventario_predio_recs.count > 0
+  end
 end
