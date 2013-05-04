@@ -35,7 +35,7 @@ class Movimiento < ActiveRecord::Base
       gestion = Gestion.gestion_abierta
       self.fecha = "#{gestion.anio}-#{gestion.mes}-#{dia}"
     else
-      self.fecha.change(day: dia)
+      self.fecha.change(day: dia.to_i)
     end
   end
 

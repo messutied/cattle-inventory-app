@@ -1,0 +1,12 @@
+<% if model.errors.any? %>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h3>Se encontró <%= pluralize(model.errors.count, "error") %> al tratar de guardar el registro:</h3>
+
+    <ul>
+      <% model.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

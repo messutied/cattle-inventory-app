@@ -2,6 +2,15 @@
 
 module ApplicationHelper
 
+  def flash_type_class(flash_type)
+    case flash_type
+    when :notice
+      return "success"
+    else
+      return flash_type
+    end
+  end
+
   def get_predios
     @predios = Predio.all.map { |predio| [predio.nombre, predio.id] }
     @predios.unshift(["Seleccionar", ""])

@@ -1,15 +1,5 @@
 <%= form_for(@empleado, :remote => @remote, :html => {:id => "create_empleado_form", :class => "form-horizontal"}) do |f| %>
-  <% if @empleado.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@empleado.errors.count, "error") %> prohibited this empleado from being saved:</h2>
-
-      <ul>
-      <% @empleado.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/form_errors", model: @empleado %>
 
   <div class="control-group">
     <%= f.label "Nombre Empleado", :class => "control-label" %>

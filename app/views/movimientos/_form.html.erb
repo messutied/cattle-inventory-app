@@ -1,17 +1,5 @@
 <%= form_for(@movimiento, :html => { :class => "form-inline"}) do |m| %>
-  <% if @movimiento.errors.any? %>
-    <div class="alert alert-error">
-    <h3>
-      Se encontró <%= pluralize(@movimiento.errors.count, "error") %> 
-       al tratar de guardar el registro:</h3>
-
-      <ul>
-        <% @movimiento.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/form_errors", model: @movimiento %>
 
   <input type="hidden" name="type" value="<%= @type %>" />
 

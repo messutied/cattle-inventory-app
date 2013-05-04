@@ -1,10 +1,7 @@
 class EmpleadosController < ApplicationController
 
-  # GET /empleados
-  # GET /empleados.json
   def index
     @empleados = Empleado.all
-    @br =["Empleados", "Listar"]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,8 +9,6 @@ class EmpleadosController < ApplicationController
     end
   end
 
-  # GET /empleados/1
-  # GET /empleados/1.json
   def show
     @empleado = Empleado.find(params[:id])
 
@@ -23,10 +18,7 @@ class EmpleadosController < ApplicationController
     end
   end
 
-  # GET /empleados/new
-  # GET /empleados/new.json
   def new
-    @br =["Empleados", "Nuevo"]
     @empleado = Empleado.new
 
     @remote = request.xhr?
@@ -41,14 +33,10 @@ class EmpleadosController < ApplicationController
     end
   end
 
-  # GET /empleados/1/edit
   def edit
-    @br =["Empleados", "Editar"]
     @empleado = Empleado.find(params[:id])
   end
 
-  # POST /empleados
-  # POST /empleados.json
   def create
     @empleado = Empleado.new(params[:empleado])
 
@@ -73,8 +61,6 @@ class EmpleadosController < ApplicationController
     end
   end
 
-  # PUT /empleados/1
-  # PUT /empleados/1.json
   def update
     @empleado = Empleado.find(params[:id])
 
@@ -89,8 +75,6 @@ class EmpleadosController < ApplicationController
     end
   end
 
-  # DELETE /empleados/1
-  # DELETE /empleados/1.json
   def destroy
     @empleado = Empleado.find(params[:id])
     @empleado.destroy

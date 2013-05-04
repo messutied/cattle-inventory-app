@@ -6,8 +6,6 @@ class MovimientosController < ApplicationController
   def index
     @type = params[:type]
 
-    @br = [Movimiento.type_name(@type), "Listado"]
-
     @gestion = params["filtro_gestion"] ? 
       Gestion.find(params["filtro_gestion"]) : 
       Gestion.gestion_abierta
@@ -59,15 +57,12 @@ class MovimientosController < ApplicationController
     @movimiento.movimiento_ganados.build
 
     @type = params[:type]
-
-    @br = [Movimiento.type_name(@type), "Nuevo"]
   end
 
   def create
     @movimiento = Movimiento.new(params[:movimiento])
     @movimiento.parse_fecha!(params[:dia])
     @type = params[:type]
-    @br = [Movimiento.type_name(@type), "Nuevo"]
 
     if @movimiento.save()
       redirect_to(@movimiento, :notice => 'Se creo el movimiento.')

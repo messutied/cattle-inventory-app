@@ -1,17 +1,7 @@
-<%= form_for(@configuracion, :html => { :class => "form-inline"}) do |m| %>
-  <% if @configuracion.errors.any? %>
-    <div class="alert alert-error">
-    <h3>
-      Se encontró <%= pluralize(@configuracion.errors.count, "error") %> 
-       al tratar de guardar el registro:</h3>
+<% @br = ["Configuración", params[:action] == "cambio_edad" ? "Cambio de Edades" : "Descartes"] %>
 
-      <ul>
-        <% @configuracion.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@configuracion, :html => { :class => "form-inline"}) do |m| %>
+  <%= render "shared/form_errors", model: @configuracion %>
 
   <script type='text/javascript' charset="utf-8">
     var ganado = <%= raw get_all_ganado.to_json %>;

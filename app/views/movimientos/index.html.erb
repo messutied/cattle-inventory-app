@@ -1,4 +1,5 @@
 <% content_for :title, "Listado de Movimientos" %>
+<% @br = [Movimiento.type_name(@type), "Listado"] %>
 
 <%= form_tag("list", :method => "GET", :class => "form-inline") do %>
 	<label for="filtro_gestion">Gestión:</label>

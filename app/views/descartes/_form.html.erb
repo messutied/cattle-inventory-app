@@ -1,17 +1,5 @@
 <%= form_for(@descarte, :html => { :class => "form-inline"}) do |m| %>
-  <% if @descarte.errors.any? %>
-    <div class="alert alert-error">
-    <h3>
-      Se encontró <%= pluralize(@descarte.errors.count, "error") %> 
-       al tratar de guardar el registro:</h3>
-
-      <ul>
-        <% @descarte.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/form_errors", model: @descarte %>
 
   <%= m.hidden_field :tipo, {:value=>"descarte"} %>
 

@@ -17,8 +17,6 @@ class ReportsController < ApplicationController
       @inv_predio = InventarioPredio.get_inventario(@predio, @gestion)
       @ip_ganados = @inv_predio.inventario_predio_ganados
     end
-
-    @br = ["Reportes", "Inventario Mensual"]
   end
 
 end

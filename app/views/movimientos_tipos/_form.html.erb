@@ -1,15 +1,5 @@
 <%= form_for(@movimientos_tipo, :html => {:class => "form-horizontal small"}) do |f| %>
-  <% if @movimientos_tipo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@movimientos_tipo.errors.count, "error") %> prohibited this movimientos_tipo from being saved:</h2>
-
-      <ul>
-      <% @movimientos_tipo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/form_errors", model: @movimientos_tipo %>
 
   <div class="control-group">
     <%= f.label :tipo, :class => "control-label" %>

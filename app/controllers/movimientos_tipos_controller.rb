@@ -3,12 +3,8 @@
 class MovimientosTiposController < ApplicationController
   before_filter :require_user
   
-  # GET /movimientos_tipos
-  # GET /movimientos_tipos.xml
   def index
     @movimientos_tipos = MovimientosTipo.order("tipo asc")
-
-    @br = ["Tipos de Movimiento", "Listado"]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,10 +12,7 @@ class MovimientosTiposController < ApplicationController
     end
   end
 
-  # GET /movimientos_tipos/1
-  # GET /movimientos_tipos/1.xml
   def show
-    @br = ["Tipos de Movimiento", "Ver"]
     @movimientos_tipo = MovimientosTipo.find(params[:id])
 
     respond_to do |format|
@@ -28,12 +21,8 @@ class MovimientosTiposController < ApplicationController
     end
   end
 
-  # GET /movimientos_tipos/new
-  # GET /movimientos_tipos/new.xml
   def new
     @movimientos_tipo = MovimientosTipo.new
-
-    @br = ["Tipos de Movimiento", "Nuevo"]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,12 +32,9 @@ class MovimientosTiposController < ApplicationController
 
   # GET /movimientos_tipos/1/edit
   def edit
-    @br = ["Tipos de Movimiento", "Editar"]
     @movimientos_tipo = MovimientosTipo.find(params[:id])
   end
 
-  # POST /movimientos_tipos
-  # POST /movimientos_tipos.xml
   def create
     @movimientos_tipo = MovimientosTipo.new(params[:movimientos_tipo])
 
@@ -63,8 +49,6 @@ class MovimientosTiposController < ApplicationController
     end
   end
 
-  # PUT /movimientos_tipos/1
-  # PUT /movimientos_tipos/1.xml
   def update
     @movimientos_tipo = MovimientosTipo.find(params[:id])
 
@@ -79,8 +63,6 @@ class MovimientosTiposController < ApplicationController
     end
   end
 
-  # DELETE /movimientos_tipos/1
-  # DELETE /movimientos_tipos/1.xml
   def destroy
     @movimientos_tipo = MovimientosTipo.find(params[:id])
     @movimientos_tipo.destroy

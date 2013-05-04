@@ -1,17 +1,5 @@
 <%= form_for @cambio_edad, html: { class: "form-inline"} do |c| %>
-  <% if @cambio_edad.errors.any? %>
-    <div class="alert alert-error">
-    <h3>
-      Se encontró <%= pluralize(@cambio_edad.errors.count, "error") %> 
-       al tratar de guardar el registro:</h3>
-
-      <ul>
-        <% @cambio_edad.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "shared/form_errors", model: @cambio_edad %>
 
   <table class="table table-bordered table-striped">
     <tr>

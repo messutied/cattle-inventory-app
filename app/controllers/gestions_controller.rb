@@ -9,8 +9,6 @@ class GestionsController < ApplicationController
     @gestions = Gestion.all(:order => "anio desc, mes desc")
     @gestion = Gestion.new
 
-    @br = ["Configuración", "Gestión"]
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @gestions }
