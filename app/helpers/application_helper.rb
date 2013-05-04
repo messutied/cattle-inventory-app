@@ -2,6 +2,11 @@
 
 module ApplicationHelper
 
+  def nombre_estado(estado)
+    estados = {"A" => "Activo", "I" => "Inactivo"}
+    estados[estado]
+  end
+
   def flash_type_class(flash_type)
     case flash_type
     when :notice
@@ -149,6 +154,14 @@ module ApplicationHelper
       end
     when "cambio_edad"
       if we_are_in("cambio_edads", "index")
+        return active
+      end
+    when "predios_list"
+      if we_are_in("predios", "index")
+        return active
+      end
+    when "predios_new"
+      if we_are_in("predios", "new")
         return active
       end
     end

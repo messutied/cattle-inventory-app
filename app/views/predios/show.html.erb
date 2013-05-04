@@ -1,0 +1,15 @@
+<% @br = ["Predios", "Ver"] %>
+
+<p>
+  <b>Nombre:</b>
+  <%= @predio.nombre %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%= @predio.estado %>
+</p>
+
+
+<%= link_to 'Editar', edit_predio_path(@predio), class: :btn %>
+<%= link_to 'Volver', predios_path, class: :btn %>

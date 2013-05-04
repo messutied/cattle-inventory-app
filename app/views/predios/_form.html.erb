@@ -1,0 +1,23 @@
+<%= form_for(@predio, :html => { :class => "form-inline"}) do |f| %>
+  <%= render "shared/form_errors", model: @predio %>
+
+  <div class="field-inline">
+    <%= f.label "Nombre:" %>
+    <%= f.text_field :nombre %>
+  </div>
+  <br>
+  <br>
+
+  <div class="field-inline">
+    <%= f.label "Estado:" %>
+    <%= f.select :estado, [["Seleccionar...", ""], ["Activo", "A"], ["Inactivo", "I"]] %>
+  </div>
+  <br>
+  <br>
+
+  <div class="form-actions">
+    <%= f.submit @predio.new_record? ? "Crear Predio" : "Guardar", :class => "btn btn-primary" %>
+    
+    <%= link_to "Volver", predios_path, :class => "btn" %>
+  </div>
+<% end %>

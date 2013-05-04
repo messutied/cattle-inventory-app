@@ -8,6 +8,7 @@ Ganaderia::Application.routes.draw do
   resources :descartes
   resources :cambio_edads
   resources :configuracions
+  resources :predios
 
   get "reports/inventario_mensual"
 

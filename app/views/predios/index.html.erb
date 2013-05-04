@@ -1,0 +1,19 @@
+<% @br = ["Predios", "Listado"] %>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Nombre</th>
+    <th>Estado</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @predios.each do |predio| %>
+  <tr>
+    <td><%= predio.nombre %></td>
+    <td><%= nombre_estado(predio.estado) %></td>
+    <td><%= link_to 'Ver', predio %></td>
+    <td><%= link_to 'Editar', edit_predio_path(predio) %></td>
+  </tr>
+  <% end %>
+</table>
