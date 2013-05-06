@@ -28,8 +28,8 @@ Ganaderia::Application.routes.draw do
   get "movimiento/list" => "movimientos#index", :type => "mov"
   get "recuento/list" => "movimientos#index", :type => "rec"
 
-  get "configuracion/cambio-edad" => "configuracions#cambio_edad"
-  get "configuracion/descartes" => "configuracions#descartes"
+  get "configuracion/cambio-edad" => "configuracions#cambio_edad", as: :config_cambio_edad
+  get "configuracion/descartes" => "configuracions#descartes", as: :config_descartes
 
   get "/login" => "users#login"
   get "/demo" => "users#login", :demo => true

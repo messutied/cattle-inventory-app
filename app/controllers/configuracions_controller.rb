@@ -2,6 +2,7 @@
 
 class ConfiguracionsController < ApplicationController
   before_filter :require_user
+  helper_method :config_path
 
   def cambio_edad
     @configuracion = Configuracion.first_or_initialize
@@ -21,7 +22,7 @@ class ConfiguracionsController < ApplicationController
     @configuracion = Configuracion.new(params[:configuracion])
 
     if @configuracion.save
-      redirect_to action: params[:config_saved], :notice => "Se guardó la configuracion correctamete"
+      redirect_to config_path(params[:config_saved]), :notice => "Se guardó la configuracion correctamete"
     else
       render action: params[:config_saved]
     end
@@ -32,9 +33,20 @@ class ConfiguracionsController < ApplicationController
     @configuracion.update_attributes params[:configuracion]
 
     if @configuracion.save
-      redirect_to action: params[:config_saved], :notice => "Se guardó la configuracion correctamete"
+      redirect_to config_path(params[:config_saved]), :notice => "Se guardó la configuracion correctamete"
     else
       render action: params[:config_saved]
+    end
+  end
+
+  private
+
+  def config_path(from_action)
+    case from_action
+    when "cambio_edad"
+      return config_cambio_edad_path
+    when "descartes"
+      return config_descartes_path
     end
   end
 end
