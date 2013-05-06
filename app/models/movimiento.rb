@@ -79,21 +79,25 @@ class Movimiento < ActiveRecord::Base
 
   def update_inventario
     inv_predio = InventarioPredio.get_inventario(predio_id)
-    inv_calc = InventarioPredioCalculador.new(inv_predio)
+    ip_calc = InventarioPredioCalculador.new(inv_predio)
+
+    inv = Inventario.get_inventario
+    inv_calc = InventarioCalculador.new(inv)
 
     if ['i', 'e', 'r'].include? movimientos_tipo.tipo
-      inv_calc.calcular_ingr_egr_ganado_predio
+      ip_calc.calcular_ingr_egr_ganado_predio
     end
 
     if ['m', 'r'].include? movimientos_tipo.tipo
-      inv_calc.calcular_mov_ganado
+      ip_calc.calcular_mov_ganado
     end
 
     if ['r'].include? movimientos_tipo.tipo
-      inv_calc.calcular_rec_ganado
+      ip_calc.calcular_rec_ganado
     end
 
-    inv_calc.calcular_totales
+    ip_calc.calcular_totales
+    inv_calc.calcular_inventario_ganados_totales()
   end
 
   def set_gestion

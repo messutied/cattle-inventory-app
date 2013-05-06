@@ -93,6 +93,11 @@ describe Movimiento do
       inventario_predio.inventario.cant.should == 70
     end
 
+    it "deberia guardarse en el inventario por ganado" do
+      inventario_predio.inventario.inventario_ganados.find_by_ganado_id(ganados.first.id).cant == 30
+      inventario_predio.inventario.inventario_ganados.find_by_ganado_id(ganados.second.id).cant == 40
+    end
+
     # TODO: probar lo mismo pero despues de movimientos
     context "cuando el usuario crea un recuento despues de haber creado ingresos/egresos" do
       before do

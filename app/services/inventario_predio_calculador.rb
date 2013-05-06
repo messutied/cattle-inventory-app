@@ -178,8 +178,8 @@ class InventarioPredioCalculador
       # si hubo gestion anterior, el saldo inicial es el saldo de la anterior gestion
       if @inventario.gestion.anterior
         inv = @inventario.gestion.anterior.get_inventario.get_inventario_predio(@predio.id)
-        inv_ganado = inv.inventario_predio_ganados.find_by_ganado_id(ganado.ganado_id)
-        saldo_inicial = inv_ganado.cant if inv_ganado
+        ip_ganado = inv.inventario_predio_ganados.find_by_ganado_id(ganado.ganado_id)
+        saldo_inicial = ip_ganado.cant if ip_ganado
       end
 
       # el saldo parcial solo toma en cuenta el saldo inicial si NO hubo un recuento esta gestion

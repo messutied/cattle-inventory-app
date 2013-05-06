@@ -2,6 +2,7 @@ class InventarioCalculador
   def initialize(inventario)
     @inventario = inventario
     @config_cambios_edad = ConfiguracionCambioEdad.all
+    @inventario_predios = @inventario.inventario_predios
   end
 
   def calcular_cambio_edades
@@ -44,8 +45,20 @@ class InventarioCalculador
   end
 
   def calcular_totales
-    @inventario.inventario_predios.each do |inv_predio|
+    @inventario_predios.each do |inv_predio|
       InventarioPredioCalculador.new(inv_predio).calcular_totales
+    end
+  end
+
+  def calcular_inventario_ganados_totales
+    Ganado.all.each do |ganado|
+      total = 0
+      @inventario_predios.each do |predio|
+        total += predio.inventario_predio_ganados.find_by_ganado_id(ganado.id).cant
+      end
+
+      inv_ganado = @inventario.inventario_ganados.find_or_initialize_by_ganado_id(ganado.id)
+      inv_ganado.update_attributes(cant: total)
     end
   end
 end

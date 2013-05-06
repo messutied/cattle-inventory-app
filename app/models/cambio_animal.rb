@@ -33,19 +33,21 @@ class CambioAnimal < ActiveRecord::Base
   private
 
   def update_inventario
+    inv_predio = InventarioPredio.get_inventario(predio_id)
+    ip_calc = InventarioPredioCalculador.new(inv_predio)
+
+    inv = Inventario.get_inventario
+    inv_calc = InventarioCalculador.new(inv)
+
     if tipo == "descarte"
-      inv_predio = InventarioPredio.get_inventario(predio_id)
-      inv_predio_calc = InventarioPredioCalculador.new(inv_predio)
-
-      inv_predio_calc.calcular_cambio_animal
-      inv_predio_calc.calcular_totales
+      ip_calc.calcular_cambio_animal
+      ip_calc.calcular_totales
     else
-      inv = Inventario.get_inventario
-      inv_calc = InventarioCalculador.new(inv)
-
       inv_calc.calcular_cambio_edades
       inv_calc.calcular_totales
     end
+
+    inv_calc.calcular_inventario_ganados_totales()
   end
 
   def set_gestion
