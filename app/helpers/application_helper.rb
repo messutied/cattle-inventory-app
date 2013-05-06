@@ -128,6 +128,10 @@ module ApplicationHelper
       if we_are_in("reports", "inventario_mensual")
         return active
       end
+    when "rep_inv_gen"
+      if we_are_in("reports", "inventario_general")
+        return active
+      end
     when "config_gestion"
       if we_are_in("gestions", "index")
         return active

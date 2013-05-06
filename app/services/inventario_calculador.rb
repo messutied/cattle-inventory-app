@@ -54,7 +54,8 @@ class InventarioCalculador
     Ganado.all.each do |ganado|
       total = 0
       @inventario_predios.each do |predio|
-        total += predio.inventario_predio_ganados.find_by_ganado_id(ganado.id).cant
+        ip_ganado = predio.inventario_predio_ganados.find_by_ganado_id(ganado.id)
+        total += ip_ganado ? ip_ganado.cant : 0
       end
 
       inv_ganado = @inventario.inventario_ganados.find_or_initialize_by_ganado_id(ganado.id)

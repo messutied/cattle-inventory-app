@@ -3,7 +3,7 @@
 class ReportsController < ApplicationController
   before_filter :require_user
   
-  def inventario_mensual
+  def inventario_predio
   	@g_grupos = GanadoGrupo.all
   	@ganados = Ganado.all
   	@predio = params[:filtro_predio] || ""
@@ -19,4 +19,7 @@ class ReportsController < ApplicationController
     end
   end
 
+  def inventario_general
+    @inventario = Inventario.get_inventario
+  end
 end

@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "inv_mensual_reporte" %>
-<% @br = ["Reportes", "Inventario Mensual"] %>
+<% @br = ["Reportes", "Inventario por Predio"] %>
 
-<%= form_tag("inventario_mensual", :method => "GET", :class => "form-inline") do %>
+<%= form_tag(reporte_inv_predio_path, :method => "GET", :class => "form-inline") do %>
 <label for="gestion">Gestión:</label>
 <%= select_tag(:filtro_gestion, options_for_gestiones(@gestion_id)) %>
 &nbsp;

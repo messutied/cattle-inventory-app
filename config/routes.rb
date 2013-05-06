@@ -10,7 +10,8 @@ Ganaderia::Application.routes.draw do
   resources :configuracions
   resources :predios
 
-  get "reports/inventario_mensual"
+  get "reports/inventario_predio", as: :reporte_inv_predio
+  get "reports/inventario_general", as: :reporte_inv_general
 
   get "home/index"
 
