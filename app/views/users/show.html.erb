@@ -1,6 +1,4 @@
-<% if notice -%>
-  <p id="notice"><%= notice %></p>
-<% end -%>
+<% @br = ["Usuarios", "Ver"] %>
 
 <p>
   <b>Nombre:</b>
@@ -23,5 +21,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_user_path(@user), class: :btn %> 
+<%= link_to 'Back', users_path, class: :btn %>

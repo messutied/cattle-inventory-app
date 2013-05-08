@@ -1,27 +1,43 @@
-<%= form_for(@user) do |f| %>
+<%= form_for(@user, :html => { :class => "form-inline"}) do |f| %>
   <%= render "shared/form_errors", model: @user %>
 
-  <div class="field">
-    <%= f.label :nombre %><br />
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :user_type %><br />
+  <div class="field-inline">
+    <%= f.label "Tipo de Usuario:" %>
     <%= f.select :user_type_id, @types %>
   </div>
-  <div class="field">
-    <%= f.label :mail %><br />
+  <br>
+  <br>
+
+  <div class="field-inline">
+    <%= f.label "Nombre:" %>
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field-inline">
+    <%= f.label "Email" %>
     <%= f.text_field :mail %>
   </div>
-  <div class="field">
-    <%= f.label :username %><br />
+  <br>
+  <br>
+
+  <div class="field-inline">
+    <%= f.label "Usuario:" %>
     <%= f.text_field :username %>
   </div>
-  <div class="field">
-    <%= f.label :pass %><br />
+
+  <div class="field-inline">
+    <%= f.label "Contraseña" %>
     <%= f.text_field :pass %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <br>
+  <br>
+
+  <div class="form-actions">
+    <%= f.submit @user.new_record? ? "Crear Usuario" : "Guardar", :class => "btn btn-primary" %>
+    
+    <% if !@user.new_record? %>
+      <%= link_to "Eliminar", @user, :confirm => "¿Eliminar este usuario?", :method => "delete", :class => "btn btn-danger" %>
+    <% end %>
+    <%= link_to "Volver", users_path, :class => "btn" %>
   </div>
 <% end %>

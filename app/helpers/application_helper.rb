@@ -168,6 +168,10 @@ module ApplicationHelper
       if we_are_in("predios", "new")
         return active
       end
+    when "users_list"
+      if we_are_in("users", "index")
+        return active
+      end
     end
   end
 end
