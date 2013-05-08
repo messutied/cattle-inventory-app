@@ -1,7 +1,7 @@
 <% @br = ["Configuración", params[:action] == "cambio_edad" ? "Cambio de Edades" : "Descartes"] %>
 
 <%= form_for(@configuracion, :html => { :class => "form-inline"}) do |m| %>
-  <%= render "shared/form_errors", model: @configuracion %>
+  <%= render "shared/form_errors", record: @configuracion %>
 
   <script type='text/javascript' charset="utf-8">
     var ganado = <%= raw get_all_ganado.to_json %>;

@@ -1,7 +1,7 @@
 <% @br = ["Cambio de Edades Anual", "Listado"] %>
 
 <%= form_for @cambio_edad, html: { class: "form-inline"} do |c| %>
-  <%= render "shared/form_errors", model: @cambio_edad %>
+  <%= render "shared/form_errors", record: @cambio_edad %>
 
   <table class="table table-bordered table-striped">
     <tr>

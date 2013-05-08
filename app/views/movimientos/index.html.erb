@@ -28,20 +28,23 @@
 		<th>Fecha</th>
 		<th>Detalle</th>
 		<th></th>
-		<th></th>
 	</tr>
 	
 	<% @movs.each do |mov| %>
 	<tr>
-		<td><%= mov.razon %></td>
-		<td><%= mov.predio_nombre%></td>
+		<td><%= mov.detalle %></td>
+		<td><%= mov.predio.nombre%></td>
 		<% if @type == "mov" %>
-			<td><%= mov.predio_sec_nombre%></td>
+			<td><%= mov.predio_sec.nombre%></td>
 		<% end%>
 		<td><%= mov.fecha%></td>
 		<td><%= mov.detalle%></td>
-		<td class="a-center"><%= link_to "Ver", mov%></td>
-		<td class="a-center"><%= link_to "Editar", edit_movimiento_path(mov)%></td>
+		<td class="row-actions">
+			<%= link_to "Ver", mov%>
+			<% if (is_admin? or is_encargado?) and mov.is_editable? %>
+			・ <%= link_to "Editar", edit_movimiento_path(mov)%>
+			<% end %>
+		</td>
 	</tr>
 	<% end %>
 

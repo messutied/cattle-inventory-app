@@ -1,5 +1,5 @@
 <%= form_for(@descarte, :html => { :class => "form-inline"}) do |m| %>
-  <%= render "shared/form_errors", model: @descarte %>
+  <%= render "shared/form_errors", record: @descarte %>
 
   <%= m.hidden_field :tipo, {:value=>"descarte"} %>
 

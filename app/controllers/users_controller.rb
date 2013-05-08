@@ -101,7 +101,7 @@ class UsersController < ApplicationController
       self.current_user = user
       
       if params[:from] != nil
-        redirect_to(params[:from], :notice => 'Loged in')
+        redirect_to(params[:from], :notice => 'Has iniciado sesión correctamente.')
       else
         redirect_to("/", :notice => 'Loged in')
       end

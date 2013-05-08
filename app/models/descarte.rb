@@ -27,4 +27,8 @@ class Descarte < CambioAnimal
   def ganado_descartado_id
     ganado_descartado.id unless new_record?
   end
+
+  def is_editable?
+    gestion.esta_abierta?
+  end
 end

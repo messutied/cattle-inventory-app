@@ -10,16 +10,11 @@ class MovimientosController < ApplicationController
       Gestion.find(params["filtro_gestion"]) : 
       Gestion.gestion_abierta
 
-    puts "*****"+@gestion.desde+" - "+@gestion.hasta
-
-    @movs = Movimiento.joins(:movimientos_tipo, :predio, :movimiento_ganados)
-      .joins("LEFT JOIN predios predio_sec on predio_sec.id=movimientos.predio_sec_id")
+    @movs = Movimiento
+      .joins(:movimientos_tipo, :predio, :movimiento_ganados)
+      .where(gestion_id: @gestion.id)
       .order("fecha desc")
-      .where("fecha>= ? and fecha<= ?", @gestion.desde, @gestion.hasta)
-      .select("movimientos_tipos.nombre as razon, movimientos.id, movimientos.fecha, movimientos.detalle, "+
-        "predios.nombre as predio_nombre, predio_sec.nombre as predio_sec_nombre")
-      .group("movimientos_tipos.nombre, movimientos.id, movimientos.fecha, movimientos.detalle, "+
-        "predios.nombre, predio_sec.nombre")
+      .select("movimientos.*")
 
 
     @filtro_predio = params["filtro_predio"] || "*"

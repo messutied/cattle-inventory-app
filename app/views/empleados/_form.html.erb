@@ -1,5 +1,5 @@
 <%= form_for(@empleado, :remote => @remote, :html => {:id => "create_empleado_form", :class => "form-horizontal"}) do |f| %>
-  <%= render "shared/form_errors", model: @empleado %>
+  <%= render "shared/form_errors", record: @empleado %>
 
   <div class="control-group">
     <%= f.label "Nombre Empleado", :class => "control-label" %>

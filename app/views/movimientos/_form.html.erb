@@ -1,5 +1,5 @@
 <%= form_for(@movimiento, :html => { :class => "form-inline"}) do |m| %>
-  <%= render "shared/form_errors", model: @movimiento %>
+  <%= render "shared/form_errors", record: @movimiento %>
 
   <input type="hidden" name="type" value="<%= @type %>" />
 

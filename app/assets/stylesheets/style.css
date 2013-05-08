@@ -144,3 +144,8 @@ input.small {
    /* margin-top: 10px;
     float: right;*/
 }
+
+tr td.row-actions {
+  width: 120px;
+  text-align: center;
+}

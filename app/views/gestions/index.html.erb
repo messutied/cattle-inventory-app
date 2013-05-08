@@ -11,13 +11,16 @@
   <tr>
     <td><%= "#{gestion.anio}-#{gestion.mes}" %></td>
     <td><%= estado( gestion.estado ) %></td>
-    <td style="text-align: right">
+    <td style="text-align:right; width:150px">
       <% if gestion.estado == "A" and not gestion.es_actual %>
-        <%= link_to 'Cerrar', cerrar_gestion_path(gestion) %>
+        <%= link_to 'Cerrar', cerrar_gestion_path(gestion) %> ・
       <% end %>
 
       <% if is_admin? %>
-        &nbsp;<%= link_to 'Eliminar', gestion, :confirm => '¿Eliminar la gestión?', :method => :delete %>
+        <%= link_to 'Eliminar', gestion, :confirm => '¿Eliminar la gestión?', :method => :delete %>
+        <% if gestion.esta_cerrada? %>
+          ・ <%= link_to 'Abrir', abrir_gestion_path(gestion) %>
+        <% end %>
       <% end %>
     </td>
   </tr>

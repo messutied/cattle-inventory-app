@@ -24,7 +24,8 @@ UserType.create([
 
 User.create([
   {:nombre=>'Eduardo Messuti', :username=>'edd', :mail=>'messuti.edd@gmail.com', :user_type_id=>1, :pass=>'126188'},
-  {:nombre=>'Demo User', :username=>'demo', :mail=>'demo@demo.com', :user_type_id=>2, :pass=>'demo'}
+  {:nombre=>'Demo User', :username=>'demo', :mail=>'demo@demo.com', :user_type_id=>2, :pass=>'demo'},
+  {:nombre=>'Juan', :username=>'juan', :mail=>'juan@demo.com', :user_type_id=>3, :pass=>'demo'}
 ])
 
 Predio.create([
@@ -83,3 +84,54 @@ MovimientosTipo.create([
   {:tipo => "e", :nombre => "Ventas en Matadero"},
   {:tipo => "r", :nombre => "Recuento"}
 ])
+
+config = Configuracion.create(mes_cambio_edades: 9)
+
+# config descartes
+config.configuracion_descartes.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "2A").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Descarte", "2A").first,
+)
+config.configuracion_descartes.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "3A").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Descarte", "3A").first,
+)
+config.configuracion_descartes.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "4 y MY").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Descarte", "4 y MY").first,
+)
+
+# config cambios de edad
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Terneros de Meses", "Hemb").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "De un Año", "Hemb").first
+)
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "De un Año", "Hemb").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "2A").first
+)
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "2A").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "3A").first
+)
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "3A").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Vacas de Cria", "4 y MY").first
+)
+
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Terneros de Meses", "Mach").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "De un Año", "Tore").first
+)
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "De un Año", "Tore").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Toros", "2A").first
+)
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Toros", "2A").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Toros", "3A").first
+)
+config.configuracion_cambio_edads.create(
+  ganado_desde: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Toros", "3A").first,
+  ganado_hasta: Ganado.joins(:ganado_grupo).where("ganado_grupos.nombre = ? and ganados.nombre = ?", "Toros", "4 y MY").first
+)

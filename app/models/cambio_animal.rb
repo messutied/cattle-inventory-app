@@ -1,4 +1,7 @@
 class CambioAnimal < ActiveRecord::Base
+  include ActiveModel::Validations
+  validates_with CurrentGestionValidator
+
   has_many :cambio_animal_ganados, dependent: :destroy
   belongs_to :empleado
   belongs_to :gestion
@@ -8,7 +11,7 @@ class CambioAnimal < ActiveRecord::Base
 
   after_save :update_inventario
   after_destroy :update_inventario
-  before_validation :set_gestion
+  before_validation :set_gestion, unless: ->(record) { record.persisted? }
 
   scope :descartes, where(tipo: 'descarte')
   scope :menos_cambio_edad, where("tipo != ?", 'c_edad')

@@ -8,7 +8,6 @@
     <th>Empleado</th>
     <th>Fecha</th>
     <th></th>
-    <th></th>
   </tr>
   
   <% @descartes.each do |descarte| %>
@@ -17,8 +16,12 @@
     <td><%= descarte.cant %></td>
     <td><%=  %></td>
     <td><%= descarte.fecha %></td>
-    <td class="a-center"><%= link_to "Ver", descarte%></td>
-    <td class="a-center"><%= link_to "Editar", edit_descarte_path(descarte)%></td>
+    <td class="row-actions">
+      <%= link_to "Ver", descarte%>
+      <% if (is_admin? or is_encargado?) and descarte.is_editable? %>
+      ・ <%= link_to "Editar", edit_descarte_path(descarte)%>
+      <% end %>
+    </td>
   </tr>
   <% end %>
 

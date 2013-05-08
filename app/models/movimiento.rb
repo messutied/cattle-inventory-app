@@ -1,4 +1,7 @@
 class Movimiento < ActiveRecord::Base
+  include ActiveModel::Validations
+  validates_with CurrentGestionValidator
+
 	has_many :movimiento_ganados, :dependent => :destroy
   has_many :ganados, :through => :movimiento_ganados, :uniq => true
 	has_many :ganado_grupos, :through => :ganados
@@ -16,7 +19,7 @@ class Movimiento < ActiveRecord::Base
 
   after_save :update_inventario
   after_destroy :update_inventario
-  before_validation :set_gestion
+  before_validation :set_gestion, unless: ->(record) { record.persisted? }
 
   scope :movimientos, joins(:movimientos_tipo).where("movimientos_tipos.tipo = ?", 'm')
   scope :recuentos, joins(:movimientos_tipo).where("movimientos_tipos.tipo = ?", 'r')
@@ -29,6 +32,10 @@ class Movimiento < ActiveRecord::Base
         .select("movimientos.id, movimientos.fecha, movimientos.detalle, "+
           "movimiento_ganados.cant as cantidad, ganado_grupos.nombre as ganado_grupo_nombre, ganados.nombre as ganado_nombre, "+
           "predios.nombre as predio_nombre, predio_secs_movimientos.nombre as predio_sec_nombre")
+
+  def is_editable?
+    gestion.esta_abierta?
+  end
 
 	def parse_fecha!(dia)
     if new_record?

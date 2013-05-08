@@ -1,5 +1,5 @@
 <%= form_for(@user, :html => { :class => "form-inline"}) do |f| %>
-  <%= render "shared/form_errors", model: @user %>
+  <%= render "shared/form_errors", record: @user %>
 
   <div class="field-inline">
     <%= f.label "Tipo de Usuario:" %>

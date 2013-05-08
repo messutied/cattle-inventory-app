@@ -37,6 +37,14 @@ class Gestion < ActiveRecord::Base
 		update_attributes(estado: "A")
 	end
 
+	def esta_abierta?
+		estado == "A"
+	end
+
+	def esta_cerrada?
+		estado == "C"
+	end
+
 	def es_actual
 		Date.parse(hasta) >= Date.today
 	end

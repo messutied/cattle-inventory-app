@@ -2,22 +2,30 @@
   <ul class="nav nav-list">
     <li <%= nav_sel("home") %>><a href="/"><i style="margin-top: 3px;" class="icon-home"></i> Inicio</a></li>
     <li class="nav-header">Acciones</li>
+    <% if is_encargado? or is_admin? %>
     <li <%= nav_sel("in_eg_new") %>><a href="/ingreso-egreso/new">Crear Ingreso/Egreso</a></li>
     <li <%= nav_sel("mov_new") %>><a href="/movimiento/new">Crear Movimiento</a></li>
     <li <%= nav_sel("rec_new") %>><a href="/recuento/new">Crear Recuento</a></li>
     <li <%= nav_sel("descartes_new") %>><a href="/descartes/new">Descartar Ganado</a></li>
     <li <%= nav_sel("cambio_edad") %>><a href="/cambio-edades">Cambio Edad Anual</a></li>
+    <% end %>
+    <% if is_admin? or is_owner? %>
     <li <%= nav_sel("predios_new") %>><a href="/predios/new">Crear Predio</a></li>
+    <% end %>
+
     <li class="divider"></li>
     <li class="nav-header">Listados</li>
     <li <%= nav_sel("in_eg_list") %>><a href="/ingreso-egreso/list">Ingresos/Egresos</a></li>
     <li <%= nav_sel("mov_list") %>><a href="/movimiento/list">Movimientos</a></li>
     <li <%= nav_sel("rec_list") %>><a href="/recuento/list">Recuentos</a></li>
-    <li <%= nav_sel("mov_tipos_list") %>><a href="/movimientos_tipos">Tipos de Movimientos</a></li>
     <li <%= nav_sel("descartes_list") %>><a href="/descartes">Descartes</a></li>
+    <% if is_admin? or is_owner? %>
+    <li <%= nav_sel("mov_tipos_list") %>><a href="/movimientos_tipos">Tipos de Movimientos</a></li>
     <li <%= nav_sel("empleados_list") %>><a href="/empleados">Empleados</a></li>
     <li <%= nav_sel("predios_list") %>><a href="/predios">Predios</a></li>
     <li <%= nav_sel("users_list") %>><a href="/users">Usuarios</a></li>
+    <% end %>
+
     <li class="nav-header">Reportes</li>
     <li <%= nav_sel("rep_inv_mensual") %>><a href="/reports/inventario_predio">Inventario por Predio</a></li>
     <li <%= nav_sel("rep_inv_gen") %>><a href="/reports/inventario_general">Inventario General</a></li>

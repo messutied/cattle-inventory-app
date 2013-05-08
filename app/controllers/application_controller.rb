@@ -12,14 +12,22 @@ class ApplicationController < ActionController::Base
   end
 
   def is_admin?
-    current_user.user_type_id == 1
+    current_user.is_admin?
+  end
+
+  def is_owner?
+    current_user.is_owner?
+  end
+
+  def is_encargado?
+    current_user.is_encargado?
   end
 
   def store_location
     session[:return_to] = request.fullpath
   end
 
-  helper_method :current_user, :signed_in?, :is_admin?, :store_location
+  helper_method :current_user, :signed_in?, :is_admin?, :is_owner?, :is_encargado?, :store_location
 
   def current_user=(user)
     @current_user = user
