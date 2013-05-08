@@ -96,7 +96,7 @@ class Movimiento < ActiveRecord::Base
       ip_calc.calcular_rec_ganado
     end
 
-    ip_calc.calcular_totales
+    ip_calc.calcular_totales()
     inv_calc.calcular_inventario_ganados_totales()
   end
 

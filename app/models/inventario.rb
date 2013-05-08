@@ -1,7 +1,9 @@
 class Inventario < ActiveRecord::Base
-  has_many :inventario_predios
+  has_many :inventario_predios, dependent: :destroy
   has_many :inventario_ganados
   belongs_to :gestion
+
+  after_create :inicializar
 
   def self.get_inventario(gestion=false)
     gestion ||= Gestion.gestion_abierta
@@ -16,5 +18,12 @@ class Inventario < ActiveRecord::Base
     end
 
     return inventario_predio
+  end
+
+  private
+
+  def inicializar
+    inv_calc = InventarioCalculador.new(self)
+    inv_calc.calcular_inventario_ganados_totales()
   end
 end

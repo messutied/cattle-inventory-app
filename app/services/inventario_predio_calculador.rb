@@ -12,7 +12,7 @@ class InventarioPredioCalculador
     mov = Movimiento.joins(:ganados, :movimientos_tipo)
       .select("movimientos_tipos.id as movimiento_tipo_id, ganados.id as ganado_id, sum(movimiento_ganados.cant) as sumatoria")
       .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and gestion_id = ?", 
-        @predio.id, @inventario.gestion.id) 
+        @predio.id, @gestion.id) 
       .group("movimientos_tipos.id, ganados.id")
       .order("movimientos_tipos.tipo asc")
 
@@ -155,7 +155,7 @@ class InventarioPredioCalculador
         "sum(case when movimientos_tipos.tipo='e' then movimiento_ganados.cant else 0 end) as sum_egresos, "+
         "sum(case when movimientos_tipos.tipo='i' then movimiento_ganados.cant else 0 end) as sum_ingresos")
       .where("movimientos_tipos.tipo in ('i', 'e') and movimientos.predio_id = ? and gestion_id = ?", 
-         @predio.id, @inventario.gestion.id)
+         @predio.id, @gestion.id)
       .group("ganados.id")
 
     saldos_mes_actual = saldos_mes_actual.where("fecha >= ?", @fecha_inicio) if @recuento
@@ -176,7 +176,7 @@ class InventarioPredioCalculador
       saldo_inicial = 0
 
       # si hubo gestion anterior, el saldo inicial es el saldo de la anterior gestion
-      if @inventario.gestion.anterior
+      if @inventario.gestion.anterior and @inventario.gestion.anterior.inventario
         inv = @inventario.gestion.anterior.get_inventario.get_inventario_predio(@predio.id)
         ip_ganado = inv.inventario_predio_ganados.find_by_ganado_id(ganado.ganado_id)
         saldo_inicial = ip_ganado.cant if ip_ganado

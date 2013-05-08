@@ -2,11 +2,13 @@ class InventarioPredio < ActiveRecord::Base
   belongs_to :inventario
   belongs_to :predio
 
-  has_many :inventario_predio_ingr_egrs
-  has_many :inventario_predio_movs
-  has_many :inventario_predio_cambio_animals
-  has_many :inventario_predio_recs
-  has_many :inventario_predio_ganados
+  has_many :inventario_predio_ingr_egrs, dependent: :destroy
+  has_many :inventario_predio_movs, dependent: :destroy
+  has_many :inventario_predio_cambio_animals, dependent: :destroy
+  has_many :inventario_predio_recs, dependent: :destroy
+  has_many :inventario_predio_ganados, dependent: :destroy
+
+  after_create :inicializar
 
   def self.get_inventario(predio_id, gestion=false)
     inventario = Inventario.get_inventario(gestion)
@@ -21,5 +23,12 @@ class InventarioPredio < ActiveRecord::Base
 
   def tiene_recuentos
     inventario_predio_recs.count > 0
+  end
+
+  private
+
+  def inicializar
+    ip_calc = InventarioPredioCalculador.new(self)
+    ip_calc.calcular_totales()
   end
 end

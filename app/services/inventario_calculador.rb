@@ -58,7 +58,7 @@ class InventarioCalculador
         total += ip_ganado ? ip_ganado.cant : 0
       end
 
-      inv_ganado = @inventario.inventario_ganados.find_or_initialize_by_ganado_id(ganado.id)
+      inv_ganado = @inventario.inventario_ganados.find_or_create_by_ganado_id(ganado.id)
       inv_ganado.update_attributes(cant: total)
     end
   end

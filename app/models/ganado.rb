@@ -1,7 +1,7 @@
 class Ganado < ActiveRecord::Base
   belongs_to :ganado_grupo
-  has_many :movimiento_ganados, dependent: :destroy
-  has_many :movimientos, through: :movimiento_ganados, uniq: true
+  has_many :movimiento_ganados
+  has_many :movimientos, through: :movimiento_ganados, uniq: true, dependent: :destroy
 
   has_many :cambio_animal_ganados, dependent: :destroy
   has_many :cambio_animals, through: :cambio_animal_ganados, uniq: true

@@ -1,5 +1,5 @@
 class Gestion < ActiveRecord::Base
-	has_one :inventario
+	has_one :inventario, dependent: :destroy
 	has_many :cambio_animals
 	has_many :movimientos
 
