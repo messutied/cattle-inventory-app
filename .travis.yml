@@ -1,5 +1,9 @@
 language: ruby
 rvm:
-  - 1.9.2
-before_script:
-  - "rake db:migrate RAILS_ENV=test"
+  - 1.9.3
+script:
+  - RAILS_ENV=development bundle exec rake db:drop
+  - RAILS_ENV=development bundle exec rake db:create
+  - RAILS_ENV=development bundle exec rake db:migrate --trace
+  - RAILS_ENV=development bundle exec rake db:test:load
+  - bundle exec rspec
