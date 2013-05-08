@@ -10,8 +10,8 @@ Fabricator :ganado_grupo do
       nombre: "Ganado #{g_nombre_n}", 
       nombre_corto: "G #{g_nombre_n}", 
       orden: g_nombre_n,
-      # pares   = mayores al año
       # impares = menores al año
+      # pares   = mayores al año
       tipo: i%2 == 0 ? "may_a" : "men_a"
     )
   end
